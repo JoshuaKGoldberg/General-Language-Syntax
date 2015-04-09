@@ -118,8 +118,6 @@ pair<string, int> Language::PrintLine(const vector<string> &arguments, bool isIn
 pair<string, int> Language::VariableDeclare(const vector<string> &arguments, bool isInline = false) const {
     string output = VariableDeclare();
 
-    cout << "a" << endl;
-
     if (VariableTypesExplicit()) {
         output += arguments[1] + " ";
     }

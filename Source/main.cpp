@@ -7,13 +7,15 @@
 
 #include "glsc.h"
 #include "Languages/JavaScript.h"
+#include "Languages/Python.h"
 
 int main(int argc, char* argv[]) {
     GLSC tester;
     
     tester.RegisterJavaScript();
+    tester.RegisterPython();
 
-    cout << tester.ParseCommands("JavaScript", {
+    cout << tester.ParseCommands("Python", {
         "print line : (\"Hello world!\")",
         "variable declare : x int 7"
     });
