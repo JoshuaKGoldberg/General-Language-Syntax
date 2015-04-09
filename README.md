@@ -31,17 +31,21 @@ file read word
 
 file read line
 
-for start
+for numbers start
 
-for end
+for numbers end
 
 function end
 
 function start
 
-if end
+if condition end
 
-if start
+if condition start
+
+if variable end
+
+if variable start
 
 main
 
@@ -49,4 +53,6 @@ variable declare
 
 while end
 
-while start
+while start condition
+
+while start variable

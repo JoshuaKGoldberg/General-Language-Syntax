@@ -45,12 +45,12 @@ public:
     GLSC_LANG_MEMBER(string, CommentorBlockEnd);
     GLSC_LANG_MEMBER(string, CommentorInline);
 
-    // Conditionals
-    GLSC_LANG_MEMBER(string, ConditionalStartLeft);
-    GLSC_LANG_MEMBER(string, ConditionalStartRight);
-    GLSC_LANG_MEMBER(string, ConditionalContinueLeft);
-    GLSC_LANG_MEMBER(string, ConditionalContinueRight);
-    GLSC_LANG_MEMBER(string, ConditionalEnd);
+    // cs
+    GLSC_LANG_MEMBER(string, ConditionStartLeft);
+    GLSC_LANG_MEMBER(string, ConditionStartRight);
+    GLSC_LANG_MEMBER(string, ConditionContinueLeft);
+    GLSC_LANG_MEMBER(string, ConditionContinueRight);
+    GLSC_LANG_MEMBER(string, ConditionEnd);
     GLSC_LANG_MEMBER(string, Elif);
     GLSC_LANG_MEMBER(string, Else);
     GLSC_LANG_MEMBER(string, If);
@@ -67,7 +67,7 @@ public:
     GLSC_LANG_MEMBER(bool, VariableTypesExplicit);
     GLSC_LANG_MEMBER(string, VariableDeclare);
 
-    // Booleans
+    // while
     GLSC_LANG_MEMBER(string, BooleanClass);
     GLSC_LANG_MEMBER(string, True);
     GLSC_LANG_MEMBER(string, False);
@@ -102,18 +102,22 @@ public:
     GLSC_LANG_PRINTER(FileReadCharacter);
     GLSC_LANG_PRINTER(FileReadWord);
     GLSC_LANG_PRINTER(FileReadLine);
-    GLSC_LANG_PRINTER(ForEnd);
-    GLSC_LANG_PRINTER(ForStart);
+    GLSC_LANG_PRINTER(ForNumbersEnd);
+    GLSC_LANG_PRINTER(ForNumbersStart);
     GLSC_LANG_PRINTER(FunctionEnd);
     GLSC_LANG_PRINTER(FunctionStart);
-    GLSC_LANG_PRINTER(IfEnd);
-    GLSC_LANG_PRINTER(IfStart);
+    GLSC_LANG_PRINTER(IfConditionEnd);
+    GLSC_LANG_PRINTER(IfConditionStart);
+    GLSC_LANG_PRINTER(IfVariableEnd);
+    GLSC_LANG_PRINTER(IfVariableStart);
     GLSC_LANG_PRINTER(Import);
     GLSC_LANG_PRINTER(Main);
     GLSC_LANG_PRINTER(PrintLine)
     GLSC_LANG_PRINTER(VariableDeclare);
-    GLSC_LANG_PRINTER(WhileEnd);
-    GLSC_LANG_PRINTER(WhileStart);
+    GLSC_LANG_PRINTER(WhileConditionEnd);
+    GLSC_LANG_PRINTER(WhileConditionStart);
+    GLSC_LANG_PRINTER(WhileVariableEnd);
+    GLSC_LANG_PRINTER(WhileVariableStart);
 
 private:
     unordered_map<string, PrinterFunction> Printers;

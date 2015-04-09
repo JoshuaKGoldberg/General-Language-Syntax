@@ -60,15 +60,12 @@ pair<string, int> GLSC::ParseCommand(const string& language, const string& comma
     size_t colonIndex;
 
     colonIndex = commandRaw.find(':');
-
-    if (colonIndex == string::npos) {
-        throw "Command does not include colon: " + commandRaw;
-    }
-
     function = trim(commandRaw.substr(0, colonIndex));
-    argumentsRaw = trim(commandRaw.substr(colonIndex + 1));
 
-    arguments = ParseArguments(language, argumentsRaw, isInline);
+    if (colonIndex != string::npos) {
+        argumentsRaw = trim(commandRaw.substr(colonIndex + 1));
+        arguments = ParseArguments(language, argumentsRaw, isInline);
+    }
 
     return Languages.find(language)->second.Print(function, arguments, isInline);
 }

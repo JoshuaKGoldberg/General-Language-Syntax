@@ -14,6 +14,11 @@ void GLSC::RegisterJavaScript() {
         .setCommentorBlockStart("/*")
         .setCommentorBlockEnd("*/")
         .setCommentorInline("//")
+        .setConditionStartLeft(" (")
+        .setConditionStartRight(") {")
+        .setConditionContinueLeft("} ")
+        .setConditionContinueRight(" {")
+        .setConditionEnd("}")
         .setVariableTypesExplicit(false)
         .setVariableDeclare("var ")
     );

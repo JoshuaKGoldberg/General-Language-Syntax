@@ -15,9 +15,12 @@ int main(int argc, char* argv[]) {
     tester.RegisterJavaScript();
     tester.RegisterPython();
 
-    cout << tester.ParseCommands("Python", {
+    cout << tester.ParseCommands("JavaScript", {
         "print line : (\"Hello world!\")",
-        "variable declare : x int 7"
+        "variable declare : x int 7",
+        "while condition start : x < 7",
+        "print line : \"Lana!\"",
+        "while condition end : "
     });
 
     return EXIT_SUCCESS;
