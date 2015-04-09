@@ -25,6 +25,7 @@ public:
     void RegisterPython();
 
 protected:
+    inline string generateTabs(const size_t numTabs) const;
     size_t FindNextSpace(const string& haystack, const size_t start) const;
     size_t FindSearchEnd(const string& haystack, const char& searcher, const size_t start) const;
     std::string ltrim(string s) const;

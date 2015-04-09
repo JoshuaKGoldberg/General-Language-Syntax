@@ -1,6 +1,7 @@
 #ifndef _GLSC_SOURCE_LANGUAGE_CPP_
 #define _GLSC_SOURCE_LANGUAGE_CPP_
 
+#include <climits>
 #include <iterator>
 #include <sstream>
 #include <string>
@@ -41,14 +42,25 @@ pair<string, int> Language::CommentBlock(const vector<string> &arguments, bool i
     return{ output, 0 };
 }
 
-// string message
+// string message, ...
 pair<string, int> Language::CommentInline(const vector<string> &arguments, bool isInline = false) const {
-    return CommentLine(arguments, isInline);
+    pair<string, int> output = CommentLine(arguments, isInline);
+    output.second = INT_MIN;
+    return output;
 }
 
-// string message
+// string message, ...
 pair<string, int> Language::CommentLine(const vector<string> &arguments, bool isInline = false) const {
-    return{ CommentorInline() + " " + arguments[0], 0 };
+    string output = CommentorInline() + " ";
+    size_t i;
+
+    for (i = 0; i < arguments.size() - 1; i += 1) {
+        output += arguments[i] + ", ";
+    }
+
+    output += arguments[i];
+
+    return{ output, 0 };
 }
 
 pair<string, int> Language::FileOpen(const vector<string> &arguments, bool isInline = false) const {

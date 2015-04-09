@@ -18,9 +18,14 @@ int main(int argc, char* argv[]) {
     cout << tester.ParseCommands("JavaScript", {
         "print line : (\"Hello world!\")",
         "variable declare : x int 7",
+        "",
+        "comment line : Start of a while loop",
         "while condition start : x < 7",
         "print line : \"Lana!\"",
-        "while condition end : "
+        "comment inline : \"Lana!\"",
+        "while condition end",
+        "",
+        "comment block : (and a bleeble) (and a blabble) (and a) (that's all folks!)"
     });
 
     return EXIT_SUCCESS;

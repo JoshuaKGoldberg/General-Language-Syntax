@@ -42,10 +42,10 @@ string GLSC::ParseCommands(const string& language, const vector<string>& command
         }
         else if (command.second < 0) {
             numTabs += command.second;
-            output += command.first + "\n";
+            output += "\n" + generateTabs(numTabs) + command.first;
         }
         else {
-            output += command.first + "\n";
+            output += "\n" + generateTabs(numTabs) + command.first;
             numTabs += command.second;
         }
     }
@@ -60,11 +60,14 @@ pair<string, int> GLSC::ParseCommand(const string& language, const string& comma
     size_t colonIndex;
 
     colonIndex = commandRaw.find(':');
-    function = trim(commandRaw.substr(0, colonIndex));
 
     if (colonIndex != string::npos) {
+        function = trim(commandRaw.substr(0, colonIndex));
         argumentsRaw = trim(commandRaw.substr(colonIndex + 1));
         arguments = ParseArguments(language, argumentsRaw, isInline);
+    }
+    else {
+        function = trim(commandRaw);
     }
 
     return Languages.find(language)->second.Print(function, arguments, isInline);
@@ -93,9 +96,9 @@ vector<string> GLSC::ParseArguments(const string& language, const string& argume
         argument = argumentsRaw.substr(i, end - i);
 
         // Not yet tested!
-         if (starter == '{') {
-             argument = ParseCommand(language, argument, true).first;
-         }
+        if (starter == '{') {
+            argument = ParseCommand(language, argument, true).first;
+        }
 
         arguments.push_back(argument);
         i = end;
@@ -115,6 +118,10 @@ void GLSC::RegisterLanguage(Language language) {
 
 const Language& GLSC::getLanguage(const string name) const {
     return Languages.find(name)->second;
+}
+
+inline string GLSC::generateTabs(const size_t numTabs) const {
+    return string(numTabs * 4, ' ');
 }
 
 size_t GLSC::FindNextSpace(const string& haystack, const size_t start) const {
