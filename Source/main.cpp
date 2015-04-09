@@ -17,6 +17,7 @@ int main(int argc, char* argv[]) {
         "print line : (\"Hello world!\")",
         "",
         "print line : \"Bye!\""
+        "print line : (\"Hello world!\") {print line : \"Bye!\"}",
     });
 
     return EXIT_SUCCESS;

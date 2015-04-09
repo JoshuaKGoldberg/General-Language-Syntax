@@ -35,7 +35,7 @@ string GLSC::ParseCommands(const string& language, const vector<string>& command
             continue;
         }
 
-        command = ParseCommand(language, commandsRaw[i]);
+        command = ParseCommand(language, commandsRaw[i], false);
 
         if (command.second == INT_MIN) {
             output += " " + command.first;
@@ -53,7 +53,7 @@ string GLSC::ParseCommands(const string& language, const vector<string>& command
     return output;
 }
 
-pair<string, int> GLSC::ParseCommand(const string& language, const string& commandRaw) const {
+pair<string, int> GLSC::ParseCommand(const string& language, const string& commandRaw, bool isInline = false) const {
     pair<string, int> result;
     vector<string> arguments;
     string function, argumentsRaw;
@@ -68,12 +68,12 @@ pair<string, int> GLSC::ParseCommand(const string& language, const string& comma
     function = trim(commandRaw.substr(0, colonIndex));
     argumentsRaw = trim(commandRaw.substr(colonIndex + 1));
 
-    arguments = ParseArguments(argumentsRaw);
+    arguments = ParseArguments(language, argumentsRaw, isInline);
 
-    return Languages.find(language)->second.Print(function, arguments);
+    return Languages.find(language)->second.Print(function, arguments, isInline);
 }
 
-vector<string> GLSC::ParseArguments(const string& argumentsRaw) const {
+vector<string> GLSC::ParseArguments(const string& language, const string& argumentsRaw, bool isInline = false) const {
     vector<string> arguments;
     string argument;
     size_t i, end;
@@ -96,9 +96,11 @@ vector<string> GLSC::ParseArguments(const string& argumentsRaw) const {
         argument = argumentsRaw.substr(i, end - i);
 
         // Not yet tested!
-        // if (starter == '{') {
-        //     argument = ParseCommand(argument);
-        // }
+         if (starter == '{') {
+             cout << "Recursing on [" << argument << "]..." << endl;
+             argument = ParseCommand(language, argument, true).first;
+             cout << "Got: [" << argument << "]" << endl;
+         }
 
         arguments.push_back(argument);
         i = end;

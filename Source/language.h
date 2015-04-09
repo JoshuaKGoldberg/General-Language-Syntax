@@ -24,16 +24,16 @@ public: \
 
 #define GLSC_LANG_PRINTER(name) \
 public: \
-    pair<string, int> name(const vector<string> &arguments) const;
+    pair<string, int> name(const vector<string> &arguments, bool isInline) const;
 
-typedef pair<string, int>(Language::*PrinterFunction)(const vector<string>&) const;
+typedef pair<string, int>(Language::*PrinterFunction)(const vector<string>&, bool isInline) const;
 
 class Language {
 public:
     Language();
     ~Language() { }
 
-    pair<string, int> Print(const string& function, const vector<string>& arguments) const;
+    pair<string, int> Print(const string& function, const vector<string>& arguments, bool isInline) const;
 
     // General information
     GLSC_LANG_MEMBER(string, Name);

@@ -16,8 +16,8 @@ public:
     ~GLSC() { }
 
     string ParseCommands(const string& language, const vector<string>& commandsRaw) const;
-    pair<string, int> ParseCommand(const string& language, const string& commandsRaw) const;
-    vector<string> ParseArguments(const string& argumentsRaw) const;
+    pair<string, int> ParseCommand(const string& language, const string& commandsRaw, const bool isInline) const;
+    vector<string> ParseArguments(const string& language, const string& argumentsRaw, const bool isInline) const;
 
     void RegisterLanguage(Language language);
     const Language& getLanguage(const string name) const;
