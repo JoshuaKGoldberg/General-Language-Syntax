@@ -97,9 +97,7 @@ vector<string> GLSC::ParseArguments(const string& language, const string& argume
 
         // Not yet tested!
          if (starter == '{') {
-             cout << "Recursing on [" << argument << "]..." << endl;
              argument = ParseCommand(language, argument, true).first;
-             cout << "Got: [" << argument << "]" << endl;
          }
 
         arguments.push_back(argument);

@@ -64,6 +64,7 @@ public:
     GLSC_LANG_MEMBER(string, Or);
 
     // Variables
+    GLSC_LANG_MEMBER(bool, VariableTypesExplicit);
     GLSC_LANG_MEMBER(string, VariableDeclare);
 
     // Booleans

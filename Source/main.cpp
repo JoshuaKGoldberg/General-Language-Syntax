@@ -15,9 +15,7 @@ int main(int argc, char* argv[]) {
 
     cout << tester.ParseCommands("JavaScript", {
         "print line : (\"Hello world!\")",
-        "",
-        "print line : \"Bye!\""
-        "print line : (\"Hello world!\") {print line : \"Bye!\"}",
+        "variable declare : x int 7"
     });
 
     return EXIT_SUCCESS;

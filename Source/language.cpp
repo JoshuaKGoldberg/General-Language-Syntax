@@ -15,7 +15,8 @@ Language::Language() {
         { "comment block", &Language::CommentBlock },
         { "comment inline", &Language::CommentInline },
         { "comment line", &Language::CommentLine },
-        { "print line", &Language::PrintLine }
+        { "print line", &Language::PrintLine },
+        { "variable declare", &Language::VariableDeclare }
     };
 }
 
@@ -115,9 +116,28 @@ pair<string, int> Language::PrintLine(const vector<string> &arguments, bool isIn
 }
 
 pair<string, int> Language::VariableDeclare(const vector<string> &arguments, bool isInline = false) const {
-    return{ "", 0 };
+    string output = VariableDeclare();
+
+    cout << "a" << endl;
+
+    if (VariableTypesExplicit()) {
+        output += arguments[1] + " ";
+    }
+
+    output += arguments[0];
+
+    if (arguments.size() >= 3) {
+        output += " = " + arguments[2];
+    }
+
+    if (!isInline) {
+        output += SemiColon();
+    }
+
+    return{ output, 0 }; 
 }
 
+// string name, string type, string value = (nothing)
 pair<string, int> Language::WhileEnd(const vector<string> &arguments, bool isInline = false) const {
     return{ "", 0 };
 }
