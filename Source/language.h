@@ -36,49 +36,49 @@ public:
     GLSC_LANG_MEMBER(string, CommentorInline);
 
     // Conditionals
-    string ConditionalStartLeft;
-    string ConditionalStartRight;
-    string ConditionalContinueLeft;
-    string ConditionalContinueRight;
-    string ConditionalEnd;
-    string Elif;
-    string Else;
-    string If;
+    GLSC_LANG_MEMBER(string, ConditionalStartLeft);
+    GLSC_LANG_MEMBER(string, ConditionalStartRight);
+    GLSC_LANG_MEMBER(string, ConditionalContinueLeft);
+    GLSC_LANG_MEMBER(string, ConditionalContinueRight);
+    GLSC_LANG_MEMBER(string, ConditionalEnd);
+    GLSC_LANG_MEMBER(string, Elif);
+    GLSC_LANG_MEMBER(string, Else);
+    GLSC_LANG_MEMBER(string, If);
 
     // Operators
-    string And;
-    string GreaterThan;
-    string GreaterThanOrEqual;
-    string LessThan;
-    string LessThanOrEqual;
-    string Or;
+    GLSC_LANG_MEMBER(string, And);
+    GLSC_LANG_MEMBER(string, GreaterThan);
+    GLSC_LANG_MEMBER(string, GreaterThanOrEqual);
+    GLSC_LANG_MEMBER(string, LessThan);
+    GLSC_LANG_MEMBER(string, LessThanOrEqual);
+    GLSC_LANG_MEMBER(string, Or);
 
     // Variables
-    string VariableDeclare;
+    GLSC_LANG_MEMBER(string, VariableDeclare);
 
     // Booleans
-    string BooleanClass;
-    string True;
-    string False;
+    GLSC_LANG_MEMBER(string, BooleanClass);
+    GLSC_LANG_MEMBER(string, True);
+    GLSC_LANG_MEMBER(string, False);
 
     // Numbers
-    string NumberClass;
+    GLSC_LANG_MEMBER(string, NumberClass);
 
     // Strings
-    string StringClass;
-    string StringLength;
+    GLSC_LANG_MEMBER(string, StringClass);
+    GLSC_LANG_MEMBER(string, StringLength);
 
     // Arrays
-    string ArrayClass;
-    string ArrayLength;
+    GLSC_LANG_MEMBER(string, ArrayClass);
+    GLSC_LANG_MEMBER(string, ArrayLength);
 
     // Functions
-    string FunctionDefine;
-    string FunctionDefineRight;
-    string FucntionDefineEnd;
+    GLSC_LANG_MEMBER(string, FunctionDefine);
+    GLSC_LANG_MEMBER(string, FunctionDefineRight);
+    GLSC_LANG_MEMBER(string, FucntionDefineEnd);
 
     // Dictionaries
-    string DictionaryClass;
+    GLSC_LANG_MEMBER(string, DictionaryClass);
 };
 
 #endif
