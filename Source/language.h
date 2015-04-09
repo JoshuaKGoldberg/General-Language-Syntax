@@ -22,7 +22,7 @@ public: \
 
 #define GLSC_LANG_PRINTER(name) \
 public: \
-    pair<string, int> Print##name(vector<string> &arguments) const;
+    pair<string, int> name(vector<string> &arguments) const;
 
 class Language {
 public:
@@ -95,12 +95,13 @@ public:
     GLSC_LANG_PRINTER(FileReadCharacter);
     GLSC_LANG_PRINTER(FileReadWord);
     GLSC_LANG_PRINTER(FileReadLine);
-    GLSC_LANG_PRINTER(ForStart);
     GLSC_LANG_PRINTER(ForEnd);
+    GLSC_LANG_PRINTER(ForStart);
     GLSC_LANG_PRINTER(FunctionEnd);
     GLSC_LANG_PRINTER(FunctionStart);
     GLSC_LANG_PRINTER(IfEnd);
     GLSC_LANG_PRINTER(IfStart);
+    GLSC_LANG_PRINTER(Import);
     GLSC_LANG_PRINTER(Main);
     GLSC_LANG_PRINTER(VariableDeclare);
     GLSC_LANG_PRINTER(WhileEnd);

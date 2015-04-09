@@ -16,7 +16,7 @@ int main(int argc, char* argv[]) {
     std::cout << tester.getLanguage("JavaScript").Name() << endl;
 
     vector<string> arguments = { "Hello world!" };
-    std::cout << tester.getLanguage("JavaScript").PrintCommentBlock(arguments).first;
+    std::cout << tester.getLanguage("JavaScript").CommentBlock(arguments).first;
 
     return EXIT_SUCCESS;
 }
