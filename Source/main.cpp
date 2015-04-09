@@ -14,7 +14,9 @@ int main(int argc, char* argv[]) {
     tester.RegisterJavaScript();
 
     cout << tester.ParseCommands("JavaScript", {
-        "print line : (\"Hello world!\")"
+        "print line : (\"Hello world!\")",
+        "",
+        "print line : \"Bye!\""
     });
 
     return EXIT_SUCCESS;

@@ -30,7 +30,7 @@ string GLSC::ParseCommands(const string& language, const vector<string>& command
     output.resize(commandsRaw.size() * 7);
 
     for (i = 0; i < commandsRaw.size(); i += 1) {
-        if (commandsRaw[i].size() == 1) {
+        if (commandsRaw[i].size() <= 1) {
             output += "\n";
             continue;
         }
@@ -42,10 +42,10 @@ string GLSC::ParseCommands(const string& language, const vector<string>& command
         }
         else if (command.second < 0) {
             numTabs += command.second;
-            output += command.first;
+            output += command.first + "\n";
         }
         else {
-            output += command.first;
+            output += command.first + "\n";
             numTabs += command.second;
         }
     }
