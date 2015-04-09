@@ -3,6 +3,7 @@
 
 #include <cstdlib>
 #include <iostream>
+#include <string>
 
 #include "glsc.h"
 #include "Languages/JavaScript.h"
@@ -13,6 +14,9 @@ int main(int argc, char* argv[]) {
     tester.RegisterJavaScript();
 
     std::cout << tester.getLanguage("JavaScript").Name() << endl;
+
+    vector<string> arguments = { "Hello world!" };
+    std::cout << tester.getLanguage("JavaScript").PrintCommentBlock(arguments).first;
 
     return EXIT_SUCCESS;
 }

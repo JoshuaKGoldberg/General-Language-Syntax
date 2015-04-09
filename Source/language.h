@@ -4,6 +4,8 @@
 #include <string>
 #include <utility>
 
+using namespace std;
+
 #define GLSC_LANG_MEMBER(type, name) \
 private: \
     type _##name; \
@@ -18,7 +20,9 @@ public: \
         return *this; \
     } 
 
-using namespace std;
+#define GLSC_LANG_PRINTER(name) \
+public: \
+    pair<string, int> Print##name(vector<string> &arguments) const;
 
 class Language {
 public:
@@ -79,6 +83,30 @@ public:
 
     // Dictionaries
     GLSC_LANG_MEMBER(string, DictionaryClass);
+
+    // Printers
+    GLSC_LANG_PRINTER(CommentBlock);
+    GLSC_LANG_PRINTER(CommentInline);
+    GLSC_LANG_PRINTER(CommentLine);
+    GLSC_LANG_PRINTER(FileOpen);
+    GLSC_LANG_PRINTER(FileClose);
+    GLSC_LANG_PRINTER(FileRead);
+    GLSC_LANG_PRINTER(FileReadAmount);
+    GLSC_LANG_PRINTER(FileReadCharacter);
+    GLSC_LANG_PRINTER(FileReadWord);
+    GLSC_LANG_PRINTER(FileReadLine);
+    GLSC_LANG_PRINTER(ForStart);
+    GLSC_LANG_PRINTER(ForEnd);
+    GLSC_LANG_PRINTER(FunctionEnd);
+    GLSC_LANG_PRINTER(FunctionStart);
+    GLSC_LANG_PRINTER(IfEnd);
+    GLSC_LANG_PRINTER(IfStart);
+    GLSC_LANG_PRINTER(Main);
+    GLSC_LANG_PRINTER(VariableDeclare);
+    GLSC_LANG_PRINTER(WhileEnd);
+    GLSC_LANG_PRINTER(WhileStart);
 };
+
+#include "language.cpp"
 
 #endif
