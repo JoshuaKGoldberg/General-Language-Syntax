@@ -6,6 +6,8 @@
 #include <unordered_map>
 #include <vector>
 
+#include "language.h"
+
 using namespace std;
 
 class GLSC {
@@ -17,7 +19,7 @@ public:
     pair<string, int> ParseCommand(const string& commandsRaw) const;
     vector<string> ParseArguments(const string& argumentsRaw) const;
 
-    static RegisterLanguage(Language& language);
+    void RegisterLanguage(Language language);
 
 protected:
     size_t FindNextSpace(const string& haystack, const size_t start) const;
@@ -28,7 +30,7 @@ protected:
     size_t IndexOfAny(const string& haystack, const vector<char>& needles, size_t start) const;
 
 private:
-    vector<char> SearchStarts;
+    unordered_map<string, Language> Languages;
     unordered_map<char, char> SearchEnds;
 };
 

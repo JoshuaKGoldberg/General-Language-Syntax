@@ -11,7 +11,8 @@
 using namespace std;
 
 GLSC::GLSC() {
-    SearchStarts = { ' ', '(', '{' };
+    Languages = {};
+
     SearchEnds = {
         { ' ', ' ' },
         { '{', '}' },
@@ -87,7 +88,7 @@ vector<string> GLSC::ParseArguments(const string& argumentsRaw) const {
         if (starter == '{' || starter == '(') {
             end = FindSearchEnd(argumentsRaw, starter, i);
             i += 1;
-        } 
+        }
         else {
             end = FindNextSpace(argumentsRaw, i);
         }
@@ -104,6 +105,14 @@ vector<string> GLSC::ParseArguments(const string& argumentsRaw) const {
     }
 
     return arguments;
+}
+
+void GLSC::RegisterLanguage(Language language) {
+    if (Languages.find(language.Name) != Languages.end()) {
+        throw language.Name + " already exists in GLSC.";
+    }
+
+    Languages[language.Name] = language;
 }
 
 size_t GLSC::FindNextSpace(const string& haystack, const size_t start) const {
