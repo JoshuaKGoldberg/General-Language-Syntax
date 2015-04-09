@@ -20,7 +20,7 @@ GLSC::GLSC() {
     };
 }
 
-string GLSC::ParseCommands(const vector<string>& commandsRaw) const {
+string GLSC::ParseCommands(const string& language, const vector<string>& commandsRaw) const {
     string output;
     pair<string, int> command;
     int numTabs = 0;
@@ -35,7 +35,7 @@ string GLSC::ParseCommands(const vector<string>& commandsRaw) const {
             continue;
         }
 
-        command = ParseCommand(commandsRaw[i]);
+        command = ParseCommand(language, commandsRaw[i]);
 
         if (command.second == INT_MIN) {
             output += " " + command.first;
@@ -53,9 +53,10 @@ string GLSC::ParseCommands(const vector<string>& commandsRaw) const {
     return output;
 }
 
-pair<string, int> GLSC::ParseCommand(const string& commandRaw) const {
-    pair<string, int> output, result;
-    string function, arguments;
+pair<string, int> GLSC::ParseCommand(const string& language, const string& commandRaw) const {
+    pair<string, int> result;
+    vector<string> arguments;
+    string function, argumentsRaw;
     size_t colonIndex;
 
     colonIndex = commandRaw.find(':');
@@ -65,12 +66,11 @@ pair<string, int> GLSC::ParseCommand(const string& commandRaw) const {
     }
 
     function = trim(commandRaw.substr(0, colonIndex));
-    arguments = trim(commandRaw.substr(colonIndex + 1));
+    argumentsRaw = trim(commandRaw.substr(colonIndex + 1));
 
-    // parse arguments
-    // return result of calling Function, with Function's wrapper's indent change
+    arguments = ParseArguments(argumentsRaw);
 
-    return output;
+    return Languages.find(language)->second.Print(function, arguments);
 }
 
 vector<string> GLSC::ParseArguments(const string& argumentsRaw) const {

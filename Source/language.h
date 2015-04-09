@@ -6,6 +6,8 @@
 
 using namespace std;
 
+class Language;
+
 #define GLSC_LANG_MEMBER(type, name) \
 private: \
     type _##name; \
@@ -22,12 +24,16 @@ public: \
 
 #define GLSC_LANG_PRINTER(name) \
 public: \
-    pair<string, int> name(vector<string> &arguments) const;
+    pair<string, int> name(const vector<string> &arguments) const;
+
+typedef pair<string, int>(Language::*PrinterFunction)(const vector<string>&) const;
 
 class Language {
 public:
-    Language() { }
+    Language();
     ~Language() { }
+
+    pair<string, int> Print(const string& function, const vector<string>& arguments) const;
 
     // General information
     GLSC_LANG_MEMBER(string, Name);
@@ -103,9 +109,13 @@ public:
     GLSC_LANG_PRINTER(IfStart);
     GLSC_LANG_PRINTER(Import);
     GLSC_LANG_PRINTER(Main);
+    GLSC_LANG_PRINTER(PrintLine)
     GLSC_LANG_PRINTER(VariableDeclare);
     GLSC_LANG_PRINTER(WhileEnd);
     GLSC_LANG_PRINTER(WhileStart);
+
+private:
+    unordered_map<string, PrinterFunction> Printers;
 };
 
 #include "language.cpp"

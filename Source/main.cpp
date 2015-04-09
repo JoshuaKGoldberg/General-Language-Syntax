@@ -13,10 +13,9 @@ int main(int argc, char* argv[]) {
     
     tester.RegisterJavaScript();
 
-    std::cout << tester.getLanguage("JavaScript").Name() << endl;
-
-    vector<string> arguments = { "Hello world!" };
-    std::cout << tester.getLanguage("JavaScript").CommentBlock(arguments).first;
+    cout << tester.ParseCommands("JavaScript", {
+        "print line : (\"Hello world!\")"
+    });
 
     return EXIT_SUCCESS;
 }
