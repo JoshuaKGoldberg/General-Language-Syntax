@@ -4,23 +4,36 @@
 #include <string>
 #include <utility>
 
+#define GLSC_LANG_MEMBER(type, name) \
+private: \
+    type _##name; \
+    \
+public: \
+    type name() const { \
+        return _##name; \
+    } \
+    \
+    Language& set##name(const type input_##name) { \
+        _##name = input_##name; \
+        return *this; \
+    } 
+
 using namespace std;
 
 class Language {
 public:
     Language() { }
-    Language(initializer_list<pair<string, string>> initializers);
     ~Language() { }
 
     // General information
-    string Name;
-    string PrintFunction;
-    string Semicolon;
+    GLSC_LANG_MEMBER(string, Name);
+    GLSC_LANG_MEMBER(string, PrintFunction);
+    GLSC_LANG_MEMBER(string, SemiColon);
 
     // Comments
-    string CommentorBlock;
-    string CommentorInline;
-    string CommentorLine;
+    GLSC_LANG_MEMBER(string, CommentorBlockStart);
+    GLSC_LANG_MEMBER(string, CommentorBlockEnd);
+    GLSC_LANG_MEMBER(string, CommentorInline);
 
     // Conditionals
     string ConditionalStartLeft;
@@ -67,7 +80,5 @@ public:
     // Dictionaries
     string DictionaryClass;
 };
-
-#include "language.cpp"
 
 #endif

@@ -108,11 +108,16 @@ vector<string> GLSC::ParseArguments(const string& argumentsRaw) const {
 }
 
 void GLSC::RegisterLanguage(Language language) {
-    if (Languages.find(language.Name) != Languages.end()) {
-        throw language.Name + " already exists in GLSC.";
+    Languages.find(language.Name());
+    if (Languages.find(language.Name()) != Languages.end()) {
+        throw language.Name() + " already exists in GLSC.";
     }
 
-    Languages[language.Name] = language;
+    Languages[language.Name()] = language;
+}
+
+const Language& GLSC::getLanguage(const string name) const {
+    return Languages.find(name)->second;
 }
 
 size_t GLSC::FindNextSpace(const string& haystack, const size_t start) const {

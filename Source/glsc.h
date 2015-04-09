@@ -20,6 +20,9 @@ public:
     vector<string> ParseArguments(const string& argumentsRaw) const;
 
     void RegisterLanguage(Language language);
+    const Language& getLanguage(const string name) const;
+    void RegisterJavaScript();
+    void RegisterPython();
 
 protected:
     size_t FindNextSpace(const string& haystack, const size_t start) const;

@@ -2,17 +2,17 @@
 #define _GLSC_MAIN_CPP_
 
 #include <cstdlib>
+#include <iostream>
 
 #include "glsc.h"
+#include "Languages/JavaScript.h"
 
 int main(int argc, char* argv[]) {
     GLSC tester;
+    
+    tester.RegisterJavaScript();
 
-    vector<string> args = tester.ParseArguments(" abc defghi j (hello world) asdf (hurp durp)");
-
-    for (const auto& arg : args) {
-        cout << arg << endl;
-    }
+    std::cout << tester.getLanguage("JavaScript").Name() << endl;
 
     return EXIT_SUCCESS;
 }
