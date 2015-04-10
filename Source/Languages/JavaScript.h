@@ -19,6 +19,10 @@ void GLSC::RegisterJavaScript() {
         .setConditionContinueLeft("} ")
         .setConditionContinueRight(" {")
         .setConditionEnd("}")
+        .setFunctionDefine("function")
+        .setFunctionDefineRight(" {")
+        .setFunctionDefineEnd("}")
+        .setFunctionReturnsExplicit(false)
         .setVariableTypesExplicit(false)
         .setVariableDeclare("var ")
     );

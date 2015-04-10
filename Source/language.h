@@ -90,7 +90,8 @@ public:
     // Functions
     GLSC_LANG_MEMBER(string, FunctionDefine);
     GLSC_LANG_MEMBER(string, FunctionDefineRight);
-    GLSC_LANG_MEMBER(string, FucntionDefineEnd);
+    GLSC_LANG_MEMBER(string, FunctionDefineEnd);
+    GLSC_LANG_MEMBER(bool, FunctionReturnsExplicit);
 
     // Dictionaries
     GLSC_LANG_MEMBER(string, DictionaryClass);
@@ -109,8 +110,10 @@ public:
     GLSC_LANG_PRINTER(FileReadLine);
     GLSC_LANG_PRINTER(ForEnd);
     GLSC_LANG_PRINTER(ForNumbersStart);
-    GLSC_LANG_PRINTER(FunctionEnd);
-    GLSC_LANG_PRINTER(FunctionStart);
+    GLSC_LANG_PRINTER(FunctionCall);
+    GLSC_LANG_PRINTER(FunctionDefineEnd);
+    GLSC_LANG_PRINTER(FunctionDefineStart);
+    GLSC_LANG_PRINTER(FunctionReturn);
     GLSC_LANG_PRINTER(IfEnd);
     GLSC_LANG_PRINTER(IfConditionStart);
     GLSC_LANG_PRINTER(IfVariableStart);

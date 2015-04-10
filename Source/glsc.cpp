@@ -4,6 +4,7 @@
 #include <algorithm> 
 #include <climits>
 #include <cctype>
+#include <string>
 #include <functional> 
 
 #include "glsc.h"
@@ -30,7 +31,7 @@ string GLSC::ParseCommands(const string& language, const vector<string>& command
     output.resize(commandsRaw.size() * 7);
 
     for (i = 0; i < commandsRaw.size(); i += 1) {
-        if (commandsRaw[i].size() <= 1) {
+        if (CommandIsBlank(commandsRaw[i])) {
             output += "\n";
             continue;
         }
@@ -138,6 +139,12 @@ size_t GLSC::FindNextSpace(const string& haystack, const size_t start) const {
     }
 
     return haystack.size();
+}
+
+bool GLSC::CommandIsBlank(const string& command) const {
+    return std::all_of(command.begin(), command.end(), [](char i) {
+        return isspace(i);
+    });
 }
 
 size_t GLSC::FindSearchEnd(const string& haystack, const char& searcher, const size_t start) const {

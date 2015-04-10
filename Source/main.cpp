@@ -33,6 +33,12 @@ int main(int argc, char* argv[]) {
         "    print line : \"Yay!\"",
         "if end",
         "",
+        "function define start : getMultiplied int a int b int",
+        "    variable declare : result int {operation : a times b}",
+        "    print line : result", 
+        "    function return : result",
+        "function define end",
+        "",
         "comment block : (and a bleeble) (and a blabble) (and a) (that's all folks!)"
     });
 

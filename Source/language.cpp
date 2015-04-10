@@ -20,7 +20,11 @@ Language::Language() {
         { "comparison", &Language::Comparison },
         { "if condition start", &Language::IfConditionStart },
         { "if end", &Language::IfEnd },
-        { "ifvariable start", &Language::IfVariableStart },
+        { "if variable start", &Language::IfVariableStart },
+        { "function call", &Language::FunctionCall },
+        { "function define end", &Language::FunctionDefineEnd },
+        { "function define start", &Language::FunctionDefineStart },
+        { "function return", &Language::FunctionReturn },
         { "for end", &Language::ForEnd },
         { "for numbers start", &Language::ForNumbersStart },
         { "operation", &Language::Operation },
@@ -168,12 +172,47 @@ pair<string, int> Language::ForNumbersStart(const vector<string> &arguments, boo
     return{ output, 1 };
 }
 
-pair<string, int> Language::FunctionEnd(const vector<string> &arguments, bool isInline = false) const {
-    return{ "", -1 };
+pair<string, int> Language::FunctionCall(const vector<string> &arguments, bool isInline = false) const {
+    return{ "", 1 };
 }
 
-pair<string, int> Language::FunctionStart(const vector<string> &arguments, bool isInline = false) const {
-    return{ "", 1 };
+// string name, string return[, string argumentName, string argumentType, ...]
+pair<string, int> Language::FunctionDefineEnd(const vector<string> &arguments, bool isInline = false) const {
+    return{ FunctionDefineEnd(), -1 };
+}
+
+pair<string, int> Language::FunctionDefineStart(const vector<string> &arguments, bool isInline = false) const {
+    string output = "";
+    size_t i;
+
+    if (FunctionReturnsExplicit()) {
+        output += arguments[1] + " ";
+    }
+
+
+    output += FunctionDefine() + " " + arguments[0] + "(";
+
+    for (i = 2; i < arguments.size() - 2; i += 2) {
+        if (VariableTypesExplicit()) {
+            output += TypeAlias(arguments[i + 1]) + " ";
+        }
+
+        output += arguments[i] + ", ";
+    }
+
+    if (VariableTypesExplicit()) {
+        output += TypeAlias(arguments[i + 1]) + " ";
+    }
+    output += arguments[i];
+
+    output += ")" + FunctionDefineRight();
+
+    return{ output, 1 };
+}
+
+// string value
+pair<string, int> Language::FunctionReturn(const vector<string> &arguments, bool isInline = false) const {
+    return{ "return " + arguments[0] + SemiColon(), 0 };
 }
 
 // string left, string operator, string right
