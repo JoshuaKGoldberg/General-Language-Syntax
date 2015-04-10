@@ -16,6 +16,7 @@ Bold commands are currently implemented. Regular commands are in progress.
 * **comment block**
 * **comment inline**
 * **comment line**
+* **comparison**
 * file open
 * file close
 * file read 
@@ -31,8 +32,8 @@ Bold commands are currently implemented. Regular commands are in progress.
 * **if end**
 * **if variable start**
 * main
-* operation number
-* operation string
+* operation
+* **operation change**
 * **variable declare**
 * **while end**
 * **while condition start**

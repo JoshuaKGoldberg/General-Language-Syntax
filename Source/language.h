@@ -95,6 +95,7 @@ public:
     GLSC_LANG_PRINTER(CommentBlock);
     GLSC_LANG_PRINTER(CommentInline);
     GLSC_LANG_PRINTER(CommentLine);
+    GLSC_LANG_PRINTER(Comparison);
     GLSC_LANG_PRINTER(FileOpen);
     GLSC_LANG_PRINTER(FileClose);
     GLSC_LANG_PRINTER(FileRead);
@@ -111,8 +112,7 @@ public:
     GLSC_LANG_PRINTER(IfVariableStart);
     GLSC_LANG_PRINTER(Import);
     GLSC_LANG_PRINTER(Main);
-    GLSC_LANG_PRINTER(OperationNumber);
-    GLSC_LANG_PRINTER(OperationString);
+    GLSC_LANG_PRINTER(Operation);
     GLSC_LANG_PRINTER(PrintLine)
     GLSC_LANG_PRINTER(VariableDeclare);
     GLSC_LANG_PRINTER(WhileEnd);

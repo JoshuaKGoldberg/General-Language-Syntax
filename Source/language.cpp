@@ -2,6 +2,7 @@
 #define _GLSC_SOURCE_LANGUAGE_CPP_
 
 #include <climits>
+#include <cstdlib>
 #include <iterator>
 #include <sstream>
 #include <string>
@@ -16,13 +17,13 @@ Language::Language() {
         { "comment block", &Language::CommentBlock },
         { "comment inline", &Language::CommentInline },
         { "comment line", &Language::CommentLine },
+        { "comparison", &Language::Comparison },
         { "if condition start", &Language::IfConditionStart },
         { "if end", &Language::IfEnd },
         { "ifvariable start", &Language::IfVariableStart },
         { "for end", &Language::ForEnd },
         { "for numbers start", &Language::ForNumbersStart },
-        { "operation number", &Language::OperationNumber },
-        { "operation string", &Language::OperationString },
+        { "operation", &Language::Operation },
         { "print line", &Language::PrintLine },
         { "variable declare", &Language::VariableDeclare },
         { "while end", &Language::WhileEnd },
@@ -74,6 +75,11 @@ pair<string, int> Language::CommentLine(const vector<string> &arguments, bool is
     return{ output, 0 };
 }
 
+// string left, string comparison, string right
+pair<string, int> Language::Comparison(const vector<string> &arguments, bool isInline = false) const {
+    return{ arguments[0] + " " + arguments[1] + " " + arguments[2], 0 };
+}
+
 pair<string, int> Language::FileOpen(const vector<string> &arguments, bool isInline = false) const {
     return{ "", 0 };
 }
@@ -106,9 +112,31 @@ pair<string, int> Language::ForEnd(const vector<string> &arguments, bool isInlin
     return{ ConditionEnd(), -1 };
 }
 
-// string i, int start, int end, bool equals = false, int increment = 1
+// string i, string type, string initial, string comparison, string boundary, string direction, string change
+// i int 0 lessthan 7 increase 1
 pair<string, int> Language::ForNumbersStart(const vector<string> &arguments, bool isInline = false) const {
-    return{ "for start {", 1 };
+    string output = "for" + ConditionStartLeft();
+
+    const string& i = arguments[0];
+    const string& type = arguments[1];
+    const string& initial = arguments[2];
+    const string& comparison = arguments[3];
+    const string& boundary = arguments[4];
+    const string& direction = arguments[5];
+    const string& change = arguments[6];
+
+    vector<string> variableArgs = { i, type, initial };
+    output += VariableDeclare(variableArgs, false).first;
+
+    vector<string> comparisonArgs = { i, comparison, boundary };
+    output += " " + Comparison(comparisonArgs, false).first + SemiColon();
+
+    vector<string> operationArgs = { i, direction, change };
+    output += " " + Operation(operationArgs, false).first;
+
+    output += ConditionStartRight();
+
+    return{ output, 1 };
 }
 
 pair<string, int> Language::FunctionEnd(const vector<string> &arguments, bool isInline = false) const {
@@ -141,12 +169,9 @@ pair<string, int> Language::Main(const vector<string> &arguments, bool isInline 
     return{ "", 0 };
 }
 
-pair<string, int> Language::OperationNumber(const vector<string> &arguments, bool isInline = false) const {
-    return{ "", 0 };
-}
-
-pair<string, int> Language::OperationString(const vector<string> &arguments, bool isInline = false) const {
-    return{ "", 0 };
+// string i, string direction, string differece
+pair<string, int> Language::Operation(const vector<string> &arguments, bool isInline = false) const {
+    return{ arguments[0] + " " + arguments[1] + " " + arguments[2], 0 };
 }
 
 // string message, ...
