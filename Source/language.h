@@ -102,21 +102,21 @@ public:
     GLSC_LANG_PRINTER(FileReadCharacter);
     GLSC_LANG_PRINTER(FileReadWord);
     GLSC_LANG_PRINTER(FileReadLine);
-    GLSC_LANG_PRINTER(ForNumbersEnd);
+    GLSC_LANG_PRINTER(ForEnd);
     GLSC_LANG_PRINTER(ForNumbersStart);
     GLSC_LANG_PRINTER(FunctionEnd);
     GLSC_LANG_PRINTER(FunctionStart);
-    GLSC_LANG_PRINTER(IfConditionEnd);
+    GLSC_LANG_PRINTER(IfEnd);
     GLSC_LANG_PRINTER(IfConditionStart);
-    GLSC_LANG_PRINTER(IfVariableEnd);
     GLSC_LANG_PRINTER(IfVariableStart);
     GLSC_LANG_PRINTER(Import);
     GLSC_LANG_PRINTER(Main);
+    GLSC_LANG_PRINTER(OperationNumber);
+    GLSC_LANG_PRINTER(OperationString);
     GLSC_LANG_PRINTER(PrintLine)
     GLSC_LANG_PRINTER(VariableDeclare);
-    GLSC_LANG_PRINTER(WhileConditionEnd);
+    GLSC_LANG_PRINTER(WhileEnd);
     GLSC_LANG_PRINTER(WhileConditionStart);
-    GLSC_LANG_PRINTER(WhileVariableEnd);
     GLSC_LANG_PRINTER(WhileVariableStart);
 
 private:

@@ -35,7 +35,13 @@ string GLSC::ParseCommands(const string& language, const vector<string>& command
             continue;
         }
 
-        command = ParseCommand(language, commandsRaw[i], false);
+        try {
+            command = ParseCommand(language, commandsRaw[i], false);
+        }
+        catch (string error) {
+            output += "\n" + generateTabs(numTabs) + "!!!!!!! " + error + " !!!!!!!";
+            continue;
+        }
 
         if (command.second == INT_MIN) {
             output += " " + command.first;

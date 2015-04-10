@@ -7,52 +7,33 @@ To make a general syntax for simple programming logic that can be compiled into 
 
 ### Syntax
 
-Any program
+..
 
-### Supported Commands
+### Supported Commands (theoretically)
 
-comment block
+Bold commands are currently implemented. Regular commands are in progress.
 
-comment inline
-
-comment line
-
-file open
-
-file close
-
-file read 
-
-file read amount
-
-file read character
-
-file read word
-
-file read line
-
-for numbers start
-
-for numbers end
-
-function end
-
-function start
-
-if condition end
-
-if condition start
-
-if variable end
-
-if variable start
-
-main
-
-variable declare 
-
-while end
-
-while start condition
-
-while start variable
+* **comment block**
+* **comment inline**
+* **comment line**
+* file open
+* file close
+* file read 
+* file read amount
+* file read character
+* file read word
+* file read line
+* **for end**
+* **for numbers start**
+* function end
+* function start
+* **if condition start**
+* **if end**
+* **if variable start**
+* main
+* operation number
+* operation string
+* **variable declare**
+* **while end**
+* **while condition start**
+* **while variable start**

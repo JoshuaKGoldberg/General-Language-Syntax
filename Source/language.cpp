@@ -16,17 +16,28 @@ Language::Language() {
         { "comment block", &Language::CommentBlock },
         { "comment inline", &Language::CommentInline },
         { "comment line", &Language::CommentLine },
-        { "for numbers end", &Language::ForNumbersEnd },
+        { "if condition start", &Language::IfConditionStart },
+        { "if end", &Language::IfEnd },
+        { "ifvariable start", &Language::IfVariableStart },
+        { "for end", &Language::ForEnd },
         { "for numbers start", &Language::ForNumbersStart },
+        { "operation number", &Language::OperationNumber },
+        { "operation string", &Language::OperationString },
         { "print line", &Language::PrintLine },
         { "variable declare", &Language::VariableDeclare },
-        { "while condition start", &WhileConditionStart },
-        { "while condition end", &WhileConditionEnd }
+        { "while end", &Language::WhileEnd },
+        { "while condition start", &Language::WhileConditionStart }
     };
 }
 
 pair<string, int> Language::Print(const string& function, const vector<string>& arguments, bool isInline = false) const {
-    return (this->*(Printers.find(function)->second))(arguments, isInline);
+    unordered_map<string, PrinterFunction>::const_iterator itr = Printers.find(function);
+
+    if (itr == Printers.end()) {
+        throw "Function not found: " + function;
+    }
+
+    return (this->*(itr->second))(arguments, isInline);
 }
 
 // string message, ...
@@ -55,7 +66,7 @@ pair<string, int> Language::CommentLine(const vector<string> &arguments, bool is
     size_t i;
 
     for (i = 0; i < arguments.size() - 1; i += 1) {
-        output += arguments[i] + ", ";
+        output += arguments[i] + " ";
     }
 
     output += arguments[i];
@@ -91,37 +102,35 @@ pair<string, int> Language::FileReadLine(const vector<string> &arguments, bool i
     return{ "", 0 };
 }
 
-// string i, int start, int end, bool equals = false, int increment = 1
-pair<string, int> Language::ForNumbersEnd(const vector<string> &arguments, bool isInline = false) const {
-    return{ "", 0 };
+pair<string, int> Language::ForEnd(const vector<string> &arguments, bool isInline = false) const {
+    return{ ConditionEnd(), -1 };
 }
 
+// string i, int start, int end, bool equals = false, int increment = 1
 pair<string, int> Language::ForNumbersStart(const vector<string> &arguments, bool isInline = false) const {
-    return{ "", 0 };
+    return{ "for start {", 1 };
 }
 
 pair<string, int> Language::FunctionEnd(const vector<string> &arguments, bool isInline = false) const {
-    return{ "", 0 };
+    return{ "", -1 };
 }
 
 pair<string, int> Language::FunctionStart(const vector<string> &arguments, bool isInline = false) const {
-    return{ "", 0 };
+    return{ "", 1 };
 }
 
-pair<string, int> Language::IfConditionEnd(const vector<string> &arguments, bool isInline = false) const {
-    return{ "", -1 };
-}
-
+// string left, string operator, string right
 pair<string, int> Language::IfConditionStart(const vector<string> &arguments, bool isInline = false) const {
-    return{ "", 0 };
+    return{ "if" + ConditionStartLeft() + arguments[0] + " " + arguments[1] + " " + arguments[2] + ConditionStartRight(), 1 };
 }
 
-pair<string, int> Language::IfVariableEnd(const vector<string> &arguments, bool isInline = false) const {
-    return{ "", -1 };
+pair<string, int> Language::IfEnd(const vector<string> &arguments, bool isInline = false) const {
+    return{ ConditionEnd(), -1 };
 }
 
+// string variable
 pair<string, int> Language::IfVariableStart(const vector<string> &arguments, bool isInline = false) const {
-    return{ "", 0 };
+    return{ "if" + ConditionStartLeft() + arguments[0] + ConditionStartRight(), 0 };
 }
 
 pair<string, int> Language::Import(const vector<string> &arguments, bool isInline = false) const {
@@ -129,6 +138,14 @@ pair<string, int> Language::Import(const vector<string> &arguments, bool isInlin
 }
 
 pair<string, int> Language::Main(const vector<string> &arguments, bool isInline = false) const {
+    return{ "", 0 };
+}
+
+pair<string, int> Language::OperationNumber(const vector<string> &arguments, bool isInline = false) const {
+    return{ "", 0 };
+}
+
+pair<string, int> Language::OperationString(const vector<string> &arguments, bool isInline = false) const {
     return{ "", 0 };
 }
 
@@ -173,16 +190,12 @@ pair<string, int> Language::VariableDeclare(const vector<string> &arguments, boo
     return{ output, 0 };
 }
 
-pair<string, int> Language::WhileConditionEnd(const vector<string> &arguments, bool isInline = false) const {
-    return{ ConditionEnd(), -1 };
-}
-
 // string left, string operator, string right
 pair<string, int> Language::WhileConditionStart(const vector<string> &arguments, bool isInline = false) const {
     return{ "if" + ConditionStartLeft() + arguments[0] + " " + arguments[1] + " " + arguments[2] + ConditionStartRight(), 1 };
 }
 
-pair<string, int> Language::WhileVariableEnd(const vector<string> &arguments, bool isInline = false) const {
+pair<string, int> Language::WhileEnd(const vector<string> &arguments, bool isInline = false) const {
     return{ ConditionEnd(), -1 };
 }
 
