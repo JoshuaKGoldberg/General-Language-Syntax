@@ -7,10 +7,10 @@
 #include <sstream>
 #include <string>
 #include <utility>
+#include <unordered_map>
 #include <vector>
 
 #include "language.h"
-
 
 Language::Language() {
     Printers = {
@@ -29,6 +29,35 @@ Language::Language() {
         { "while end", &Language::WhileEnd },
         { "while condition start", &Language::WhileConditionStart }
     };
+
+    TypeAliases = {
+        {}
+    };
+
+    OperationAliases= {
+        { "plus", "+" },
+        { "minus", "-" },
+        { "times", "*" },
+        { "divided", "/" },
+        { "increaseby", "+=" },
+        { "decreaseby", "-=" },
+        { "multiplyby", "*=" },
+        { "divideby", "/=" },
+        { "lessthan", "<" },
+        { "greaterthan", ">" },
+        { "lessthanequal", "<=" },
+        { "greaterthanequal", ">=" },
+    };
+}
+
+string Language::TypeAlias(const string& type) const {
+    return TypeAliases.find(type) == TypeAliases.end() 
+        ? type : TypeAliases.find(type)->first;
+}
+
+string Language::OperationAlias(const string& operation) const {
+    return OperationAliases.find(operation) == OperationAliases.end()
+        ? operation : OperationAliases.find(operation)->second;
 }
 
 pair<string, int> Language::Print(const string& function, const vector<string>& arguments, bool isInline = false) const {
@@ -77,7 +106,7 @@ pair<string, int> Language::CommentLine(const vector<string> &arguments, bool is
 
 // string left, string comparison, string right
 pair<string, int> Language::Comparison(const vector<string> &arguments, bool isInline = false) const {
-    return{ arguments[0] + " " + arguments[1] + " " + arguments[2], 0 };
+    return{ arguments[0] + " " + OperationAlias(arguments[1]) + " " + arguments[2], 0 };
 }
 
 pair<string, int> Language::FileOpen(const vector<string> &arguments, bool isInline = false) const {
@@ -149,7 +178,7 @@ pair<string, int> Language::FunctionStart(const vector<string> &arguments, bool 
 
 // string left, string operator, string right
 pair<string, int> Language::IfConditionStart(const vector<string> &arguments, bool isInline = false) const {
-    return{ "if" + ConditionStartLeft() + arguments[0] + " " + arguments[1] + " " + arguments[2] + ConditionStartRight(), 1 };
+    return{ "if" + ConditionStartLeft() + arguments[0] + " " + OperationAlias(arguments[1]) + " " + arguments[2] + ConditionStartRight(), 1 };
 }
 
 pair<string, int> Language::IfEnd(const vector<string> &arguments, bool isInline = false) const {
@@ -171,7 +200,7 @@ pair<string, int> Language::Main(const vector<string> &arguments, bool isInline 
 
 // string i, string direction, string differece
 pair<string, int> Language::Operation(const vector<string> &arguments, bool isInline = false) const {
-    return{ arguments[0] + " " + arguments[1] + " " + arguments[2], 0 };
+    return{ arguments[0] + " " + OperationAlias(arguments[1]) + " " + arguments[2], 0 };
 }
 
 // string message, ...
@@ -205,7 +234,7 @@ pair<string, int> Language::VariableDeclare(const vector<string> &arguments, boo
     output += arguments[0];
 
     if (arguments.size() >= 3) {
-        output += " = " + arguments[2];
+        output += " = " + TypeAlias(arguments[2]);
     }
 
     if (!isInline) {

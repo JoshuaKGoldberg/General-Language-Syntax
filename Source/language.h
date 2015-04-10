@@ -33,6 +33,10 @@ public:
     Language();
     ~Language() { }
 
+    // Alias gets
+    string TypeAlias(const string& type) const;
+    string OperationAlias(const string& type) const;
+
     pair<string, int> Print(const string& function, const vector<string>& arguments, bool isInline) const;
 
     // General information
@@ -121,6 +125,8 @@ public:
 
 private:
     unordered_map<string, PrinterFunction> Printers;
+    unordered_map<string, string> TypeAliases;
+    unordered_map<string, string> OperationAliases;
 };
 
 #include "language.cpp"
