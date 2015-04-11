@@ -25,8 +25,8 @@ int main(int argc, char* argv[]) {
         "    comment inline : \"Lana!\"",
         "while end",
         "",
-        "for numbers start : i int 0 lessthan 7 increaseby 1", // for... not implemented
-        "    print line : {operation : i plus 1}", // {} not implemented
+        "for numbers start : i int 0 lessthan 7 increaseby 1",
+        "    print line : {operation : i plus 1}",
         "for end",
         "",
         "if condition start : 7 lessthan 14",
