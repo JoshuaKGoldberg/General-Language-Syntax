@@ -1,0 +1,48 @@
+comment block : (Basic GLS Syntax) (Version 0.1) (Josh Goldberg)
+
+comment line : (Basic Usage)
+print line : ("Hello world!")
+comment inline : (Basic printing here...)
+
+comment line : Variables
+variable declare : a string ("Hello world!")
+variable declare : b int 7
+variable declare : c double 11.7
+variable declare : d boolean true
+
+comment line : Operations
+variable declare : e int { operation : 1 plus 2 } 
+variable declare : f int { comparison : b lessthan c }
+
+comment line : (If Statements)
+if variable start : d
+    print line : ("d is true!")
+if end
+if condition start : c lessthan 14
+    print line : ("c is less than 14!")
+if end
+
+comment line : (While Loops)
+while variable start : d
+    print line : ("d is") d
+    operation : d equals false
+while end
+while condition start : c greaterthan 3
+    print line : ("c is") c
+    operation : c decreaseby 1
+while end
+
+comment line : (For Loops)
+for numbers start : i int 0 lessthan 7 increase 1
+    print line : ("i plus one is") { operation : i plus 1 }
+for end
+
+comment line : (Functions)
+function start : sayHello void
+    print line : ("Hello world!")
+function end
+function start : combineStrings string a string b string
+    function return : { operation : a plus b }
+function end
+
+comment line : (fin)

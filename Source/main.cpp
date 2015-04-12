@@ -2,6 +2,7 @@
 #define _GLSC_MAIN_CPP_
 
 #include <cstdlib>
+#include <cstring>
 #include <iostream>
 #include <string>
 
@@ -9,40 +10,68 @@
 #include "Languages/JavaScript.h"
 #include "Languages/Python.h"
 
-int main(int argc, char* argv[]) {
-    GLSC tester;
-    
-    tester.RegisterJavaScript();
-    tester.RegisterPython();
+string StripFilename(const string& fileName);
+void PrintHelp();
 
-    cout << tester.ParseCommands("JavaScript", {
-        "print line : (\"Hello world!\")",
-        "variable declare : x int 7",
-        "",
-        "comment line : Start of a while loop",
-        "while condition start : x < 7",
-        "    print line : \"Lana!\"",
-        "    comment inline : \"Lana!\"",
-        "while end",
-        "",
-        "for numbers start : i int 0 lessthan 7 increaseby 1",
-        "    print line : {operation : i plus 1}",
-        "for end",
-        "",
-        "if condition start : 7 lessthan 14",
-        "    print line : \"Yay!\"",
-        "if end",
-        "",
-        "function define start : getMultiplied int a int b int",
-        "    variable declare : result int {operation : a times b}",
-        "    print line : result", 
-        "    function return : result",
-        "function define end",
-        "",
-        "comment block : (and a bleeble) (and a blabble) (and a) (that's all folks!)"
-    });
+int main(int argc, char* argv[]) {
+    if (argc == 1 || strcmp(argv[1], "help") == 0) {
+        PrintHelp();
+        return EXIT_SUCCESS;
+    }
+
+    GLSC converter;
+
+    vector<string> inputFiles;
+    vector<string> languages;
+    string outputDirectory = ".";
+
+    for (int i = 1; i < argc; i += 1) {
+        if (argv[i][0] == '-') {
+            switch (argv[i][1]) {
+            case 'l':
+                converter.RegisterLanguage(argv[i + 1]);
+                languages.push_back(argv[i + 1]);
+                break;
+            case 'd':
+                outputDirectory = argv[i + 1];
+                break;
+            }
+            i += 1;
+        }
+        else {
+            inputFiles.push_back(StripFilename(argv[i]));
+        }
+    }
+
+    for (const auto& inputFile : inputFiles) {
+        converter.ConvertFile(inputFile, languages);
+    }
 
     return EXIT_SUCCESS;
+}
+
+string StripFilename(const string& fileName) {
+    if (fileName.find(".gls") == string::npos) {
+        return fileName;
+    }
+
+    return fileName.substr(0, fileName.find(".gls"));
+}
+
+void PrintHelp() {
+    cout << endl;
+    cout << "General Language Syntax Compiler (GLSC) Version 0.1" << endl;
+    cout << "2015 - Josh Goldberg" << endl;
+    cout << "A compiler for a general language syntax that can be mapped 1-1 to common languages like JavaScript or Python." << endl;
+    cout << endl;
+    cout << "Usage:" << endl;
+    cout << "    glsc <file1> <file2> <file3> ... [-l <language>] [-d <directory>]" << endl;
+    cout << endl;
+    cout << "Examples:" << endl;
+    cout << "    glsc source.gls -l Python" << endl;
+    cout << "    glsc one.gls two.gls three.gls -l JavaScript -l Python" << endl;
+    cout << "    glsc -l Python -d path/to/results main.gls" << endl;
+    cout << endl;
 }
 
 #endif

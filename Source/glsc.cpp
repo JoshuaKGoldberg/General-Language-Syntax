@@ -4,6 +4,8 @@
 #include <algorithm> 
 #include <climits>
 #include <cctype>
+#include <fstream>
+#include <iostream>
 #include <string>
 #include <functional> 
 
@@ -21,8 +23,48 @@ GLSC::GLSC() {
     };
 }
 
+void GLSC::ConvertFile(const string& fileName, const vector<string>& languageNames) const {
+    ifstream input;
+    ofstream output;
+    vector<string> lines;
+    string line;
+
+    input.open(fileName + ".gls");
+    if (!input) {
+        cerr << "Error opening " << fileName << ".gls for reading." << endl;
+        return;
+    }
+    
+    for (const auto& languageName : languageNames) {
+        const Language& language = Languages.at(languageName);
+
+        output.open(fileName + "." + language.Extension());
+        if (!output) {
+            cerr << "Error opening " << output << "." << language.Extension() << " for writing." << endl;
+            continue;
+        }
+
+        lines.resize(0);
+        while (getline(input, line)) {
+            lines.push_back(line);
+        }
+
+        output << ParseCommands(language, lines) << endl;
+        output.close();
+
+        input.clear();
+        input.seekg(0, ios::beg);
+    }
+
+    input.close();
+}
+
 string GLSC::ParseCommands(const string& language, const vector<string>& commandsRaw) const {
-    string output;
+    return ParseCommands(Languages.at(language), commandsRaw);
+}
+
+string GLSC::ParseCommands(const Language& language, const vector<string>& commandsRaw) const {
+    string output = "";
     pair<string, int> command;
     int numTabs = 0;
     size_t i;
@@ -31,11 +73,6 @@ string GLSC::ParseCommands(const string& language, const vector<string>& command
     output.resize(commandsRaw.size() * 7);
 
     for (i = 0; i < commandsRaw.size(); i += 1) {
-        if (CommandIsBlank(commandsRaw[i])) {
-            output += "\n";
-            continue;
-        }
-
         try {
             command = ParseCommand(language, commandsRaw[i], false);
         }
@@ -49,7 +86,9 @@ string GLSC::ParseCommands(const string& language, const vector<string>& command
         }
         else if (command.second < 0) {
             numTabs += command.second;
-            output += "\n" + generateTabs(numTabs) + command.first;
+            if (command.first.size() != 0) {
+                output += "\n" + generateTabs(numTabs) + command.first;
+            }
         }
         else {
             output += "\n" + generateTabs(numTabs) + command.first;
@@ -61,6 +100,14 @@ string GLSC::ParseCommands(const string& language, const vector<string>& command
 }
 
 pair<string, int> GLSC::ParseCommand(const string& language, const string& commandRaw, bool isInline = false) const {
+    return ParseCommand(Languages.at(language), commandRaw, isInline);
+}
+
+pair<string, int> GLSC::ParseCommand(const Language& language, const string& commandRaw, bool isInline = false) const {
+    if (CommandIsBlank(commandRaw)) {
+        return{ "", 0 };
+    }
+
     pair<string, int> result;
     vector<string> arguments;
     string function, argumentsRaw;
@@ -77,10 +124,21 @@ pair<string, int> GLSC::ParseCommand(const string& language, const string& comma
         function = trim(commandRaw);
     }
 
-    return Languages.find(language)->second.Print(function, arguments, isInline);
+    try {
+        return language.Print(function, arguments, isInline);
+    }
+    catch (string error) {
+        cerr << error << endl;
+    }
+
+    return{ "\n", 0 };
 }
 
 vector<string> GLSC::ParseArguments(const string& language, const string& argumentsRaw, bool isInline = false) const {
+    return ParseArguments(Languages.at(language), argumentsRaw, isInline);
+}
+
+vector<string> GLSC::ParseArguments(const Language& language, const string& argumentsRaw, bool isInline = false) const {
     vector<string> arguments;
     string argument;
     size_t i, end;
@@ -114,8 +172,19 @@ vector<string> GLSC::ParseArguments(const string& language, const string& argume
     return arguments;
 }
 
+void GLSC::RegisterLanguage(const string language) {
+    if (language == "Python") {
+        RegisterPython();
+        return;
+    }
+
+    if (language == "JavaScript") {
+        RegisterJavaScript();
+        return;
+    }
+}
+
 void GLSC::RegisterLanguage(Language language) {
-    Languages.find(language.Name());
     if (Languages.find(language.Name()) != Languages.end()) {
         throw language.Name() + " already exists in GLSC.";
     }

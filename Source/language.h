@@ -41,6 +41,7 @@ public:
 
     // General information
     GLSC_LANG_MEMBER(string, Name);
+    GLSC_LANG_MEMBER(string, Extension);
     GLSC_LANG_MEMBER(string, PrintFunction);
     GLSC_LANG_MEMBER(string, SemiColon);
 
@@ -111,8 +112,8 @@ public:
     GLSC_LANG_PRINTER(ForEnd);
     GLSC_LANG_PRINTER(ForNumbersStart);
     GLSC_LANG_PRINTER(FunctionCall);
-    GLSC_LANG_PRINTER(FunctionDefineEnd);
-    GLSC_LANG_PRINTER(FunctionDefineStart);
+    GLSC_LANG_PRINTER(FunctionEnd);
+    GLSC_LANG_PRINTER(FunctionStart);
     GLSC_LANG_PRINTER(FunctionReturn);
     GLSC_LANG_PRINTER(IfEnd);
     GLSC_LANG_PRINTER(IfConditionStart);
@@ -122,8 +123,8 @@ public:
     GLSC_LANG_PRINTER(Operation);
     GLSC_LANG_PRINTER(PrintLine)
     GLSC_LANG_PRINTER(VariableDeclare);
-    GLSC_LANG_PRINTER(WhileEnd);
     GLSC_LANG_PRINTER(WhileConditionStart);
+    GLSC_LANG_PRINTER(WhileEnd);
     GLSC_LANG_PRINTER(WhileVariableStart);
 
 private:

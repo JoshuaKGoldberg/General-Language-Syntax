@@ -9,6 +9,7 @@ using namespace std;
 void GLSC::RegisterJavaScript() {
     RegisterLanguage(Language()
         .setName("JavaScript")
+        .setExtension("js")
         .setPrintFunction("console.log")
         .setSemiColon(";")
         .setCommentorBlockStart("/*")

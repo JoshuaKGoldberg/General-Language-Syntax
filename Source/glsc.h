@@ -15,10 +15,16 @@ public:
     GLSC();
     ~GLSC() { }
 
-    string ParseCommands(const string& language, const vector<string>& commandsRaw) const;
-    pair<string, int> ParseCommand(const string& language, const string& commandsRaw, const bool isInline) const;
-    vector<string> ParseArguments(const string& language, const string& argumentsRaw, const bool isInline) const;
+    void ConvertFile(const string& fileName, const vector<string>& languageNames) const;
 
+    string ParseCommands(const string& language, const vector<string>& commandsRaw) const;
+    string ParseCommands(const Language& language, const vector<string>& commandsRaw) const;
+    pair<string, int> ParseCommand(const string& language, const string& commandsRaw, const bool isInline) const;
+    pair<string, int> ParseCommand(const Language& language, const string& commandsRaw, const bool isInline) const;
+    vector<string> ParseArguments(const string& language, const string& argumentsRaw, const bool isInline) const;
+    vector<string> ParseArguments(const Language& language, const string& argumentsRaw, const bool isInline) const;
+
+    void RegisterLanguage(const string language);
     void RegisterLanguage(Language language);
     const Language& getLanguage(const string name) const;
     void RegisterJavaScript();

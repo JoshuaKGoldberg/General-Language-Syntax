@@ -29,3 +29,5 @@
 
 # Misc.
 *.stackdump
+Source/*.js
+Source/*.py

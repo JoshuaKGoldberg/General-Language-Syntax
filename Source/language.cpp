@@ -21,8 +21,8 @@ Language::Language() {
         { "for end", &Language::ForEnd },
         { "for numbers start", &Language::ForNumbersStart },
         { "function call", &Language::FunctionCall },
-        { "function define end", &Language::FunctionDefineEnd },
-        { "function define start", &Language::FunctionDefineStart },
+        { "function end", &Language::FunctionEnd },
+        { "function start", &Language::FunctionStart },
         { "function return", &Language::FunctionReturn },
         { "if condition start", &Language::IfConditionStart },
         { "if end", &Language::IfEnd },
@@ -30,15 +30,17 @@ Language::Language() {
         { "operation", &Language::Operation },
         { "print line", &Language::PrintLine },
         { "variable declare", &Language::VariableDeclare },
+        { "while condition start", &Language::WhileConditionStart },
         { "while end", &Language::WhileEnd },
-        { "while condition start", &Language::WhileConditionStart }
+        { "while variable start", &Language::WhileVariableStart }
     };
 
     TypeAliases = {
         {}
     };
 
-    OperationAliases= {
+    OperationAliases = {
+        { "equals", "=" },
         { "plus", "+" },
         { "minus", "-" },
         { "times", "*" },
@@ -55,7 +57,7 @@ Language::Language() {
 }
 
 string Language::TypeAlias(const string& type) const {
-    return TypeAliases.find(type) == TypeAliases.end() 
+    return TypeAliases.find(type) == TypeAliases.end()
         ? type : TypeAliases.find(type)->first;
 }
 
@@ -176,12 +178,12 @@ pair<string, int> Language::FunctionCall(const vector<string> &arguments, bool i
     return{ "", 1 };
 }
 
-// string name, string return[, string argumentName, string argumentType, ...]
-pair<string, int> Language::FunctionDefineEnd(const vector<string> &arguments, bool isInline = false) const {
+pair<string, int> Language::FunctionEnd(const vector<string> &arguments, bool isInline = false) const {
     return{ FunctionDefineEnd(), -1 };
 }
 
-pair<string, int> Language::FunctionDefineStart(const vector<string> &arguments, bool isInline = false) const {
+// string name, string return[, string argumentName, string argumentType, ...]
+pair<string, int> Language::FunctionStart(const vector<string> &arguments, bool isInline = false) const {
     string output = "";
     size_t i;
 
@@ -189,21 +191,22 @@ pair<string, int> Language::FunctionDefineStart(const vector<string> &arguments,
         output += arguments[1] + " ";
     }
 
-
     output += FunctionDefine() + " " + arguments[0] + "(";
 
-    for (i = 2; i < arguments.size() - 2; i += 2) {
+    if (arguments.size() > 2) {
+        for (i = 2; i < arguments.size() - 2; i += 2) {
+            if (VariableTypesExplicit()) {
+                output += TypeAlias(arguments[i + 1]) + " ";
+            }
+
+            output += arguments[i] + ", ";
+        }
+
         if (VariableTypesExplicit()) {
             output += TypeAlias(arguments[i + 1]) + " ";
         }
-
-        output += arguments[i] + ", ";
+        output += arguments[i];
     }
-
-    if (VariableTypesExplicit()) {
-        output += TypeAlias(arguments[i + 1]) + " ";
-    }
-    output += arguments[i];
 
     output += ")" + FunctionDefineRight();
 
@@ -226,7 +229,7 @@ pair<string, int> Language::IfEnd(const vector<string> &arguments, bool isInline
 
 // string variable
 pair<string, int> Language::IfVariableStart(const vector<string> &arguments, bool isInline = false) const {
-    return{ "if" + ConditionStartLeft() + arguments[0] + ConditionStartRight(), 0 };
+    return{ "if" + ConditionStartLeft() + arguments[0] + ConditionStartRight(), 1 };
 }
 
 pair<string, int> Language::Import(const vector<string> &arguments, bool isInline = false) const {
@@ -285,16 +288,16 @@ pair<string, int> Language::VariableDeclare(const vector<string> &arguments, boo
 
 // string left, string operator, string right
 pair<string, int> Language::WhileConditionStart(const vector<string> &arguments, bool isInline = false) const {
-    return{ "if" + ConditionStartLeft() + arguments[0] + " " + arguments[1] + " " + arguments[2] + ConditionStartRight(), 1 };
+    return{ "while" + ConditionStartLeft() + arguments[0] + " " + OperationAlias(arguments[1]) + " " + arguments[2] + ConditionStartRight(), 1 };
 }
 
 pair<string, int> Language::WhileEnd(const vector<string> &arguments, bool isInline = false) const {
     return{ ConditionEnd(), -1 };
 }
 
-// string value
+// string variable
 pair<string, int> Language::WhileVariableStart(const vector<string> &arguments, bool isInline = false) const {
-    return{ "if" + ConditionStartLeft() + arguments[0] + ConditionStartRight(), 1 };
+    return{ "while" + ConditionStartLeft() + OperationAlias(arguments[0]) + ConditionStartRight(), 1 };
 }
 
 #endif

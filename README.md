@@ -44,6 +44,7 @@ Bold commands are currently implemented. Regular commands are in progress.
 * **for numbers start**
 * **function call**
 * **function end**
+* **function return**
 * **function start**
 * **if condition start**
 * **if end**
@@ -54,5 +55,6 @@ Bold commands are currently implemented. Regular commands are in progress.
 * **operation change**
 * **print line**
 * **variable declare**
-* **while end**
 * **while condition start**
+* **while end**
+* **while variable start**

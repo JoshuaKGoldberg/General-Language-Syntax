@@ -9,7 +9,23 @@ using namespace std;
 void GLSC::RegisterPython() {
     RegisterLanguage(Language()
         .setName("Python")
+        .setExtension("py")
         .setPrintFunction("print")
+        .setSemiColon("")
+        .setCommentorBlockStart("\"\"\"")
+        .setCommentorBlockEnd("\"\"\"")
+        .setCommentorInline("#")
+        .setConditionStartLeft(" ")
+        .setConditionStartRight(":")
+        .setConditionContinueLeft(" ")
+        .setConditionContinueRight(":")
+        .setConditionEnd("")
+        .setFunctionDefine("def")
+        .setFunctionDefineRight(":")
+        .setFunctionDefineEnd("")
+        .setFunctionReturnsExplicit(false)
+        .setVariableTypesExplicit(false)
+        .setVariableDeclare("")
     );
 }
 
