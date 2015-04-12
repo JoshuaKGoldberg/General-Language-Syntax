@@ -25,6 +25,8 @@ You can use curly brackets (`{}`) to have commands parsed to be arguments for ot
 * *JavaScript equivalent:*: `// console.log("Hello world!");`
 * *Python equivalent*: `# print("Hello !")`
 
+See Source/basic.gls for examples of the syntax in use.
+
 ### Supported Commands (theoretically)
 
 Bold commands are currently implemented. Regular commands are in progress.
