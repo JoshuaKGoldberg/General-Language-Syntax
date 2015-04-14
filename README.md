@@ -31,6 +31,12 @@ See Source/basic.gls for examples of the syntax in use.
 
 Bold commands are currently implemented. Regular commands are in progress.
 
+* class constructor
+* class destructor
+* class end
+* class function
+* class member
+* class start
 * **comment block**
 * **comment inline**
 * **comment line**
