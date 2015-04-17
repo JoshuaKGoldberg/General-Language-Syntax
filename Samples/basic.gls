@@ -33,16 +33,22 @@ while condition start : c greaterthan 3
 while end
 
 comment line : (For Loops)
-for numbers start : i int 0 lessthan 7 increase 1
+for numbers start : i int 0 lessthan 7 increaseby 1
     print line : ("i plus one is") { operation : i plus 1 }
 for end
 
-comment line : (Functions)
+comment line : (Function Definitions)
 function start : sayHello void
     print line : ("Hello world!")
 function end
 function start : combineStrings string a string b string
     function return : { operation : a plus b }
 function end
+
+comment line : (Calling Functions)
+function call : sayHello
+function call : combineStrings "hello" "world"
+function call : combineStrings { operation : "hello" plus (" ") } "world"
+function call : combineStrings { function call : combineStrings "hello" "world" } "world"
 
 comment line : (fin)

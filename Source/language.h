@@ -22,7 +22,7 @@ public: \
         return *this; \
     } 
 
-#define GLSC_LANG_PRINTER(name) \
+#define GLSC_LANG_PRINTER_DECLARE(name) \
 public: \
     pair<string, int> name(const vector<string> &arguments, bool isInline) const;
 
@@ -98,34 +98,38 @@ public:
     GLSC_LANG_MEMBER(string, DictionaryClass);
 
     // Printers
-    GLSC_LANG_PRINTER(CommentBlock);
-    GLSC_LANG_PRINTER(CommentInline);
-    GLSC_LANG_PRINTER(CommentLine);
-    GLSC_LANG_PRINTER(Comparison);
-    GLSC_LANG_PRINTER(FileOpen);
-    GLSC_LANG_PRINTER(FileClose);
-    GLSC_LANG_PRINTER(FileRead);
-    GLSC_LANG_PRINTER(FileReadAmount);
-    GLSC_LANG_PRINTER(FileReadCharacter);
-    GLSC_LANG_PRINTER(FileReadWord);
-    GLSC_LANG_PRINTER(FileReadLine);
-    GLSC_LANG_PRINTER(ForEnd);
-    GLSC_LANG_PRINTER(ForNumbersStart);
-    GLSC_LANG_PRINTER(FunctionCall);
-    GLSC_LANG_PRINTER(FunctionEnd);
-    GLSC_LANG_PRINTER(FunctionStart);
-    GLSC_LANG_PRINTER(FunctionReturn);
-    GLSC_LANG_PRINTER(IfEnd);
-    GLSC_LANG_PRINTER(IfConditionStart);
-    GLSC_LANG_PRINTER(IfVariableStart);
-    GLSC_LANG_PRINTER(Import);
-    GLSC_LANG_PRINTER(Main);
-    GLSC_LANG_PRINTER(Operation);
-    GLSC_LANG_PRINTER(PrintLine)
-    GLSC_LANG_PRINTER(VariableDeclare);
-    GLSC_LANG_PRINTER(WhileConditionStart);
-    GLSC_LANG_PRINTER(WhileEnd);
-    GLSC_LANG_PRINTER(WhileVariableStart);
+    GLSC_LANG_PRINTER_DECLARE(ClassEnd);
+    GLSC_LANG_PRINTER_DECLARE(ClassMemberVariable);
+    GLSC_LANG_PRINTER_DECLARE(ClassMemberFunction);
+    GLSC_LANG_PRINTER_DECLARE(ClassStart);
+    GLSC_LANG_PRINTER_DECLARE(CommentBlock);
+    GLSC_LANG_PRINTER_DECLARE(CommentInline);
+    GLSC_LANG_PRINTER_DECLARE(CommentLine);
+    GLSC_LANG_PRINTER_DECLARE(Comparison);
+    GLSC_LANG_PRINTER_DECLARE(FileOpen);
+    GLSC_LANG_PRINTER_DECLARE(FileClose);
+    GLSC_LANG_PRINTER_DECLARE(FileRead);
+    GLSC_LANG_PRINTER_DECLARE(FileReadAmount);
+    GLSC_LANG_PRINTER_DECLARE(FileReadCharacter);
+    GLSC_LANG_PRINTER_DECLARE(FileReadWord);
+    GLSC_LANG_PRINTER_DECLARE(FileReadLine);
+    GLSC_LANG_PRINTER_DECLARE(ForEnd);
+    GLSC_LANG_PRINTER_DECLARE(ForNumbersStart);
+    GLSC_LANG_PRINTER_DECLARE(FunctionCall);
+    GLSC_LANG_PRINTER_DECLARE(FunctionEnd);
+    GLSC_LANG_PRINTER_DECLARE(FunctionStart);
+    GLSC_LANG_PRINTER_DECLARE(FunctionReturn);
+    GLSC_LANG_PRINTER_DECLARE(IfEnd);
+    GLSC_LANG_PRINTER_DECLARE(IfConditionStart);
+    GLSC_LANG_PRINTER_DECLARE(IfVariableStart);
+    GLSC_LANG_PRINTER_DECLARE(Import);
+    GLSC_LANG_PRINTER_DECLARE(Main);
+    GLSC_LANG_PRINTER_DECLARE(Operation);
+    GLSC_LANG_PRINTER_DECLARE(PrintLine)
+    GLSC_LANG_PRINTER_DECLARE(VariableDeclare);
+    GLSC_LANG_PRINTER_DECLARE(WhileConditionStart);
+    GLSC_LANG_PRINTER_DECLARE(WhileEnd);
+    GLSC_LANG_PRINTER_DECLARE(WhileVariableStart);
 
 private:
     unordered_map<string, PrinterFunction> Printers;

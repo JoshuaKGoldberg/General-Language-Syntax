@@ -34,7 +34,7 @@ void GLSC::ConvertFile(const string& fileName, const vector<string>& languageNam
         cerr << "Error opening " << fileName << ".gls for reading." << endl;
         return;
     }
-    
+
     for (const auto& languageName : languageNames) {
         const Language& language = Languages.at(languageName);
 
@@ -76,7 +76,8 @@ string GLSC::ParseCommands(const Language& language, const vector<string>& comma
         try {
             command = ParseCommand(language, commandsRaw[i], false);
         }
-        catch (string error) {
+        catch (const char* error) {
+            cout << "Got an error!" << endl;
             output += "\n" + generateTabs(numTabs) + "!!!!!!! " + error + " !!!!!!!";
             continue;
         }
@@ -104,8 +105,10 @@ pair<string, int> GLSC::ParseCommand(const string& language, const string& comma
 }
 
 pair<string, int> GLSC::ParseCommand(const Language& language, const string& commandRaw, bool isInline = false) const {
+    pair<string, int> output = { "", 0 };
+
     if (CommandIsBlank(commandRaw)) {
-        return{ "", 0 };
+        return output;
     }
 
     pair<string, int> result;
@@ -125,13 +128,13 @@ pair<string, int> GLSC::ParseCommand(const Language& language, const string& com
     }
 
     try {
-        return language.Print(function, arguments, isInline);
+        output = language.Print(function, arguments, isInline);
     }
     catch (string error) {
-        cerr << error << endl;
+        output.first = "!!!!!!!" + error + "!!!!!!!";
     }
 
-    return{ "\n", 0 };
+    return output;
 }
 
 vector<string> GLSC::ParseArguments(const string& language, const string& argumentsRaw, bool isInline = false) const {

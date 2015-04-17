@@ -12,8 +12,22 @@
 
 #include "language.h"
 
+#define STRINGIFY(a) #a
+
+#define GLSC_LANG_PRINTER_DEFINE(name) \
+    pair<string, int> Language::name(const vector<string> &arguments, bool isInline = false) const \
+
+#define GLSC_LANG_ARGUMENTS_MIN(name, minimumArguments) \
+    if (arguments.size() < minimumArguments) { \
+        throw string("Not enough arguments given to " name "."); \
+    }
+
 Language::Language() {
     Printers = {
+        { "class end", &Language::ClassEnd },
+        { "class member variable", &Language::ClassMemberVariable },
+        { "class member function ", &Language::ClassMemberFunction },
+        { "class start", &Language::ClassStart },
         { "comment block", &Language::CommentBlock },
         { "comment inline", &Language::CommentInline },
         { "comment line", &Language::CommentLine },
@@ -68,16 +82,36 @@ string Language::OperationAlias(const string& operation) const {
 
 pair<string, int> Language::Print(const string& function, const vector<string>& arguments, bool isInline = false) const {
     unordered_map<string, PrinterFunction>::const_iterator itr = Printers.find(function);
-
     if (itr == Printers.end()) {
-        throw "Function not found: " + function;
+        throw string("Function not found: " + function);
     }
 
     return (this->*(itr->second))(arguments, isInline);
 }
 
+GLSC_LANG_PRINTER_DEFINE(ClassEnd) {
+    return{ ConditionEnd() + SemiColon(), -1 };
+}
+
+// string name
+GLSC_LANG_PRINTER_DEFINE(ClassMemberVariable) {
+    return{ "class start", 1 };
+}
+
+// string privacy, { function }
+GLSC_LANG_PRINTER_DEFINE(ClassMemberFunction) {
+    vector<string> functionArguments = arguments;
+
+    return{ "class member function", 1 };
+}
+
+GLSC_LANG_PRINTER_DEFINE(ClassStart) {
+    GLSC_LANG_ARGUMENTS_MIN("ClasStart", 1);
+    return{ "class " + arguments[0] + ConditionStartRight(), 1 };
+}
+
 // string message, ...
-pair<string, int> Language::CommentBlock(const vector<string> &arguments, bool isInline = false) const {
+GLSC_LANG_PRINTER_DEFINE(CommentBlock) {
     string output = CommentorBlockStart() + "\n";
 
     for (size_t i = 0; i < arguments.size(); i += 1) {
@@ -90,14 +124,14 @@ pair<string, int> Language::CommentBlock(const vector<string> &arguments, bool i
 }
 
 // string message, ...
-pair<string, int> Language::CommentInline(const vector<string> &arguments, bool isInline = false) const {
+GLSC_LANG_PRINTER_DEFINE(CommentInline) {
     pair<string, int> output = CommentLine(arguments, isInline);
     output.second = INT_MIN;
     return output;
 }
 
 // string message, ...
-pair<string, int> Language::CommentLine(const vector<string> &arguments, bool isInline = false) const {
+GLSC_LANG_PRINTER_DEFINE(CommentLine) {
     string output = CommentorInline() + " ";
     size_t i;
 
@@ -111,45 +145,47 @@ pair<string, int> Language::CommentLine(const vector<string> &arguments, bool is
 }
 
 // string left, string comparison, string right
-pair<string, int> Language::Comparison(const vector<string> &arguments, bool isInline = false) const {
+GLSC_LANG_PRINTER_DEFINE(Comparison) {
+    GLSC_LANG_ARGUMENTS_MIN("Comparison", 3);
     return{ arguments[0] + " " + OperationAlias(arguments[1]) + " " + arguments[2], 0 };
 }
 
-pair<string, int> Language::FileOpen(const vector<string> &arguments, bool isInline = false) const {
+GLSC_LANG_PRINTER_DEFINE(FileOpen) {
     return{ "", 0 };
 }
 
-pair<string, int> Language::FileClose(const vector<string> &arguments, bool isInline = false) const {
+GLSC_LANG_PRINTER_DEFINE(FileClose) {
     return{ "", 0 };
 }
 
-pair<string, int> Language::FileRead(const vector<string> &arguments, bool isInline = false) const {
+GLSC_LANG_PRINTER_DEFINE(FileRead) {
     return{ "", 0 };
 }
 
-pair<string, int> Language::FileReadAmount(const vector<string> &arguments, bool isInline = false) const {
+GLSC_LANG_PRINTER_DEFINE(FileReadAmount) {
     return{ "", 0 };
 }
 
-pair<string, int> Language::FileReadCharacter(const vector<string> &arguments, bool isInline = false) const {
+GLSC_LANG_PRINTER_DEFINE(FileReadCharacter) {
     return{ "", 0 };
 }
 
-pair<string, int> Language::FileReadWord(const vector<string> &arguments, bool isInline = false) const {
+GLSC_LANG_PRINTER_DEFINE(FileReadWord) {
     return{ "", 0 };
 }
 
-pair<string, int> Language::FileReadLine(const vector<string> &arguments, bool isInline = false) const {
+GLSC_LANG_PRINTER_DEFINE(FileReadLine) {
     return{ "", 0 };
 }
 
-pair<string, int> Language::ForEnd(const vector<string> &arguments, bool isInline = false) const {
+GLSC_LANG_PRINTER_DEFINE(ForEnd) {
     return{ ConditionEnd(), -1 };
 }
 
 // string i, string type, string initial, string comparison, string boundary, string direction, string change
 // i int 0 lessthan 7 increase 1
-pair<string, int> Language::ForNumbersStart(const vector<string> &arguments, bool isInline = false) const {
+GLSC_LANG_PRINTER_DEFINE(ForNumbersStart) {
+    GLSC_LANG_ARGUMENTS_MIN("ForNumbersStart", 7);
     string output = "for" + ConditionStartLeft();
 
     const string& i = arguments[0];
@@ -174,16 +210,34 @@ pair<string, int> Language::ForNumbersStart(const vector<string> &arguments, boo
     return{ output, 1 };
 }
 
-pair<string, int> Language::FunctionCall(const vector<string> &arguments, bool isInline = false) const {
-    return{ "", 1 };
+GLSC_LANG_PRINTER_DEFINE(FunctionCall) {
+    GLSC_LANG_ARGUMENTS_MIN("FunctionCall", 1);
+
+    string output = arguments[0] + "(";
+    size_t i;
+
+    if (arguments.size() > 1) {
+        for (i = 1; i < arguments.size() - 1; i += 1) {
+            output += arguments[i] + ", ";
+        }
+        output += arguments[i];
+    }
+
+    output += ")";
+
+    if (!isInline) {
+        output += SemiColon();
+    }
+
+    return{ output, 0 };
 }
 
-pair<string, int> Language::FunctionEnd(const vector<string> &arguments, bool isInline = false) const {
+GLSC_LANG_PRINTER_DEFINE(FunctionEnd) {
     return{ FunctionDefineEnd(), -1 };
 }
 
 // string name, string return[, string argumentName, string argumentType, ...]
-pair<string, int> Language::FunctionStart(const vector<string> &arguments, bool isInline = false) const {
+GLSC_LANG_PRINTER_DEFINE(FunctionStart) {
     string output = "";
     size_t i;
 
@@ -214,39 +268,39 @@ pair<string, int> Language::FunctionStart(const vector<string> &arguments, bool 
 }
 
 // string value
-pair<string, int> Language::FunctionReturn(const vector<string> &arguments, bool isInline = false) const {
+GLSC_LANG_PRINTER_DEFINE(FunctionReturn) {
     return{ "return " + arguments[0] + SemiColon(), 0 };
 }
 
 // string left, string operator, string right
-pair<string, int> Language::IfConditionStart(const vector<string> &arguments, bool isInline = false) const {
+GLSC_LANG_PRINTER_DEFINE(IfConditionStart) {
     return{ "if" + ConditionStartLeft() + arguments[0] + " " + OperationAlias(arguments[1]) + " " + arguments[2] + ConditionStartRight(), 1 };
 }
 
-pair<string, int> Language::IfEnd(const vector<string> &arguments, bool isInline = false) const {
+GLSC_LANG_PRINTER_DEFINE(IfEnd) {
     return{ ConditionEnd(), -1 };
 }
 
 // string variable
-pair<string, int> Language::IfVariableStart(const vector<string> &arguments, bool isInline = false) const {
+GLSC_LANG_PRINTER_DEFINE(IfVariableStart) {
     return{ "if" + ConditionStartLeft() + arguments[0] + ConditionStartRight(), 1 };
 }
 
-pair<string, int> Language::Import(const vector<string> &arguments, bool isInline = false) const {
+GLSC_LANG_PRINTER_DEFINE(Import) {
     return{ "", 0 };
 }
 
-pair<string, int> Language::Main(const vector<string> &arguments, bool isInline = false) const {
+GLSC_LANG_PRINTER_DEFINE(Main) {
     return{ "", 0 };
 }
 
 // string i, string direction, string differece
-pair<string, int> Language::Operation(const vector<string> &arguments, bool isInline = false) const {
+GLSC_LANG_PRINTER_DEFINE(Operation) {
     return{ arguments[0] + " " + OperationAlias(arguments[1]) + " " + arguments[2], 0 };
 }
 
 // string message, ...
-pair<string, int> Language::PrintLine(const vector<string> &arguments, bool isInline = false) const {
+GLSC_LANG_PRINTER_DEFINE(PrintLine) {
     string output = PrintFunction() + "(";
     size_t i;
 
@@ -255,7 +309,6 @@ pair<string, int> Language::PrintLine(const vector<string> &arguments, bool isIn
     }
 
     output += arguments[i];
-
     output += ")";
 
     if (!isInline) {
@@ -266,7 +319,7 @@ pair<string, int> Language::PrintLine(const vector<string> &arguments, bool isIn
 }
 
 // string name, string type[, string value]
-pair<string, int> Language::VariableDeclare(const vector<string> &arguments, bool isInline = false) const {
+GLSC_LANG_PRINTER_DEFINE(VariableDeclare) {
     string output = VariableDeclare();
 
     if (VariableTypesExplicit()) {
@@ -287,16 +340,16 @@ pair<string, int> Language::VariableDeclare(const vector<string> &arguments, boo
 }
 
 // string left, string operator, string right
-pair<string, int> Language::WhileConditionStart(const vector<string> &arguments, bool isInline = false) const {
+GLSC_LANG_PRINTER_DEFINE(WhileConditionStart) {
     return{ "while" + ConditionStartLeft() + arguments[0] + " " + OperationAlias(arguments[1]) + " " + arguments[2] + ConditionStartRight(), 1 };
 }
 
-pair<string, int> Language::WhileEnd(const vector<string> &arguments, bool isInline = false) const {
+GLSC_LANG_PRINTER_DEFINE(WhileEnd) {
     return{ ConditionEnd(), -1 };
 }
 
 // string variable
-pair<string, int> Language::WhileVariableStart(const vector<string> &arguments, bool isInline = false) const {
+GLSC_LANG_PRINTER_DEFINE(WhileVariableStart) {
     return{ "while" + ConditionStartLeft() + OperationAlias(arguments[0]) + ConditionStartRight(), 1 };
 }
 
