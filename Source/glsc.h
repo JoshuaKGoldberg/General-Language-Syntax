@@ -16,6 +16,7 @@ public:
     ~GLSC() { }
 
     void ConvertFile(const string& fileName, const vector<string>& languageNames) const;
+    void ConvertFile(const string& fileName, const vector<string>& input, const Language& language) const;
 
     string ParseCommands(const string& language, const vector<string>& commandsRaw) const;
     string ParseCommands(const Language& language, const vector<string>& commandsRaw) const;

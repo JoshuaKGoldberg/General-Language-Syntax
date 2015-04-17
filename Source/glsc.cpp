@@ -5,9 +5,10 @@
 #include <climits>
 #include <cctype>
 #include <fstream>
+#include <functional> 
 #include <iostream>
 #include <string>
-#include <functional> 
+#include <thread>
 
 #include "glsc.h"
 
@@ -25,8 +26,8 @@ GLSC::GLSC() {
 
 void GLSC::ConvertFile(const string& fileName, const vector<string>& languageNames) const {
     ifstream input;
-    ofstream output;
     vector<string> lines;
+    vector<thread> threads;
     string line;
 
     input.open(fileName + ".gls");
@@ -35,28 +36,29 @@ void GLSC::ConvertFile(const string& fileName, const vector<string>& languageNam
         return;
     }
 
+    lines.resize(0);
+    while (getline(input, line)) {
+        lines.push_back(line);
+    }
+
     for (const auto& languageName : languageNames) {
-        const Language& language = Languages.at(languageName);
-
-        output.open(fileName + "." + language.Extension());
-        if (!output) {
-            cerr << "Error opening " << output << "." << language.Extension() << " for writing." << endl;
-            continue;
-        }
-
-        lines.resize(0);
-        while (getline(input, line)) {
-            lines.push_back(line);
-        }
-
-        output << ParseCommands(language, lines) << endl;
-        output.close();
-
-        input.clear();
-        input.seekg(0, ios::beg);
+        ConvertFile(fileName, lines, Languages.at(languageName));
     }
 
     input.close();
+}
+
+void GLSC::ConvertFile(const string& fileName, const vector<string>& lines, const Language& language) const {
+    ofstream output;
+    output.open(fileName + "." + language.Extension());
+
+    if (!output) {
+        cerr << "Error opening " << output << "." << language.Extension() << " for writing." << endl;
+        return;
+    }
+
+    output << ParseCommands(language, lines) << endl;
+    output.close();
 }
 
 string GLSC::ParseCommands(const string& language, const vector<string>& commandsRaw) const {
