@@ -10,12 +10,25 @@
 
 using namespace std;
 
+struct FileConversionArguments {
+    FileConversionArguments(const string fileNameIn, const vector<string> linesIn, const Language languageIn)
+        : fileName(fileNameIn), lines(linesIn), language(languageIn)
+    { }
+    ~FileConversionArguments() { }
+
+    const string fileName;
+    const vector<string> lines;
+    const Language language;
+};
+
 class GLSC {
 public:
     GLSC();
     ~GLSC() { }
 
     void ConvertFile(const string& fileName, const vector<string>& languageNames) const;
+    void ConvertFileThreaded(const FileConversionArguments arguments) const;
+    void ConvertFile(const string& fileName, const vector<string>& input, const Language& language) const;
 
     string ParseCommands(const string& language, const vector<string>& commandsRaw) const;
     string ParseCommands(const Language& language, const vector<string>& commandsRaw) const;
