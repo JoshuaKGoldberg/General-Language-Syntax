@@ -42,10 +42,18 @@ void GLSC::ConvertFile(const string& fileName, const vector<string>& languageNam
     }
 
     for (const auto& languageName : languageNames) {
-        ConvertFile(fileName, lines, Languages.at(languageName));
+        threads.push_back(thread(GLSC::ConvertFileThreaded, *this, FileConversionArguments(fileName, lines, Languages.at(languageName))));
+    }
+
+    for (auto& thread : threads) {
+        thread.join();
     }
 
     input.close();
+}
+
+void GLSC::ConvertFileThreaded(const FileConversionArguments arguments) const {
+    ConvertFile(arguments.fileName, arguments.lines, arguments.language);
 }
 
 void GLSC::ConvertFile(const string& fileName, const vector<string>& lines, const Language& language) const {
