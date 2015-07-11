@@ -83,8 +83,8 @@ class start : Point
 class end
 
 comment line : (Class Usage)
-variable declare : e Point { class new : Point 3 7 }
-class member function call : e setX 4
-print line : { class member function call : e getManhattanTotal }
+variable declare : g Point { class new : Point 3 7 }
+class member function call : g setX 4
+print line : { class member function call : g getManhattanTotal }
 
 comment line : (fin)

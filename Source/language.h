@@ -111,6 +111,7 @@ public:
     GLSC_LANG_MEMBER(string, ClassEnd);
     GLSC_LANG_MEMBER(bool, ClassFunctionsTakeThis)
     GLSC_LANG_MEMBER(string, ClassFunctionsThis)
+    GLSC_LANG_MEMBER(string, ClassNew)
     GLSC_LANG_MEMBER(string, ClassStartLeft);
     GLSC_LANG_MEMBER(string, ClassStartRight);
     GLSC_LANG_MEMBER(string, ClassThis);
@@ -126,6 +127,7 @@ public:
     GLSC_LANG_PRINTER_DECLARE(ClassMemberVariableDeclare);
     GLSC_LANG_PRINTER_DECLARE(ClassMemberVariableGet);
     GLSC_LANG_PRINTER_DECLARE(ClassMemberVariableSet);
+    GLSC_LANG_PRINTER_DECLARE(ClassNew);
     GLSC_LANG_PRINTER_DECLARE(ClassStart);
     GLSC_LANG_PRINTER_DECLARE(CommentBlock);
     GLSC_LANG_PRINTER_DECLARE(CommentInline);

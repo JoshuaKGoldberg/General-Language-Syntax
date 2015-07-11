@@ -20,7 +20,7 @@
 #define GLSC_LANG_ARGUMENTS_MIN(name, minimumArguments) \
     if (arguments.size() < minimumArguments) { \
         throw string("Not enough arguments given to " name "."); \
-                                                                }
+    }
 
 Language::Language() {
     Printers = {
@@ -33,6 +33,7 @@ Language::Language() {
         { "class member variable declare", &Language::ClassMemberVariableDeclare },
         { "class member variable get", &Language::ClassMemberVariableGet },
         { "class member variable set", &Language::ClassMemberVariableSet },
+        { "class new", &Language::ClassNew },
         { "class start", &Language::ClassStart },
         { "comment block", &Language::CommentBlock },
         { "comment inline", &Language::CommentInline },
@@ -153,14 +154,20 @@ GLSC_LANG_PRINTER_DEFINE(ClassEnd) {
     return{ ClassEnd(), -1 };
 }
 
+// string variable, string function, [, string argumentName, string argumentType, ...]
 GLSC_LANG_PRINTER_DEFINE(ClassMemberFunctionCall) {
-    pair<string, int> output = FunctionCall(arguments, isInline);
+    string output = arguments[0] + "." + arguments[1] + "(";
+    size_t i;
 
-    if (ClassFunctionsTakeThis()) {
-        output.first = ClassThis() + ClassThisAccess() + output.first;
+    if (arguments.size() > 2) {
+        for (i = 2; i < arguments.size() - 1; i += 1) {
+            output += arguments[i] + ", ";
+        }
+        output += arguments[i];
     }
 
-    return output;
+    output += ")";
+    return{ output, 0 };
 }
 
 GLSC_LANG_PRINTER_DEFINE(ClassMemberFunctionEnd) {
@@ -227,6 +234,24 @@ GLSC_LANG_PRINTER_DEFINE(ClassMemberVariableSet) {
 // string name
 GLSC_LANG_PRINTER_DEFINE(ClassStart) {
     return{ ClassStartLeft() + arguments[0] + ClassStartRight(), 1 };
+}
+
+// string name[, string argumentName, string argumentType, ...]
+GLSC_LANG_PRINTER_DEFINE(ClassNew) {
+    string output = ClassNew() + " " + arguments[0] + "(";
+    size_t i;
+
+    if (arguments.size() > 1) {
+        for (i = 1; i < arguments.size(); i += 1) {
+            output += arguments[i] + ", ";
+        }
+
+        // The last argument does not have the last ", " at the end
+        output.erase(output.size() - 2);
+    }
+
+    output += ")";
+    return{ output, 0 };
 }
 
 // string message, ...
