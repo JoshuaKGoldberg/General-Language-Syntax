@@ -24,16 +24,16 @@
 
 Language::Language() {
     Printers = {
-        //{ "class constructor end", &Language::ClassConstructorEnd },
-        //{ "class constructor start", &Language::ClassConstructorStart },
-        //{ "class end", &Language::ClassEnd },
-        //{ "class member function call", &Language::ClassMemberFunctionCall },
-        //{ "class member function end", &Language::ClassMemberFunctionEnd },
-        //{ "class member function start", &Language::ClassMemberStart },
-        //{ "class member variable declare", &Language::ClassVariableDeclare },
-        //{ "class member variable get", &Language::ClassMemberVariableGet },
-        //{ "class member variable set", &Language::ClassMemberVariableSet },
-        //{ "class start", &Language::ClassStart },
+        { "class constructor end", &Language::ClassConstructorEnd },
+        { "class constructor start", &Language::ClassConstructorStart },
+        { "class end", &Language::ClassEnd },
+        { "class member function call", &Language::ClassMemberFunctionCall },
+        { "class member function end", &Language::ClassMemberFunctionEnd },
+        { "class member function start", &Language::ClassMemberFunctionStart },
+        { "class member variable declare", &Language::ClassMemberVariableDeclare },
+        { "class member variable get", &Language::ClassMemberVariableGet },
+        { "class member variable set", &Language::ClassMemberVariableSet },
+        { "class start", &Language::ClassStart },
         { "comment block", &Language::CommentBlock },
         { "comment inline", &Language::CommentInline },
         { "comment line", &Language::CommentLine },
@@ -119,6 +119,46 @@ pair<string, int> Language::Print(const string& function, const vector<string>& 
     }
 
     return (this->*(itr->second))(arguments, isInline);
+}
+
+GLSC_LANG_PRINTER_DEFINE(ClassConstructorEnd) {
+    return{ "nope", 0 };
+}
+
+GLSC_LANG_PRINTER_DEFINE(ClassConstructorStart) {
+    return{ "nope", 0 };
+}
+
+GLSC_LANG_PRINTER_DEFINE(ClassEnd) {
+    return{ "nope", 0 };
+}
+
+GLSC_LANG_PRINTER_DEFINE(ClassMemberFunctionCall) {
+    return{ "nope", 0 };
+}
+
+GLSC_LANG_PRINTER_DEFINE(ClassMemberFunctionEnd) {
+    return{ "nope", 0 };
+}
+
+GLSC_LANG_PRINTER_DEFINE(ClassMemberFunctionStart) {
+    return{ "nope", 0 };
+}
+
+GLSC_LANG_PRINTER_DEFINE(ClassMemberVariableDeclare) {
+    return{ "nope", 0 };
+}
+
+GLSC_LANG_PRINTER_DEFINE(ClassMemberVariableGet) {
+    return{ "nope", 0 };
+}
+
+GLSC_LANG_PRINTER_DEFINE(ClassMemberVariableSet) {
+    return{ "nope", 0 };
+}
+
+GLSC_LANG_PRINTER_DEFINE(ClassStart) {
+    return{ "nope", 0 };
 }
 
 // string message, ...
