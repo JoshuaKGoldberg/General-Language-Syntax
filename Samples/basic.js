@@ -3,20 +3,16 @@ Basic GLS Syntax
 Version 0.0.1
 Josh Goldberg
 */
-
 // Basic Usage
 console.log("Hello world!"); // Basic printing here...
-
 // Variables
-var a: string = "Hello world!";
-var b: number = 7;
-var c: number = 11.7;
-var d: boolean = true;
-
+var a = "Hello world!";
+var b = 7;
+var c = 11.7;
+var d = true;
 // Operations
-var e: number = 1 + 2;
-var f: boolean = b < c;
-
+var e = 1 + 2;
+var f = b < c;
 // If Statements
 if (d) {
     console.log("d is true!");
@@ -24,70 +20,54 @@ if (d) {
 if (c < 14) {
     console.log("c is less than 14!");
 }
-
-// While Loops
 while (d) {
     console.log("d is", d);
-    d = false
+    d = false;
 }
 while (c > 3) {
     console.log("c is", c);
-    c -= 1
+    c -= 1;
 }
-
-// For Loops
-for (var i: number = 0; i < 7; i += 1) {
+for (var i = 0; i < 7; i += 1) {
     console.log("i plus one is", i + 1);
 }
-
 // Function Definitions
 function sayHello() {
     console.log("Hello world!");
 }
-function combineStrings(a: string, b: string) {
+function combineStrings(a, b) {
     return a + b;
 }
-
 // Calling Functions
 sayHello();
 combineStrings("hello", "world");
 combineStrings("hello" + " ", "world");
 combineStrings(combineStrings("hello", "world"), "world");
-
 // Class Declarations
-class Point {
-    public x: number;
-    public y: number;
-    
-    constructor(x: number, y: number) {
+var Point = (function () {
+    function Point(x, y) {
         this.x = x;
         this.y = y;
     }
-    
-    public setX(x: number) {
+    Point.prototype.setX = function (x) {
         this.x = x;
-    }
-    
-    public setY(y: number) {
+    };
+    Point.prototype.setY = function (y) {
         this.y = y;
-    }
-    
-    public getX() {
+    };
+    Point.prototype.getX = function () {
         return this.x;
-    }
-    
-    public getY() {
+    };
+    Point.prototype.getY = function () {
         return this.y;
-    }
-    
-    public getManhattanTotal() {
+    };
+    Point.prototype.getManhattanTotal = function () {
         return this.x + this.y;
-    }
-}
-
+    };
+    return Point;
+})();
 // Class Usage
-var g: Point = new Point(3, 7);
-g.setX(4)
-console.log(g.getManhattanTotal());
-
+var g = new Point(3, 7);
+e(setX, 4);
+console.log(e(getManhattanTotal));
 // fin

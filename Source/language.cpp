@@ -20,13 +20,20 @@
 #define GLSC_LANG_ARGUMENTS_MIN(name, minimumArguments) \
     if (arguments.size() < minimumArguments) { \
         throw string("Not enough arguments given to " name "."); \
-                                        }
+    }
 
 Language::Language() {
     Printers = {
+        { "class constructor end", &Language::ClassConstructorEnd },
+        { "class constructor start", &Language::ClassConstructorStart },
         { "class end", &Language::ClassEnd },
-        { "class member variable", &Language::ClassMemberVariable },
-        { "class member function", &Language::ClassMemberFunction },
+        { "class member function call", &Language::ClassMemberFunctionCall },
+        { "class member function end", &Language::ClassMemberFunctionEnd },
+        { "class member function start", &Language::ClassMemberFunctionStart },
+        { "class member variable declare", &Language::ClassMemberVariableDeclare },
+        { "class member variable get", &Language::ClassMemberVariableGet },
+        { "class member variable set", &Language::ClassMemberVariableSet },
+        { "class new", &Language::ClassNew },
         { "class start", &Language::ClassStart },
         { "comment block", &Language::CommentBlock },
         { "comment inline", &Language::CommentInline },
@@ -44,6 +51,7 @@ Language::Language() {
         { "operation", &Language::Operation },
         { "print line", &Language::PrintLine },
         { "variable declare", &Language::VariableDeclare },
+        { "variable declare partial", &Language::VariableDeclarePartial },
         { "while condition start", &Language::WhileConditionStart },
         { "while end", &Language::WhileEnd },
         { "while variable start", &Language::WhileVariableStart }
@@ -107,32 +115,143 @@ Language& Language::inheritOperationAliases(const Language& language) {
 
 pair<string, int> Language::Print(const string& function, const vector<string>& arguments, bool isInline = false) const {
     unordered_map<string, PrinterFunction>::const_iterator itr = Printers.find(function);
+
     if (itr == Printers.end()) {
-        throw string("Function not found: " + function);
+        return{ "Function not found: " + function, 0 };
     }
 
     return (this->*(itr->second))(arguments, isInline);
 }
 
+GLSC_LANG_PRINTER_DEFINE(ClassConstructorEnd) {
+    return{ FunctionDefineEnd(), -1 };
+}
+
+// string name[, string argumentName, string argumentType, ...]
+GLSC_LANG_PRINTER_DEFINE(ClassConstructorStart) {
+    string output = ClassConstructorName() + "(";
+    vector<string> variableDeclarationArguments(2, "");
+    size_t i;
+
+    // All arguments are added using VariableDeclarePartial
+    if (arguments.size() > 1) {
+        for (i = 1; i < arguments.size(); i += 2) {
+            variableDeclarationArguments[0] = arguments[i];
+            variableDeclarationArguments[1] = arguments[i + 1];
+
+            output += VariableDeclarePartial(variableDeclarationArguments, true).first + ", ";
+        }
+
+        // The last argument does not have the last ", " at the end
+        output.erase(output.size() - 2);
+    }
+
+    output += ")" + FunctionDefineRight();
+    return{ output, 1 };
+}
+
 GLSC_LANG_PRINTER_DEFINE(ClassEnd) {
-    return{ ConditionEnd() + SemiColon(), -1 };
+    return{ ClassEnd(), -1 };
+}
+
+// string variable, string function, [, string argumentName, string argumentType, ...]
+GLSC_LANG_PRINTER_DEFINE(ClassMemberFunctionCall) {
+    string output = arguments[0] + "." + arguments[1] + "(";
+    size_t i;
+
+    if (arguments.size() > 2) {
+        for (i = 2; i < arguments.size() - 1; i += 1) {
+            output += arguments[i] + ", ";
+        }
+        output += arguments[i];
+    }
+
+    output += ")";
+    return{ output, 0 };
+}
+
+GLSC_LANG_PRINTER_DEFINE(ClassMemberFunctionEnd) {
+    return{ FunctionDefineEnd(), -1 };
+}
+
+// string class, string visibility, string name, string return, [, string argumentName, string argumentType...]
+GLSC_LANG_PRINTER_DEFINE(ClassMemberFunctionStart) {
+    string output = arguments[1] + " " + arguments[2] + "(";
+    vector<string> variableDeclarationArguments(2, "");
+    size_t i;
+
+    if (ClassFunctionsTakeThis()) {
+        variableDeclarationArguments[0] = ClassFunctionsThis();
+        variableDeclarationArguments[1] = arguments[0];
+
+        output += VariableDeclarePartial(variableDeclarationArguments, true).first;
+    }
+
+    // All arguments are added using VariableDeclarePartial
+    if (arguments.size() > 4) {
+        if (ClassFunctionsTakeThis()) {
+            output += ", ";
+        }
+
+        for (i = 4; i < arguments.size(); i += 2) {
+            variableDeclarationArguments[0] = arguments[i];
+            variableDeclarationArguments[1] = arguments[i + 1];
+
+            output += VariableDeclarePartial(variableDeclarationArguments, true).first + ", ";
+        }
+
+        // The last argument does not have the last ", " at the end
+        output.erase(output.size() - 2);
+    }
+
+    output += ")" + FunctionDefineRight();
+    return{ output, 1 };
+}
+
+// string name, string visibility, string type
+GLSC_LANG_PRINTER_DEFINE(ClassMemberVariableDeclare) {
+    vector<string> declarationArguments = { arguments[0], arguments[2] };
+    pair<string, int> output = VariableDeclarePartial(declarationArguments, true);
+
+    output.first = arguments[1] + " " + output.first + SemiColon();
+
+    return output;
 }
 
 // string name
-GLSC_LANG_PRINTER_DEFINE(ClassMemberVariable) {
-    return{ "class start", 1 };
+GLSC_LANG_PRINTER_DEFINE(ClassMemberVariableGet) {
+    return{ ClassThis() + ClassThisAccess() + arguments[0], 0 };
 }
 
-// string privacy, { function }
-GLSC_LANG_PRINTER_DEFINE(ClassMemberFunction) {
-    vector<string> functionArguments = arguments;
-
-    return{ "class member function", 1 };
+// string name, string value
+GLSC_LANG_PRINTER_DEFINE(ClassMemberVariableSet) {
+    string output = ClassThis() + ClassThisAccess();
+    output += arguments[0] + " " + OperationAlias("equals") + " " + arguments[1];
+    output += SemiColon();
+    return{ output, 0 };
 }
 
+// string name
 GLSC_LANG_PRINTER_DEFINE(ClassStart) {
-    GLSC_LANG_ARGUMENTS_MIN("ClasStart", 1);
-    return{ "class " + arguments[0] + ConditionStartRight(), 1 };
+    return{ ClassStartLeft() + arguments[0] + ClassStartRight(), 1 };
+}
+
+// string name[, string argumentName, string argumentType, ...]
+GLSC_LANG_PRINTER_DEFINE(ClassNew) {
+    string output = ClassNew() + " " + arguments[0] + "(";
+    size_t i;
+
+    if (arguments.size() > 1) {
+        for (i = 1; i < arguments.size(); i += 1) {
+            output += arguments[i] + ", ";
+        }
+
+        // The last argument does not have the last ", " at the end
+        output.erase(output.size() - 2);
+    }
+
+    output += ")";
+    return{ output, 0 };
 }
 
 // string message, ...
@@ -267,7 +386,7 @@ GLSC_LANG_PRINTER_DEFINE(FunctionStart) {
     vector<string> variableDeclarationArguments(2, "");
     size_t i;
 
-    if (FunctionReturnsExplicit()) {
+    if (FunctionReturnsExplicit() && arguments[1] != "") {
         output += arguments[1] + " ";
     }
 
@@ -287,7 +406,6 @@ GLSC_LANG_PRINTER_DEFINE(FunctionStart) {
     }
 
     output += ")" + FunctionDefineRight();
-
     return{ output, 1 };
 }
 
@@ -351,6 +469,7 @@ GLSC_LANG_PRINTER_DEFINE(VariableDeclare) {
     return test;
 }
 
+// string name, string type[, string value]
 GLSC_LANG_PRINTER_DEFINE(VariableDeclarePartial) {
     string output;
 
