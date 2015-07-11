@@ -70,6 +70,8 @@ public:
 
     // Variables
     GLSC_LANG_MEMBER(bool, VariableTypesExplicit);
+    GLSC_LANG_MEMBER(bool, VariableTypesAfterName);
+    GLSC_LANG_MEMBER(string, VariableTypeMarker);
     GLSC_LANG_MEMBER(string, VariableDeclare);
 
     // while

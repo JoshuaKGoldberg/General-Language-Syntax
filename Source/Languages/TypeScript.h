@@ -25,6 +25,8 @@ void GLSC::RegisterTypeScript() {
         .setFunctionDefineEnd("}")
         .setFunctionReturnsExplicit(false)
         .setVariableTypesExplicit(true)
+        .setVariableTypesAfterName(true)
+        .setVariableTypeMarker(": ")
         .setVariableDeclare("var ")
     );
 }
