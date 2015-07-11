@@ -15,7 +15,7 @@ void GLSC::RegisterTypeScript() {
         .setClassConstructorName("constructor")
         .setClassEnd("}")
         .setClassFunctionsTakeThis(false)
-        .setClassNew("new")
+        .setClassNew("new ")
         .setClassPrivacy(true)
         .setClassStartLeft("class ")
         .setClassStartRight(" {")

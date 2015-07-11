@@ -56,24 +56,23 @@ class Point:
         this.x = x
         this.y = y
     
-    setX(self, x):
+    def setX(self, x):
         this.x = x
     
-    setY(self, y):
+    def setY(self, y):
         this.y = y
     
-    getX(self):
+    def getX(self):
         return this.x
     
-    getY(self):
+    def getY(self):
         return this.y
     
-    getManhattanTotal(self):
+    def getManhattanTotal(self):
         return this.x + this.y
-}
 
 # Class Usage
-g = new Point(3, 7)
+g = Point(3, 7)
 g.setX(4)
 print(g.getManhattanTotal())
 

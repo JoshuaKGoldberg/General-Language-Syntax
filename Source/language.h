@@ -113,6 +113,7 @@ public:
     GLSC_LANG_MEMBER(string, ClassConstructorName);
     GLSC_LANG_MEMBER(string, ClassEnd);
     GLSC_LANG_MEMBER(bool, ClassFunctionsTakeThis)
+    GLSC_LANG_MEMBER(string, ClassFunctionsStart)
     GLSC_LANG_MEMBER(string, ClassFunctionsThis)
     GLSC_LANG_MEMBER(string, ClassNew)
     GLSC_LANG_MEMBER(bool, ClassPrivacy)

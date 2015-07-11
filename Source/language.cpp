@@ -176,7 +176,7 @@ GLSC_LANG_PRINTER_DEFINE(ClassMemberFunctionEnd) {
 
 // string class, string visibility, string name, string return, [, string argumentName, string argumentType...]
 GLSC_LANG_PRINTER_DEFINE(ClassMemberFunctionStart) {
-    string output = arguments[2] + "(";
+    string output = ClassFunctionsStart() + arguments[2] + "(";
     vector<string> variableDeclarationArguments(2, "");
     size_t i;
 
@@ -246,7 +246,7 @@ GLSC_LANG_PRINTER_DEFINE(ClassStart) {
 
 // string name[, string argumentName, string argumentType, ...]
 GLSC_LANG_PRINTER_DEFINE(ClassNew) {
-    string output = ClassNew() + " " + arguments[0] + "(";
+    string output = ClassNew() + arguments[0] + "(";
     size_t i;
 
     if (arguments.size() > 1) {
