@@ -153,8 +153,19 @@ GLSC_LANG_PRINTER_DEFINE(ClassConstructorStart) {
     vector<string> variableDeclarationArguments(2, "");
     size_t i;
 
+    if (ClassFunctionsTakeThis()) {
+        variableDeclarationArguments[0] = ClassFunctionsThis();
+        variableDeclarationArguments[1] = arguments[0];
+
+        output += VariableDeclarePartial(variableDeclarationArguments, true).first;
+    }
+
     // All arguments are added using VariableDeclarePartial
     if (arguments.size() > 1) {
+        if (ClassFunctionsTakeThis()) {
+            output += ", ";
+        }
+
         for (i = 1; i < arguments.size(); i += 2) {
             variableDeclarationArguments[0] = arguments[i];
             variableDeclarationArguments[1] = arguments[i + 1];

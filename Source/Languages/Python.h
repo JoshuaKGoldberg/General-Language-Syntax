@@ -20,7 +20,7 @@ void GLSC::RegisterPython() {
         .setClassPrivacy(false)
         .setClassStartLeft("class ")
         .setClassStartRight(":")
-        .setClassThis("this")
+        .setClassThis("self")
         .setClassThisAccess(".")
         .setCommentorBlockStart("\"\"\"")
         .setCommentorBlockEnd("\"\"\"")

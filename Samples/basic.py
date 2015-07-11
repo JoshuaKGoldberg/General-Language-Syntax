@@ -52,24 +52,24 @@ class Point:
     x = None
     y = None
     
-    def __init__(x, y):
-        this.x = x
-        this.y = y
+    def __init__(self, x, y):
+        self.x = x
+        self.y = y
     
     def setX(self, x):
-        this.x = x
+        self.x = x
     
     def setY(self, y):
-        this.y = y
+        self.y = y
     
     def getX(self):
-        return this.x
+        return self.x
     
     def getY(self):
-        return this.y
+        return self.y
     
     def getManhattanTotal(self):
-        return this.x + this.y
+        return self.x + self.y
 
 # Class Usage
 g = Point(3, 7)
