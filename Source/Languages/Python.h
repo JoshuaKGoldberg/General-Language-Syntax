@@ -16,6 +16,7 @@ void GLSC::RegisterPython() {
         .setClassFunctionsStart("def ")
         .setClassFunctionsTakeThis(true)
         .setClassFunctionsThis("self")
+        .setClassMemberVariableDefault(" = None")
         .setClassPrivacy(false)
         .setClassStartLeft("class ")
         .setClassStartRight(":")

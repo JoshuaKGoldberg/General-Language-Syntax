@@ -49,8 +49,8 @@ combineStrings(combineStrings("hello", "world"), "world")
 
 # Class Declarations
 class Point:
-    x
-    y
+    x = None
+    y = None
     
     def __init__(x, y):
         this.x = x

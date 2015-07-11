@@ -241,7 +241,7 @@ GLSC_LANG_PRINTER_DEFINE(ClassMemberVariableDeclare) {
         output.first = arguments[1] + " " + output.first;
     }
 
-    output.first = output.first + SemiColon();
+    output.first = output.first + ClassMemberVariableDefault() + SemiColon();
 
     return output;
 }
