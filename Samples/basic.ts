@@ -15,7 +15,7 @@ var d: boolean = true;
 
 // Operations
 var e: number = 1 + 2;
-var f: number = b < c;
+var f: boolean = b < c;
 
 // If Statements
 if (d) {
