@@ -136,6 +136,7 @@ public:
     GLSC_LANG_PRINTER_DECLARE(Operation);
     GLSC_LANG_PRINTER_DECLARE(PrintLine)
     GLSC_LANG_PRINTER_DECLARE(VariableDeclare);
+    GLSC_LANG_PRINTER_DECLARE(VariableDeclarePartial);
     GLSC_LANG_PRINTER_DECLARE(WhileConditionStart);
     GLSC_LANG_PRINTER_DECLARE(WhileEnd);
     GLSC_LANG_PRINTER_DECLARE(WhileVariableStart);

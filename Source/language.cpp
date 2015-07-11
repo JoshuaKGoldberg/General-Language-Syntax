@@ -20,13 +20,13 @@
 #define GLSC_LANG_ARGUMENTS_MIN(name, minimumArguments) \
     if (arguments.size() < minimumArguments) { \
         throw string("Not enough arguments given to " name "."); \
-                                }
+                                    }
 
 Language::Language() {
     Printers = {
         { "class end", &Language::ClassEnd },
         { "class member variable", &Language::ClassMemberVariable },
-        { "class member function ", &Language::ClassMemberFunction },
+        { "class member function", &Language::ClassMemberFunction },
         { "class start", &Language::ClassStart },
         { "comment block", &Language::CommentBlock },
         { "comment inline", &Language::CommentInline },
@@ -266,6 +266,7 @@ GLSC_LANG_PRINTER_DEFINE(FunctionEnd) {
 // string name, string return[, string argumentName, string argumentType, ...]
 GLSC_LANG_PRINTER_DEFINE(FunctionStart) {
     string output = "";
+    vector<string> variableDeclarationArguments(2, "");
     size_t i;
 
     if (FunctionReturnsExplicit()) {
@@ -274,32 +275,17 @@ GLSC_LANG_PRINTER_DEFINE(FunctionStart) {
 
     output += FunctionDefine() + " " + arguments[0] + "(";
 
+    // All arguments are added using VariableDeclarePartial
     if (arguments.size() > 2) {
-        for (i = 2; i < arguments.size() - 2; i += 2) {
-            if (VariableTypesExplicit()) {
-                if (VariableTypesAfterName()) {
-                    output += arguments[i] + VariableTypeMarker() + TypeAlias(arguments[i + 1]) + ", ";
-                }
-                else {
-                    output += TypeAlias(arguments[i + 1]) + arguments[i] + ", ";
-                }
-            }
-            else {
-                output += arguments[i] + ", ";
-            }
+        for (i = 2; i < arguments.size(); i += 2) {
+            variableDeclarationArguments[0] = arguments[i];
+            variableDeclarationArguments[1] = arguments[i + 1];
+
+            output += VariableDeclarePartial(variableDeclarationArguments, true).first + ", ";
         }
 
-        if (VariableTypesExplicit()) {
-            if (VariableTypesAfterName()) {
-                output += arguments[i] + VariableTypeMarker() + TypeAlias(arguments[i + 1]);
-            }
-            else {
-                output += TypeAlias(arguments[i + 1]) + arguments[i];
-            }
-        }
-        else {
-            output += arguments[i];
-        }
+        // The last argument does not have the last ", " at the end
+        output.erase(output.size() - 2);
     }
 
     output += ")" + FunctionDefineRight();
@@ -360,7 +346,15 @@ GLSC_LANG_PRINTER_DEFINE(PrintLine) {
 
 // string name, string type[, string value]
 GLSC_LANG_PRINTER_DEFINE(VariableDeclare) {
-    string output = VariableDeclare();
+    pair<string, int> test = VariableDeclarePartial(arguments, isInline);
+
+    test.first = VariableDeclare() + test.first;
+
+    return test;
+}
+
+GLSC_LANG_PRINTER_DEFINE(VariableDeclarePartial) {
+    string output;
 
     if (VariableTypesExplicit())
     {
