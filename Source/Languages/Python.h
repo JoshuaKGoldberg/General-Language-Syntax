@@ -36,6 +36,8 @@ void GLSC::RegisterPython() {
         .setFunctionReturnsExplicit(false)
         .setVariableTypesExplicit(false)
         .setVariableDeclare("")
+        .addValueAlias("False", "false")
+        .addValueAlias("True", "true")
     );
 }
 

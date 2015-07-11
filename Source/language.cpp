@@ -57,8 +57,6 @@ Language::Language() {
         { "while variable start", &Language::WhileVariableStart }
     };
 
-    TypeAliases = {};
-
     OperationAliases = {
         { "equals", "=" },
         { "plus", "+" },
@@ -74,6 +72,10 @@ Language::Language() {
         { "lessthanequal", "<=" },
         { "greaterthanequal", ">=" },
     };
+
+    TypeAliases = {};
+
+    ValueAliases = {};
 }
 
 string Language::TypeAlias(const string& type) const {
@@ -84,6 +86,11 @@ string Language::TypeAlias(const string& type) const {
 string Language::OperationAlias(const string& operation) const {
     return OperationAliases.find(operation) == OperationAliases.end()
         ? operation : OperationAliases.find(operation)->second;
+}
+
+string Language::ValueAlias(const string& operation) const {
+    return ValueAliases.find(operation) == ValueAliases.end()
+        ? operation : ValueAliases.find(operation)->second;
 }
 
 Language& Language::addTypeAlias(const string type, const string alias) {
@@ -107,6 +114,19 @@ Language& Language::addOperationAlias(const string type, const string alias) {
 Language& Language::inheritOperationAliases(const Language& language) {
     for (const auto& pair : language.OperationAliases) {
         addOperationAlias(pair.second, pair.first);
+    }
+
+    return *this;
+}
+
+Language& Language::addValueAlias(const string value, const string alias) {
+    ValueAliases[alias] = value;
+    return *this;
+}
+
+Language& Language::inheritValueAliases(const Language& language) {
+    for (const auto& pair : language.ValueAliases) {
+        addValueAlias(pair.second, pair.first);
     }
 
     return *this;
@@ -466,7 +486,7 @@ GLSC_LANG_PRINTER_DEFINE(Main) {
 
 // string i, string direction, string differece
 GLSC_LANG_PRINTER_DEFINE(Operation) {
-    return{ arguments[0] + " " + OperationAlias(arguments[1]) + " " + arguments[2], 0 };
+    return{ arguments[0] + " " + OperationAlias(arguments[1]) + " " + ValueAlias(arguments[2]), 0 };
 }
 
 // string message, ...
@@ -515,7 +535,7 @@ GLSC_LANG_PRINTER_DEFINE(VariableDeclarePartial) {
     }
 
     if (arguments.size() >= 3) {
-        output += " = " + arguments[2];
+        output += " = " + ValueAlias(arguments[2]);
     }
 
     if (!isInline) {

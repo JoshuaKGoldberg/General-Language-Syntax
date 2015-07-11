@@ -11,7 +11,7 @@ print("Hello world!") # Basic printing here...
 a = "Hello world!"
 b = 7
 c = 11.7
-d = true
+d = True
 
 # Operations
 e = 1 + 2
@@ -26,7 +26,7 @@ if c < 14:
 # While Loops
 while d:
     print("d is", d)
-    d = false
+    d = False
 while c > 3:
     print("c is", c)
     c -= 1

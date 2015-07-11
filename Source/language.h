@@ -34,14 +34,18 @@ public:
     ~Language() { }
 
     // Aliases
-    string TypeAlias(const string& type) const;
     string OperationAlias(const string& type) const;
+    string TypeAlias(const string& type) const;
+    string ValueAlias(const string& value) const;
+
+    Language& addOperationAlias(const string type, const string alias);
+    Language& inheritOperationAliases(const Language& language);
 
     Language& addTypeAlias(const string type, const string alias);
     Language& inheritTypeAliases(const Language& language);
 
-    Language& addOperationAlias(const string type, const string alias);
-    Language& inheritOperationAliases(const Language& language);
+    Language& addValueAlias(const string value, const string alias);
+    Language& inheritValueAliases(const Language& language);
 
     // Printing
     pair<string, int> Print(const string& function, const vector<string>& arguments, bool isInline) const;
@@ -166,8 +170,9 @@ public:
 
 private:
     unordered_map<string, PrinterFunction> Printers;
-    unordered_map<string, string> TypeAliases;
     unordered_map<string, string> OperationAliases;
+    unordered_map<string, string> TypeAliases;
+    unordered_map<string, string> ValueAliases;
 };
 
 #include "language.cpp"
