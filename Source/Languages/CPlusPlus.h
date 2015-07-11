@@ -8,7 +8,7 @@ using namespace std;
 
 void GLSC::RegisterCPlusPlus() {
     RegisterLanguage(Language()
-        .setName("C++")
+        .setName("CPlusPlus")
         .setExtension("cpp")
         .setPrintFunction("cout") // should add option for non-Function usage, and << separators
         .setSemiColon(";")
