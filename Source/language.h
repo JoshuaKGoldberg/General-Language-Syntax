@@ -107,7 +107,7 @@ public:
     GLSC_LANG_MEMBER(string, DictionaryClass);
 
     // Classes
-    GLSC_LANG_MEMBER(string, ClassConstructorStart);
+    GLSC_LANG_MEMBER(string, ClassConstructorName);
     GLSC_LANG_MEMBER(string, ClassEnd);
     GLSC_LANG_MEMBER(bool, ClassFunctionsTakeThis)
     GLSC_LANG_MEMBER(string, ClassStartLeft);

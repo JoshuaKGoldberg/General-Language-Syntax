@@ -90,7 +90,6 @@ string GLSC::ParseCommands(const Language& language, const vector<string>& comma
         numTabs += command.second;
     }
     catch (const char* error) {
-        cout << "Got an error!" << endl;
         output += "!!!!!!! " + string(error) + " !!!!!!!";
     }
 
@@ -150,12 +149,7 @@ pair<string, int> GLSC::ParseCommand(const Language& language, const string& com
         function = trim(commandRaw);
     }
 
-    try {
-        output = language.Print(function, arguments, isInline);
-    }
-    catch (string error) {
-        output.first = "!!!!!!!" + error + "!!!!!!!";
-    }
+    output = language.Print(function, arguments, isInline);
 
     return output;
 }
