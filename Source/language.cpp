@@ -20,7 +20,7 @@
 #define GLSC_LANG_ARGUMENTS_MIN(name, minimumArguments) \
     if (arguments.size() < minimumArguments) { \
         throw string("Not enough arguments given to " name "."); \
-                            }
+                                }
 
 Language::Language() {
     Printers = {
@@ -72,7 +72,7 @@ Language::Language() {
 
 string Language::TypeAlias(const string& type) const {
     return TypeAliases.find(type) == TypeAliases.end()
-        ? type : TypeAliases.find(type)->first;
+        ? type : TypeAliases.find(type)->second;
 }
 
 string Language::OperationAlias(const string& operation) const {
@@ -216,7 +216,7 @@ GLSC_LANG_PRINTER_DEFINE(ForNumbersStart) {
     string output = "for" + ConditionStartLeft();
 
     const string& i = arguments[0];
-    const string& type = arguments[1];
+    const string& type = TypeAlias(arguments[1]);
     const string& initial = arguments[2];
     const string& comparison = arguments[3];
     const string& boundary = arguments[4];
@@ -352,21 +352,18 @@ GLSC_LANG_PRINTER_DEFINE(VariableDeclare) {
     if (VariableTypesExplicit())
     {
         if (VariableTypesAfterName()) {
-            output += arguments[0] + VariableTypeMarker() + arguments[1];
+            output += arguments[0] + VariableTypeMarker() + TypeAlias(arguments[1]);
         }
         else {
-            output += arguments[1] + arguments[0];
+            output += TypeAlias(arguments[1]) + arguments[0];
         }
     }
     else {
         output += arguments[0];
     }
 
-
-
-
     if (arguments.size() >= 3) {
-        output += " = " + TypeAlias(arguments[2]);
+        output += " = " + arguments[2];
     }
 
     if (!isInline) {

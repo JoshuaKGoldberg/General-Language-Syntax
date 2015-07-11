@@ -28,6 +28,9 @@ void GLSC::RegisterTypeScript() {
         .setVariableTypesAfterName(true)
         .setVariableTypeMarker(": ")
         .setVariableDeclare("var ")
+        .addTypeAlias("number", "int")
+        .addTypeAlias("number", "double")
+        .addTypeAlias("number", "float")
     );
 }
 
