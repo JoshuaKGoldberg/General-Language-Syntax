@@ -8,14 +8,14 @@ Josh Goldberg
 cout("Hello world!"); // Basic printing here...
 
 // Variables
-stringa = "Hello world!";
-intb = 7;
-doublec = 11.7;
-booleand = true;
+string a = "Hello world!";
+int b = 7;
+double c = 11.7;
+boolean d = true;
 
 // Operations
-inte = 1 + 2;
-booleanf = b < c;
+int e = 1 + 2;
+boolean f = b < c;
 
 // If Statements
 if (d) {
@@ -36,7 +36,7 @@ while (c > 3) {
 }
 
 // For Loops
-for (inti = 0; i < 7; i += 1) {
+for (int i = 0; i < 7; i += 1) {
     cout("i plus one is", i + 1);
 }
 
@@ -44,7 +44,7 @@ for (inti = 0; i < 7; i += 1) {
  sayHello() {
     cout("Hello world!");
 }
- combineStrings(stringa, stringb) {
+ combineStrings(string a, string b) {
     return a + b;
 }
 
@@ -56,19 +56,19 @@ combineStrings(combineStrings("hello", "world"), "world");
 
 // Class Declarations
 class Point {
-    public intx;
-    public inty;
+    public int x;
+    public int y;
     
-    (intx, inty) {
+    (int x, int y) {
         this.x = x;
         this.y = y;
     }
     
-    public setX(intx) {
+    public setX(int x) {
         this.x = x;
     }
     
-    public setY(inty) {
+    public setY(int y) {
         this.y = y;
     }
     
@@ -83,10 +83,10 @@ class Point {
     public getManhattanTotal() {
         return this.x + this.y;
     }
-}
+};
 
 // Class Usage
-Pointg = new Point(3, 7);
+Point g = new Point(3, 7);
 g.setX(4)
 cout(g.getManhattanTotal());
 

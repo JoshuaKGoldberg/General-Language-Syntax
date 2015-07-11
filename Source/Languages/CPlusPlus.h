@@ -13,7 +13,7 @@ void GLSC::RegisterCPlusPlus() {
         .setPrintFunction("cout") // should add option for non-Function usage, and << separators
         .setSemiColon(";")
         .setClassConstructorName("") // should default to using class name, then delete here
-        .setClassEnd("}")
+        .setClassEnd("};")
         .setClassFunctionsTakeThis(false)
         .setClassNew("new ")
         .setClassPrivacy(true)
