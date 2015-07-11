@@ -65,7 +65,7 @@ class start : Point
         class member variable set : x x
     class member function end
     
-    class member function start : Point public setY void x int
+    class member function start : Point public setY void y int
         class member variable set : y y
     class member function end
     
@@ -74,11 +74,11 @@ class start : Point
     class member function end
     
     class member function start : Point public getY int
-        function return : { class member variable get : Y}
+        function return : { class member variable get : y}
     class member function end
     
     class member function start : Point public getManhattanTotal int
-        function return : { operation : x plus y }
+        function return : { operation : { class member variable get : x } plus { class member variable get : y } }
     class member function end
 class end
 

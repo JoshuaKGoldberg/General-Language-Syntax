@@ -213,7 +213,7 @@ GLSC_LANG_PRINTER_DEFINE(ClassMemberVariableDeclare) {
 
 // string name
 GLSC_LANG_PRINTER_DEFINE(ClassMemberVariableGet) {
-    return{ ClassThis() + ClassThisAccess() + SemiColon(), 0 };
+    return{ ClassThis() + ClassThisAccess() + arguments[0], 0 };
 }
 
 // string name, string value
