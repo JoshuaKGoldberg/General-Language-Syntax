@@ -44,7 +44,7 @@ for (var i: number = 0; i < 7; i += 1) {
 function sayHello() {
     console.log("Hello world!");
 }
-function combineStrings(string a, string b) {
+function combineStrings(a: string, b: string) {
     return a + b;
 }
 

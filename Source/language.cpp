@@ -277,16 +277,29 @@ GLSC_LANG_PRINTER_DEFINE(FunctionStart) {
     if (arguments.size() > 2) {
         for (i = 2; i < arguments.size() - 2; i += 2) {
             if (VariableTypesExplicit()) {
-                output += TypeAlias(arguments[i + 1]) + " ";
+                if (VariableTypesAfterName()) {
+                    output += arguments[i] + VariableTypeMarker() + TypeAlias(arguments[i + 1]) + ", ";
+                }
+                else {
+                    output += TypeAlias(arguments[i + 1]) + arguments[i] + ", ";
+                }
             }
-
-            output += arguments[i] + ", ";
+            else {
+                output += arguments[i] + ", ";
+            }
         }
 
         if (VariableTypesExplicit()) {
-            output += TypeAlias(arguments[i + 1]) + " ";
+            if (VariableTypesAfterName()) {
+                output += arguments[i] + VariableTypeMarker() + TypeAlias(arguments[i + 1]);
+            }
+            else {
+                output += TypeAlias(arguments[i + 1]) + arguments[i];
+            }
         }
-        output += arguments[i];
+        else {
+            output += arguments[i];
+        }
     }
 
     output += ")" + FunctionDefineRight();
