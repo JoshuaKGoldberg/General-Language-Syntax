@@ -20,7 +20,7 @@
 #define GLSC_LANG_ARGUMENTS_MIN(name, minimumArguments) \
     if (arguments.size() < minimumArguments) { \
         throw string("Not enough arguments given to " name "."); \
-                                    }
+                                        }
 
 Language::Language() {
     Printers = {
@@ -49,9 +49,7 @@ Language::Language() {
         { "while variable start", &Language::WhileVariableStart }
     };
 
-    TypeAliases = {
-        {}
-    };
+    TypeAliases = {};
 
     OperationAliases = {
         { "equals", "=" },
