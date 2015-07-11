@@ -33,10 +33,17 @@ public:
     Language();
     ~Language() { }
 
-    // Alias gets
+    // Aliases
     string TypeAlias(const string& type) const;
     string OperationAlias(const string& type) const;
 
+    Language& addTypeAlias(const string type, const string alias);
+    Language& inheritTypeAliases(const Language& language);
+
+    Language& addOperationAlias(const string type, const string alias);
+    Language& inheritOperationAliases(const Language& language);
+
+    // Printing
     pair<string, int> Print(const string& function, const vector<string>& arguments, bool isInline) const;
 
     // General information
@@ -74,7 +81,7 @@ public:
     GLSC_LANG_MEMBER(string, VariableTypeMarker);
     GLSC_LANG_MEMBER(string, VariableDeclare);
 
-    // while
+    // Booleans
     GLSC_LANG_MEMBER(string, BooleanClass);
     GLSC_LANG_MEMBER(string, True);
     GLSC_LANG_MEMBER(string, False);

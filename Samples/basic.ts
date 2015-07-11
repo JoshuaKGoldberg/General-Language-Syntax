@@ -9,13 +9,13 @@ console.log("Hello world!"); // Basic printing here...
 
 // Variables
 var a: string = "Hello world!";
-var b: int = 7;
-var c: double = 11.7;
+var b: number = 7;
+var c: number = 11.7;
 var d: boolean = true;
 
 // Operations
-var e: int = 1 + 2;
-var f: int = b < c;
+var e: number = 1 + 2;
+var f: boolean = b < c;
 
 // If Statements
 if (d) {
@@ -36,7 +36,7 @@ while (c > 3) {
 }
 
 // For Loops
-for (var i: int = 0; i < 7; i += 1) {
+for (var i: number = 0; i < 7; i += 1) {
     console.log("i plus one is", i + 1);
 }
 

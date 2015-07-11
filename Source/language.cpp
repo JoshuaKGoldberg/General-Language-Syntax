@@ -20,7 +20,7 @@
 #define GLSC_LANG_ARGUMENTS_MIN(name, minimumArguments) \
     if (arguments.size() < minimumArguments) { \
         throw string("Not enough arguments given to " name "."); \
-                            }
+                                }
 
 Language::Language() {
     Printers = {
@@ -72,13 +72,40 @@ Language::Language() {
 
 string Language::TypeAlias(const string& type) const {
     return TypeAliases.find(type) == TypeAliases.end()
-        ? type : TypeAliases.find(type)->first;
+        ? type : TypeAliases.find(type)->second;
 }
 
 string Language::OperationAlias(const string& operation) const {
     return OperationAliases.find(operation) == OperationAliases.end()
         ? operation : OperationAliases.find(operation)->second;
 }
+
+Language& Language::addTypeAlias(const string type, const string alias) {
+    TypeAliases[alias] = type;
+    return *this;
+}
+
+Language& Language::inheritTypeAliases(const Language& language) {
+    for (const auto& pair : language.TypeAliases) {
+        addTypeAlias(pair.second, pair.first);
+    }
+
+    return *this;
+}
+
+Language& Language::addOperationAlias(const string type, const string alias) {
+    OperationAliases[alias] = type;
+    return *this;
+}
+
+Language& Language::inheritOperationAliases(const Language& language) {
+    for (const auto& pair : language.OperationAliases) {
+        addOperationAlias(pair.second, pair.first);
+    }
+
+    return *this;
+}
+
 
 pair<string, int> Language::Print(const string& function, const vector<string>& arguments, bool isInline = false) const {
     unordered_map<string, PrinterFunction>::const_iterator itr = Printers.find(function);
@@ -189,7 +216,7 @@ GLSC_LANG_PRINTER_DEFINE(ForNumbersStart) {
     string output = "for" + ConditionStartLeft();
 
     const string& i = arguments[0];
-    const string& type = arguments[1];
+    const string& type = TypeAlias(arguments[1]);
     const string& initial = arguments[2];
     const string& comparison = arguments[3];
     const string& boundary = arguments[4];
@@ -325,21 +352,18 @@ GLSC_LANG_PRINTER_DEFINE(VariableDeclare) {
     if (VariableTypesExplicit())
     {
         if (VariableTypesAfterName()) {
-            output += arguments[0] + VariableTypeMarker() + arguments[1];
+            output += arguments[0] + VariableTypeMarker() + TypeAlias(arguments[1]);
         }
         else {
-            output += arguments[1] + arguments[0];
+            output += TypeAlias(arguments[1]) + arguments[0];
         }
     }
     else {
         output += arguments[0];
     }
 
-
-
-
     if (arguments.size() >= 3) {
-        output += " = " + TypeAlias(arguments[2]);
+        output += " = " + arguments[2];
     }
 
     if (!isInline) {

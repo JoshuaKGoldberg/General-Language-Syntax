@@ -12,7 +12,7 @@ variable declare : d boolean true
 
 comment line : Operations
 variable declare : e int { operation : 1 plus 2 } 
-variable declare : f int { comparison : b lessthan c }
+variable declare : f boolean { comparison : b lessthan c }
 
 comment line : (If Statements)
 if variable start : d
