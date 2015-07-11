@@ -1,9 +1,5 @@
 # General Language Syntax Compiler
-A compiler for a general language syntax that can be mapped 1-1 to common languages like TypeScript or Python
-
-### Project Goal
-
-To make a general syntax for simple programming logic that can be compiled into any common programming language.
+A compiler for a general language syntax that can be mapped 1-1 to common languages like TypeScript or Python.
 
 ### Syntax
 
@@ -25,7 +21,7 @@ You can use curly brackets (`{}`) to have commands parsed to be arguments for ot
 * *TypeScript equivalent:*: `// console.log("Hello world!");`
 * *Python equivalent*: `# print("Hello !")`
 
-See Source/basic.gls for examples of the syntax in use.
+See [Samples/basic.gls](Samples/basic.gls) for examples of the syntax in use.
 
 ### Supported Commands (theoretically)
 
