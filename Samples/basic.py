@@ -11,7 +11,7 @@ print("Hello world!") # Basic printing here...
 a = "Hello world!"
 b = 7
 c = 11.7
-d = true
+d = True
 
 # Operations
 e = 1 + 2
@@ -26,7 +26,7 @@ if c < 14:
 # While Loops
 while d:
     print("d is", d)
-    d = false
+    d = False
 while c > 3:
     print("c is", c)
     c -= 1
@@ -48,32 +48,31 @@ combineStrings("hello" + " ", "world")
 combineStrings(combineStrings("hello", "world"), "world")
 
 # Class Declarations
-class Point {
-    public x
-    public y
+class Point:
+    x = None
+    y = None
     
-    def __init__(x, y):
-        this.x = x
-        this.y = y
+    def __init__(self, x, y):
+        self.x = x
+        self.y = y
     
-    public setX(self, x):
-        this.x = x
+    def setX(self, x):
+        self.x = x
     
-    public setY(self, y):
-        this.y = y
+    def setY(self, y):
+        self.y = y
     
-    public getX(self):
-        return this.x
+    def getX(self):
+        return self.x
     
-    public getY(self):
-        return this.y
+    def getY(self):
+        return self.y
     
-    public getManhattanTotal(self):
-        return this.x + this.y
-}
+    def getManhattanTotal(self):
+        return self.x + self.y
 
 # Class Usage
-g = new Point(3, 7)
+g = Point(3, 7)
 g.setX(4)
 print(g.getManhattanTotal())
 

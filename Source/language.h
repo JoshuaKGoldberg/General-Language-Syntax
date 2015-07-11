@@ -34,14 +34,18 @@ public:
     ~Language() { }
 
     // Aliases
-    string TypeAlias(const string& type) const;
     string OperationAlias(const string& type) const;
+    string TypeAlias(const string& type) const;
+    string ValueAlias(const string& value) const;
+
+    Language& addOperationAlias(const string type, const string alias);
+    Language& inheritOperationAliases(const Language& language);
 
     Language& addTypeAlias(const string type, const string alias);
     Language& inheritTypeAliases(const Language& language);
 
-    Language& addOperationAlias(const string type, const string alias);
-    Language& inheritOperationAliases(const Language& language);
+    Language& addValueAlias(const string value, const string alias);
+    Language& inheritValueAliases(const Language& language);
 
     // Printing
     pair<string, int> Print(const string& function, const vector<string>& arguments, bool isInline) const;
@@ -113,8 +117,11 @@ public:
     GLSC_LANG_MEMBER(string, ClassConstructorName);
     GLSC_LANG_MEMBER(string, ClassEnd);
     GLSC_LANG_MEMBER(bool, ClassFunctionsTakeThis)
+    GLSC_LANG_MEMBER(string, ClassFunctionsStart)
     GLSC_LANG_MEMBER(string, ClassFunctionsThis)
+    GLSC_LANG_MEMBER(string, ClassMemberVariableDefault)
     GLSC_LANG_MEMBER(string, ClassNew)
+    GLSC_LANG_MEMBER(bool, ClassPrivacy)
     GLSC_LANG_MEMBER(string, ClassStartLeft);
     GLSC_LANG_MEMBER(string, ClassStartRight);
     GLSC_LANG_MEMBER(string, ClassThis);
@@ -164,8 +171,9 @@ public:
 
 private:
     unordered_map<string, PrinterFunction> Printers;
-    unordered_map<string, string> TypeAliases;
     unordered_map<string, string> OperationAliases;
+    unordered_map<string, string> TypeAliases;
+    unordered_map<string, string> ValueAliases;
 };
 
 #include "language.cpp"

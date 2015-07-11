@@ -13,13 +13,14 @@ void GLSC::RegisterPython() {
         .setPrintFunction("print")
         .setSemiColon("")
         .setClassConstructorName("def __init__")
-        .setClassEnd("}")
+        .setClassFunctionsStart("def ")
         .setClassFunctionsTakeThis(true)
         .setClassFunctionsThis("self")
-        .setClassNew("new")
+        .setClassMemberVariableDefault(" = None")
+        .setClassPrivacy(false)
         .setClassStartLeft("class ")
-        .setClassStartRight(" {")
-        .setClassThis("this")
+        .setClassStartRight(":")
+        .setClassThis("self")
         .setClassThisAccess(".")
         .setCommentorBlockStart("\"\"\"")
         .setCommentorBlockEnd("\"\"\"")
@@ -36,6 +37,8 @@ void GLSC::RegisterPython() {
         .setFunctionReturnsExplicit(false)
         .setVariableTypesExplicit(false)
         .setVariableDeclare("")
+        .addValueAlias("False", "false")
+        .addValueAlias("True", "true")
     );
 }
 

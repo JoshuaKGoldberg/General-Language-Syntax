@@ -57,8 +57,6 @@ Language::Language() {
         { "while variable start", &Language::WhileVariableStart }
     };
 
-    TypeAliases = {};
-
     OperationAliases = {
         { "equals", "=" },
         { "plus", "+" },
@@ -74,6 +72,10 @@ Language::Language() {
         { "lessthanequal", "<=" },
         { "greaterthanequal", ">=" },
     };
+
+    TypeAliases = {};
+
+    ValueAliases = {};
 }
 
 string Language::TypeAlias(const string& type) const {
@@ -84,6 +86,11 @@ string Language::TypeAlias(const string& type) const {
 string Language::OperationAlias(const string& operation) const {
     return OperationAliases.find(operation) == OperationAliases.end()
         ? operation : OperationAliases.find(operation)->second;
+}
+
+string Language::ValueAlias(const string& operation) const {
+    return ValueAliases.find(operation) == ValueAliases.end()
+        ? operation : ValueAliases.find(operation)->second;
 }
 
 Language& Language::addTypeAlias(const string type, const string alias) {
@@ -112,6 +119,19 @@ Language& Language::inheritOperationAliases(const Language& language) {
     return *this;
 }
 
+Language& Language::addValueAlias(const string value, const string alias) {
+    ValueAliases[alias] = value;
+    return *this;
+}
+
+Language& Language::inheritValueAliases(const Language& language) {
+    for (const auto& pair : language.ValueAliases) {
+        addValueAlias(pair.second, pair.first);
+    }
+
+    return *this;
+}
+
 
 pair<string, int> Language::Print(const string& function, const vector<string>& arguments, bool isInline = false) const {
     unordered_map<string, PrinterFunction>::const_iterator itr = Printers.find(function);
@@ -133,8 +153,19 @@ GLSC_LANG_PRINTER_DEFINE(ClassConstructorStart) {
     vector<string> variableDeclarationArguments(2, "");
     size_t i;
 
+    if (ClassFunctionsTakeThis()) {
+        variableDeclarationArguments[0] = ClassFunctionsThis();
+        variableDeclarationArguments[1] = arguments[0];
+
+        output += VariableDeclarePartial(variableDeclarationArguments, true).first;
+    }
+
     // All arguments are added using VariableDeclarePartial
     if (arguments.size() > 1) {
+        if (ClassFunctionsTakeThis()) {
+            output += ", ";
+        }
+
         for (i = 1; i < arguments.size(); i += 2) {
             variableDeclarationArguments[0] = arguments[i];
             variableDeclarationArguments[1] = arguments[i + 1];
@@ -176,9 +207,13 @@ GLSC_LANG_PRINTER_DEFINE(ClassMemberFunctionEnd) {
 
 // string class, string visibility, string name, string return, [, string argumentName, string argumentType...]
 GLSC_LANG_PRINTER_DEFINE(ClassMemberFunctionStart) {
-    string output = arguments[1] + " " + arguments[2] + "(";
+    string output = ClassFunctionsStart() + arguments[2] + "(";
     vector<string> variableDeclarationArguments(2, "");
     size_t i;
+
+    if (ClassPrivacy()) {
+        output = arguments[1] + " " + output;
+    }
 
     if (ClassFunctionsTakeThis()) {
         variableDeclarationArguments[0] = ClassFunctionsThis();
@@ -213,7 +248,11 @@ GLSC_LANG_PRINTER_DEFINE(ClassMemberVariableDeclare) {
     vector<string> declarationArguments = { arguments[0], arguments[2] };
     pair<string, int> output = VariableDeclarePartial(declarationArguments, true);
 
-    output.first = arguments[1] + " " + output.first + SemiColon();
+    if (ClassPrivacy()) {
+        output.first = arguments[1] + " " + output.first;
+    }
+
+    output.first = output.first + ClassMemberVariableDefault() + SemiColon();
 
     return output;
 }
@@ -238,7 +277,7 @@ GLSC_LANG_PRINTER_DEFINE(ClassStart) {
 
 // string name[, string argumentName, string argumentType, ...]
 GLSC_LANG_PRINTER_DEFINE(ClassNew) {
-    string output = ClassNew() + " " + arguments[0] + "(";
+    string output = ClassNew() + arguments[0] + "(";
     size_t i;
 
     if (arguments.size() > 1) {
@@ -458,7 +497,7 @@ GLSC_LANG_PRINTER_DEFINE(Main) {
 
 // string i, string direction, string differece
 GLSC_LANG_PRINTER_DEFINE(Operation) {
-    return{ arguments[0] + " " + OperationAlias(arguments[1]) + " " + arguments[2], 0 };
+    return{ arguments[0] + " " + OperationAlias(arguments[1]) + " " + ValueAlias(arguments[2]), 0 };
 }
 
 // string message, ...
@@ -507,7 +546,7 @@ GLSC_LANG_PRINTER_DEFINE(VariableDeclarePartial) {
     }
 
     if (arguments.size() >= 3) {
-        output += " = " + arguments[2];
+        output += " = " + ValueAlias(arguments[2]);
     }
 
     if (!isInline) {
