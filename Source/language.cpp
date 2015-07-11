@@ -20,7 +20,7 @@
 #define GLSC_LANG_ARGUMENTS_MIN(name, minimumArguments) \
     if (arguments.size() < minimumArguments) { \
         throw string("Not enough arguments given to " name "."); \
-    }
+                            }
 
 Language::Language() {
     Printers = {
@@ -322,11 +322,21 @@ GLSC_LANG_PRINTER_DEFINE(PrintLine) {
 GLSC_LANG_PRINTER_DEFINE(VariableDeclare) {
     string output = VariableDeclare();
 
-    if (VariableTypesExplicit()) {
-        output += arguments[1] + " ";
+    if (VariableTypesExplicit())
+    {
+        if (VariableTypesAfterName()) {
+            output += arguments[0] + VariableTypeMarker() + arguments[1];
+        }
+        else {
+            output += arguments[1] + arguments[0];
+        }
+    }
+    else {
+        output += arguments[0];
     }
 
-    output += arguments[0];
+
+
 
     if (arguments.size() >= 3) {
         output += " = " + TypeAlias(arguments[2]);
