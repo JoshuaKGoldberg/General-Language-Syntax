@@ -32,6 +32,7 @@ void GLSC::RegisterTypeScript() {
         .setFunctionDefineRight(" {")
         .setFunctionDefineEnd("}")
         .setFunctionReturnsExplicit(false)
+        .setRangedForLoops(false)
         .setVariableTypesExplicit(true)
         .setVariableTypesAfterName(true)
         .setVariableTypeMarker(": ")
