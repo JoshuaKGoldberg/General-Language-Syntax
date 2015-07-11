@@ -80,6 +80,33 @@ string Language::OperationAlias(const string& operation) const {
         ? operation : OperationAliases.find(operation)->second;
 }
 
+Language& Language::addTypeAlias(const string type, const string alias) {
+    TypeAliases[alias] = type;
+    return *this;
+}
+
+Language& Language::inheritTypeAliases(const Language& language) {
+    for (const auto& pair : language.TypeAliases) {
+        addTypeAlias(pair.second, pair.first);
+    }
+
+    return *this;
+}
+
+Language& Language::addOperationAlias(const string type, const string alias) {
+    OperationAliases[alias] = type;
+    return *this;
+}
+
+Language& Language::inheritOperationAliases(const Language& language) {
+    for (const auto& pair : language.OperationAliases) {
+        addOperationAlias(pair.second, pair.first);
+    }
+
+    return *this;
+}
+
+
 pair<string, int> Language::Print(const string& function, const vector<string>& arguments, bool isInline = false) const {
     unordered_map<string, PrinterFunction>::const_iterator itr = Printers.find(function);
     if (itr == Printers.end()) {
