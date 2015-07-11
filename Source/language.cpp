@@ -20,7 +20,7 @@
 #define GLSC_LANG_ARGUMENTS_MIN(name, minimumArguments) \
     if (arguments.size() < minimumArguments) { \
         throw string("Not enough arguments given to " name "."); \
-    }
+        }
 
 Language::Language() {
     Printers = {
@@ -327,7 +327,7 @@ GLSC_LANG_PRINTER_DEFINE(ForEnd) {
 }
 
 // string i, string type, string initial, string comparison, string boundary, string direction, string change
-// i int 0 lessthan 7 increase 1
+// e.x. i int 0 lessthan 7 increaseby 1
 GLSC_LANG_PRINTER_DEFINE(ForNumbersStart) {
     GLSC_LANG_ARGUMENTS_MIN("ForNumbersStart", 7);
     string output = "for" + ConditionStartLeft();
@@ -340,14 +340,34 @@ GLSC_LANG_PRINTER_DEFINE(ForNumbersStart) {
     const string& direction = arguments[5];
     const string& change = arguments[6];
 
-    vector<string> variableArgs = { i, type, initial };
-    output += VariableDeclare(variableArgs, false).first;
+    if (RangedForLoops()) {
+        vector<string> variableArgs = { i, type };
+        output += VariableDeclare(variableArgs, false).first;
 
-    vector<string> comparisonArgs = { i, comparison, boundary };
-    output += " " + Comparison(comparisonArgs, false).first + SemiColon();
+        output += " in range(";
+        output += initial + ", " + boundary;
+        
+        if (direction == "increaseby") {
+            if (change != "1") {
+                output += ", " + change;
+            }
+        }
+        else if (direction == "decreaseby") {
+            output += ", -" + change;
+        }
 
-    vector<string> operationArgs = { i, direction, change };
-    output += " " + Operation(operationArgs, false).first;
+        output += ")";
+    }
+    else {
+        vector<string> variableArgs = { i, type, initial };
+        output += VariableDeclare(variableArgs, false).first;
+
+        vector<string> comparisonArgs = { i, comparison, boundary };
+        output += " " + Comparison(comparisonArgs, false).first + SemiColon();
+
+        vector<string> operationArgs = { i, direction, change };
+        output += " " + Operation(operationArgs, false).first;
+    }
 
     output += ConditionStartRight();
 

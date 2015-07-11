@@ -57,7 +57,7 @@ public:
     GLSC_LANG_MEMBER(string, CommentorBlockEnd);
     GLSC_LANG_MEMBER(string, CommentorInline);
 
-    // cs
+    // Conditionals
     GLSC_LANG_MEMBER(string, ConditionStartLeft);
     GLSC_LANG_MEMBER(string, ConditionStartRight);
     GLSC_LANG_MEMBER(string, ConditionContinueLeft);
@@ -92,6 +92,9 @@ public:
     // Strings
     GLSC_LANG_MEMBER(string, StringClass);
     GLSC_LANG_MEMBER(string, StringLength);
+
+    // Loops
+    GLSC_LANG_MEMBER(bool, RangedForLoops)
 
     // Arrays
     GLSC_LANG_MEMBER(string, ArrayClass);

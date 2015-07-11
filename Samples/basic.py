@@ -32,7 +32,7 @@ while c > 3:
     c -= 1
 
 # For Loops
-for i = 0 i < 7 i += 1:
+for i in range(0, 7):
     print("i plus one is", i + 1)
 
 # Function Definitions
