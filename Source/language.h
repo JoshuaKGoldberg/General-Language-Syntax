@@ -106,11 +106,16 @@ public:
     // Dictionaries
     GLSC_LANG_MEMBER(string, DictionaryClass);
 
+    // Classes
+    GLSC_LANG_MEMBER(string, ClassConstructorStart);
+    GLSC_LANG_MEMBER(string, ClassEnd);
+    GLSC_LANG_MEMBER(bool, ClassFunctionsTakeThis)
+    GLSC_LANG_MEMBER(string, ClassStartLeft);
+    GLSC_LANG_MEMBER(string, ClassStartRight);
+    GLSC_LANG_MEMBER(string, ClassThis);
+    GLSC_LANG_MEMBER(string, ClassThisAccess);
+
     // Printers
-    GLSC_LANG_PRINTER_DECLARE(ClassEnd);
-    GLSC_LANG_PRINTER_DECLARE(ClassMemberVariable);
-    GLSC_LANG_PRINTER_DECLARE(ClassMemberFunction);
-    GLSC_LANG_PRINTER_DECLARE(ClassStart);
     GLSC_LANG_PRINTER_DECLARE(CommentBlock);
     GLSC_LANG_PRINTER_DECLARE(CommentInline);
     GLSC_LANG_PRINTER_DECLARE(CommentLine);
