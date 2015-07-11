@@ -20,7 +20,7 @@
 #define GLSC_LANG_ARGUMENTS_MIN(name, minimumArguments) \
     if (arguments.size() < minimumArguments) { \
         throw string("Not enough arguments given to " name "."); \
-                                                    }
+                                                        }
 
 Language::Language() {
     Printers = {
@@ -186,8 +186,12 @@ GLSC_LANG_PRINTER_DEFINE(ClassMemberVariableGet) {
     return{ string("nope"), 0 };
 }
 
+// string name, string value
 GLSC_LANG_PRINTER_DEFINE(ClassMemberVariableSet) {
-    return{ string("nope"), 0 };
+    string output = ClassThis() + ClassThisAccess();
+    output += arguments[0] + " " + OperationAlias("equals") + " " + arguments[1];
+    output += SemiColon();
+    return{ output, 0 };
 }
 
 // string name
