@@ -7,8 +7,9 @@
 #include <string>
 
 #include "glsc.h"
-#include "Languages/TypeScript.h"
+#include "Languages/CPlusPlus.h"
 #include "Languages/Python.h"
+#include "Languages/TypeScript.h"
 
 string StripFilename(const string& fileName);
 void PrintHelp();

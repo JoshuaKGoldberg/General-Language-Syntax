@@ -40,8 +40,9 @@ public:
     void RegisterLanguage(const string language);
     void RegisterLanguage(Language language);
     const Language& getLanguage(const string name) const;
-    void RegisterTypeScript();
+    void RegisterCPlusPlus();
     void RegisterPython();
+    void RegisterTypeScript();
 
 protected:
     inline string generateTabs(const size_t numTabs) const;
