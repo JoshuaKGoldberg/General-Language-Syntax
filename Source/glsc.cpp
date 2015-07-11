@@ -80,9 +80,22 @@ string GLSC::ParseCommands(const Language& language, const vector<string>& comma
     size_t i;
 
     // Minimizes the amount of resizes the string will have to do later on...
-    output.resize(commandsRaw.size() * 7);
+    output.reserve(commandsRaw.size() * 7);
 
-    for (i = 0; i < commandsRaw.size(); i += 1) {
+    // The first line will never start with a newline, or be initially tabbed
+    try {
+        command = ParseCommand(language, commandsRaw[0], false);
+        // The first character seems to be skipped. Not sure why...
+        output += " " + command.first;
+        numTabs += command.second;
+    }
+    catch (const char* error) {
+        cout << "Got an error!" << endl;
+        output += "!!!!!!! " + string(error) + " !!!!!!!";
+    }
+
+    // The rest of the commands all might have different tabbings
+    for (i = 1; i < commandsRaw.size(); i += 1) {
         try {
             command = ParseCommand(language, commandsRaw[i], false);
         }
@@ -107,7 +120,7 @@ string GLSC::ParseCommands(const Language& language, const vector<string>& comma
         }
     }
 
-    return output;
+    return output.substr(1);
 }
 
 pair<string, int> GLSC::ParseCommand(const string& language, const string& commandRaw, bool isInline = false) const {

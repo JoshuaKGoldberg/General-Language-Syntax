@@ -1,4 +1,4 @@
-comment block : (Basic GLS Syntax) (Version 0.1) (Josh Goldberg)
+comment block : (Basic GLS Syntax) (Version 0.0.1) (Josh Goldberg)
 
 comment line : (Basic Usage)
 print line : ("Hello world!")
