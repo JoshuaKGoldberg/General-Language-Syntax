@@ -176,9 +176,13 @@ GLSC_LANG_PRINTER_DEFINE(ClassMemberFunctionEnd) {
 
 // string class, string visibility, string name, string return, [, string argumentName, string argumentType...]
 GLSC_LANG_PRINTER_DEFINE(ClassMemberFunctionStart) {
-    string output = arguments[1] + " " + arguments[2] + "(";
+    string output = arguments[2] + "(";
     vector<string> variableDeclarationArguments(2, "");
     size_t i;
+
+    if (ClassPrivacy()) {
+        output = arguments[1] + " " + output;
+    }
 
     if (ClassFunctionsTakeThis()) {
         variableDeclarationArguments[0] = ClassFunctionsThis();
@@ -213,7 +217,11 @@ GLSC_LANG_PRINTER_DEFINE(ClassMemberVariableDeclare) {
     vector<string> declarationArguments = { arguments[0], arguments[2] };
     pair<string, int> output = VariableDeclarePartial(declarationArguments, true);
 
-    output.first = arguments[1] + " " + output.first + SemiColon();
+    if (ClassPrivacy()) {
+        output.first = arguments[1] + " " + output.first;
+    }
+
+    output.first = output.first + SemiColon();
 
     return output;
 }

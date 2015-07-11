@@ -48,27 +48,27 @@ combineStrings("hello" + " ", "world")
 combineStrings(combineStrings("hello", "world"), "world")
 
 # Class Declarations
-class Point {
-    public x
-    public y
+class Point:
+    x
+    y
     
     def __init__(x, y):
         this.x = x
         this.y = y
     
-    public setX(self, x):
+    setX(self, x):
         this.x = x
     
-    public setY(self, y):
+    setY(self, y):
         this.y = y
     
-    public getX(self):
+    getX(self):
         return this.x
     
-    public getY(self):
+    getY(self):
         return this.y
     
-    public getManhattanTotal(self):
+    getManhattanTotal(self):
         return this.x + this.y
 }
 
