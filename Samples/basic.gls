@@ -61,29 +61,28 @@ class start : Point
         class member variable set : y y
     class constructor end 
     
-    class member function start : Point setX void x int
+    class member function start : Point public setX void x int
         class member variable set : x x
     class member function end
     
-    class member function start : Point setY void x int
+    class member function start : Point public setY void x int
         class member variable set : y y
     class member function end
     
-    class member function start : Point getX int
+    class member function start : Point public getX int
         function return : { class member variable get : x}
     class member function end
     
-    class member function start : Point getY int
+    class member function start : Point public getY int
         function return : { class member variable get : Y}
     class member function end
     
-    class member function start : Point getManhattanTotal int
+    class member function start : Point public getManhattanTotal int
         function return : { operation : x plus y }
     class member function end
 class end
 
 comment line : (Class Usage)
-
 variable declare : e Point { class new : Point 3 7 }
 class member function call : e setX 4
 print line : { class member function call : e getManhattanTotal }

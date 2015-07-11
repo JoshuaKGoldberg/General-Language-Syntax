@@ -20,7 +20,7 @@
 #define GLSC_LANG_ARGUMENTS_MIN(name, minimumArguments) \
     if (arguments.size() < minimumArguments) { \
         throw string("Not enough arguments given to " name "."); \
-                                                        }
+                                                                }
 
 Language::Language() {
     Printers = {
@@ -167,9 +167,38 @@ GLSC_LANG_PRINTER_DEFINE(ClassMemberFunctionEnd) {
     return{ FunctionDefineEnd(), -1 };
 }
 
+// string class, string visibility, string name, string return, [, string argumentName, string argumentType...]
 GLSC_LANG_PRINTER_DEFINE(ClassMemberFunctionStart) {
-    string output = "nope";
-    return{ output, 0 };
+    string output = arguments[1] + " " + arguments[2] + "(";
+    vector<string> variableDeclarationArguments(2, "");
+    size_t i;
+
+    if (ClassFunctionsTakeThis()) {
+        variableDeclarationArguments[0] = ClassFunctionsThis();
+        variableDeclarationArguments[1] = arguments[0];
+
+        output += VariableDeclarePartial(variableDeclarationArguments, true).first;
+    }
+
+    // All arguments are added using VariableDeclarePartial
+    if (arguments.size() > 4) {
+        if (ClassFunctionsTakeThis()) {
+            output += ", ";
+        }
+
+        for (i = 4; i < arguments.size(); i += 2) {
+            variableDeclarationArguments[0] = arguments[i];
+            variableDeclarationArguments[1] = arguments[i + 1];
+
+            output += VariableDeclarePartial(variableDeclarationArguments, true).first + ", ";
+        }
+
+        // The last argument does not have the last ", " at the end
+        output.erase(output.size() - 2);
+    }
+
+    output += ")" + FunctionDefineRight();
+    return{ output, 1 };
 }
 
 // string name, string visibility, string type
@@ -182,8 +211,9 @@ GLSC_LANG_PRINTER_DEFINE(ClassMemberVariableDeclare) {
     return output;
 }
 
+// string name
 GLSC_LANG_PRINTER_DEFINE(ClassMemberVariableGet) {
-    return{ string("nope"), 0 };
+    return{ ClassThis() + ClassThisAccess() + SemiColon(), 0 };
 }
 
 // string name, string value
