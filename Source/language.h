@@ -116,6 +116,16 @@ public:
     GLSC_LANG_MEMBER(string, ClassThisAccess);
 
     // Printers
+    GLSC_LANG_PRINTER_DECLARE(ClassConstructorEnd);
+    GLSC_LANG_PRINTER_DECLARE(ClassConstructorStart);
+    GLSC_LANG_PRINTER_DECLARE(ClassEnd);
+    GLSC_LANG_PRINTER_DECLARE(ClassMemberFunctionCall);
+    GLSC_LANG_PRINTER_DECLARE(ClassMemberFunctionEnd);
+    GLSC_LANG_PRINTER_DECLARE(ClassMemberFunctionStart);
+    GLSC_LANG_PRINTER_DECLARE(ClassMemberVariableDeclare);
+    GLSC_LANG_PRINTER_DECLARE(ClassMemberVariableGet);
+    GLSC_LANG_PRINTER_DECLARE(ClassMemberVariableSet);
+    GLSC_LANG_PRINTER_DECLARE(ClassStart);
     GLSC_LANG_PRINTER_DECLARE(CommentBlock);
     GLSC_LANG_PRINTER_DECLARE(CommentInline);
     GLSC_LANG_PRINTER_DECLARE(CommentLine);

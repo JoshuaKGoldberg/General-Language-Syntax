@@ -24,10 +24,16 @@
 
 Language::Language() {
     Printers = {
-        { "class end", &Language::ClassEnd },
-        { "class member variable", &Language::ClassMemberVariable },
-        { "class member function", &Language::ClassMemberFunction },
-        { "class start", &Language::ClassStart },
+        //{ "class constructor end", &Language::ClassConstructorEnd },
+        //{ "class constructor start", &Language::ClassConstructorStart },
+        //{ "class end", &Language::ClassEnd },
+        //{ "class member function call", &Language::ClassMemberFunctionCall },
+        //{ "class member function end", &Language::ClassMemberFunctionEnd },
+        //{ "class member function start", &Language::ClassMemberStart },
+        //{ "class member variable declare", &Language::ClassVariableDeclare },
+        //{ "class member variable get", &Language::ClassMemberVariableGet },
+        //{ "class member variable set", &Language::ClassMemberVariableSet },
+        //{ "class start", &Language::ClassStart },
         { "comment block", &Language::CommentBlock },
         { "comment inline", &Language::CommentInline },
         { "comment line", &Language::CommentLine },
@@ -44,6 +50,7 @@ Language::Language() {
         { "operation", &Language::Operation },
         { "print line", &Language::PrintLine },
         { "variable declare", &Language::VariableDeclare },
+        { "variable declare partial", &Language::VariableDeclarePartial },
         { "while condition start", &Language::WhileConditionStart },
         { "while end", &Language::WhileEnd },
         { "while variable start", &Language::WhileVariableStart }
@@ -112,27 +119,6 @@ pair<string, int> Language::Print(const string& function, const vector<string>& 
     }
 
     return (this->*(itr->second))(arguments, isInline);
-}
-
-GLSC_LANG_PRINTER_DEFINE(ClassEnd) {
-    return{ ConditionEnd() + SemiColon(), -1 };
-}
-
-// string name
-GLSC_LANG_PRINTER_DEFINE(ClassMemberVariable) {
-    return{ "class start", 1 };
-}
-
-// string privacy, { function }
-GLSC_LANG_PRINTER_DEFINE(ClassMemberFunction) {
-    vector<string> functionArguments = arguments;
-
-    return{ "class member function", 1 };
-}
-
-GLSC_LANG_PRINTER_DEFINE(ClassStart) {
-    GLSC_LANG_ARGUMENTS_MIN("ClasStart", 1);
-    return{ "class " + arguments[0] + ConditionStartRight(), 1 };
 }
 
 // string message, ...
