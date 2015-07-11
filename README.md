@@ -1,5 +1,5 @@
 # General Language Syntax Compiler
-A compiler for a general language syntax that can be mapped 1-1 to common languages like JavaScript or Python
+A compiler for a general language syntax that can be mapped 1-1 to common languages like TypeScript or Python
 
 ### Project Goal
 
@@ -10,19 +10,19 @@ To make a general syntax for simple programming logic that can be compiled into 
 Each line contains a single command, a colon, and a list of arguments of any amount. For example, the following line calls the `print line` command, with the single argument `"GLS!"`
 
     print line : "GLS!"
-* *JavaScript equivalent:* `console.log("GLS!");`
+* *TypeScript equivalent:* `console.log("GLS!");`
 * *Python equivalent*: `print("GLS!")`
 
 You can use parenthesis (`()`) to allow spaces in your argument.
 
     print line : ("Hello world!")
-* *JavaScript equivalent:*: `console.log("Hello world!");`
+* *TypeScript equivalent:*: `console.log("Hello world!");`
 * *Python equivalent*: `print("Hello !")`
 
 You can use curly brackets (`{}`) to have commands parsed to be arguments for other commands.
 
     comment line : { print line : (\"Hello world!\") }
-* *JavaScript equivalent:*: `// console.log("Hello world!");`
+* *TypeScript equivalent:*: `// console.log("Hello world!");`
 * *Python equivalent*: `# print("Hello !")`
 
 See Source/basic.gls for examples of the syntax in use.
@@ -31,12 +31,17 @@ See Source/basic.gls for examples of the syntax in use.
 
 Bold commands are currently implemented. Regular commands are in progress.
 
-* class constructor
-* class destructor
-* class end
-* class function
-* class member
-* class start
+* **class constructor end**
+* **class constructor start**
+* **class end**
+* **class member function call**
+* **class member function end**
+* **class member function start**
+* **class member variable declare**
+* **class member variable get**
+* **class member variable set**
+* **class new**
+* **class start**
 * **comment block**
 * **comment inline**
 * **comment line**
