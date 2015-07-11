@@ -7,7 +7,7 @@
 #include <string>
 
 #include "glsc.h"
-#include "Languages/JavaScript.h"
+#include "Languages/TypeScript.h"
 #include "Languages/Python.h"
 
 string StripFilename(const string& fileName);
@@ -62,14 +62,14 @@ void PrintHelp() {
     cout << endl;
     cout << "General Language Syntax Compiler (GLSC) Version 0.1" << endl;
     cout << "2015 - Josh Goldberg" << endl;
-    cout << "A compiler for a general language syntax that can be mapped 1-1 to common languages like JavaScript or Python." << endl;
+    cout << "A compiler for a general language syntax that can be mapped 1-1 to common languages like TypeScript or Python." << endl;
     cout << endl;
     cout << "Usage:" << endl;
     cout << "    glsc <file1> <file2> <file3> ... [-l <language>] [-d <directory>]" << endl;
     cout << endl;
     cout << "Examples:" << endl;
     cout << "    glsc source.gls -l Python" << endl;
-    cout << "    glsc one.gls two.gls three.gls -l JavaScript -l Python" << endl;
+    cout << "    glsc one.gls two.gls three.gls -l TypeScript -l Python" << endl;
     cout << "    glsc -l Python -d path/to/results main.gls" << endl;
     cout << endl;
 }

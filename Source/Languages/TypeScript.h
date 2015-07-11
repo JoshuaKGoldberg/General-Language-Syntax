@@ -1,15 +1,15 @@
-#ifndef _GLSC_SOURCE_LANGUAGES_JAVASCRIPT_
-#define _GLSC_SOURCE_LANGUAGES_JAVASCRIPT_
+#ifndef _GLSC_SOURCE_LANGUAGES_TYPESCRIPT_
+#define _GLSC_SOURCE_LANGUAGES_TYPESCRIPT_
 
 #include "../GLSC.h"
 #include "../Language.h"
 
 using namespace std;
 
-void GLSC::RegisterJavaScript() {
+void GLSC::RegisterTypeScript() {
     RegisterLanguage(Language()
-        .setName("JavaScript")
-        .setExtension("js")
+        .setName("TypeScript")
+        .setExtension("ts")
         .setPrintFunction("console.log")
         .setSemiColon(";")
         .setCommentorBlockStart("/*")
@@ -24,7 +24,7 @@ void GLSC::RegisterJavaScript() {
         .setFunctionDefineRight(" {")
         .setFunctionDefineEnd("}")
         .setFunctionReturnsExplicit(false)
-        .setVariableTypesExplicit(false)
+        .setVariableTypesExplicit(true)
         .setVariableDeclare("var ")
     );
 }

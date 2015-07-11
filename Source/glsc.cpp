@@ -191,8 +191,8 @@ void GLSC::RegisterLanguage(const string language) {
         return;
     }
 
-    if (language == "JavaScript") {
-        RegisterJavaScript();
+    if (language == "TypeScript") {
+        RegisterTypeScript();
         return;
     }
 }
