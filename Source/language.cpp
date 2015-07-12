@@ -538,7 +538,7 @@ GLSC_LANG_PRINTER_DEFINE(VariableDeclarePartial) {
             output += arguments[0] + VariableTypeMarker() + TypeAlias(arguments[1]);
         }
         else {
-            output += TypeAlias(arguments[1]) + arguments[0];
+            output += TypeAlias(arguments[1]) + " " + arguments[0];
         }
     }
     else {
