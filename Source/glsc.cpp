@@ -202,11 +202,6 @@ void GLSC::RegisterLanguage(const string language) {
         RegisterTypeScript();
         return;
     }
-
-    if (language == "CPlusPlus") {
-        RegisterCPlusPlus();
-        return;
-    }
 }
 
 void GLSC::RegisterLanguage(Language language) {

@@ -7,7 +7,6 @@
 #include <string>
 
 #include "glsc.h"
-#include "Languages/CPlusPlus.h"
 #include "Languages/Python.h"
 #include "Languages/TypeScript.h"
 
