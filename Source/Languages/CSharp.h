@@ -1,19 +1,19 @@
-#ifndef _GLSC_SOURCE_LANGUAGES_TYPESCRIPT_
-#define _GLSC_SOURCE_LANGUAGES_TYPESCRIPT_
+#ifndef _GLSC_SOURCE_LANGUAGES_CSHARP_
+#define _GLSC_SOURCE_LANGUAGES_CSHARP_
 
 #include "../GLSC.h"
 #include "../Language.h"
 
 using namespace std;
 
-void GLSC::RegisterTypeScript() {
+void GLSC::RegisterCSharp() {
     RegisterLanguage(Language()
-        .setName("TypeScript")
-        .setExtension("ts")
-        .setPrintFunction("console.log")
+        .setName("CSharp")
+        .setExtension("cs")
+        .setPrintFunction("System.Console.WriteLine")
         .setSemiColon(";")
-        .setClassConstructorName("constructor")
-        .setClassEnd("}")
+        .setClassConstructorName("") // should default to using class name, then delete here
+        .setClassEnd("};")
         .setClassFunctionsTakeThis(false)
         .setClassNew("new ")
         .setClassPrivacy(true)
@@ -29,19 +29,15 @@ void GLSC::RegisterTypeScript() {
         .setConditionContinueLeft("} ")
         .setConditionContinueRight(" {")
         .setConditionEnd("}")
-        .setFunctionDefine("function ")
         .setFunctionDefineRight(" {")
         .setFunctionDefineEnd("}")
-        .setFunctionReturnsExplicit(false)
+        .setFunctionReturnsExplicit(true)
         .setRangedForLoops(false)
         .setVariableTypesExplicit(true)
-        .setVariableTypesAfterName(true)
-        .setVariableTypeMarker(": ")
-        .setVariableDeclare("var ")
-        .addTypeAlias("number", "int")
-        .addTypeAlias("number", "double")
-        .addTypeAlias("number", "float")
-    );
+        .setVariableTypesAfterName(false)
+        .addTypeAlias("int", "number")
+        .addTypeAlias("bool", "boolean")
+        );
 }
 
 #endif

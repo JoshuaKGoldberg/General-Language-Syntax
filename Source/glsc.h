@@ -40,6 +40,7 @@ public:
     void RegisterLanguage(const string language);
     void RegisterLanguage(Language language);
     const Language& getLanguage(const string name) const;
+    void RegisterCSharp();
     void RegisterPython();
     void RegisterTypeScript();
 

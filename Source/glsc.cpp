@@ -202,6 +202,13 @@ void GLSC::RegisterLanguage(const string language) {
         RegisterTypeScript();
         return;
     }
+
+    if (language == "CSharp") {
+        RegisterCSharp();
+        return;
+    }
+
+    cerr << "Unknown language: " << language << endl;
 }
 
 void GLSC::RegisterLanguage(Language language) {
