@@ -48,6 +48,8 @@ Language::Language() {
         { "if condition start", &Language::IfConditionStart },
         { "if end", &Language::IfEnd },
         { "if variable start", &Language::IfVariableStart },
+        { "main end", &Language::MainEnd },
+        { "main start", &Language::MainStart },
         { "operation", &Language::Operation },
         { "print line", &Language::PrintLine },
         { "variable declare", &Language::VariableDeclare },
@@ -499,11 +501,15 @@ GLSC_LANG_PRINTER_DEFINE(IfVariableStart) {
     return{ "if" + ConditionStartLeft() + arguments[0] + ConditionStartRight(), 1 };
 }
 
-GLSC_LANG_PRINTER_DEFINE(Import) {
-    return{ "", 0 };
+GLSC_LANG_PRINTER_DEFINE(MainEnd) {
+    return{ "nope", -1 };
 }
 
-GLSC_LANG_PRINTER_DEFINE(Main) {
+GLSC_LANG_PRINTER_DEFINE(MainStart) {
+    return{ "nope", 1 };
+}
+
+GLSC_LANG_PRINTER_DEFINE(Import) {
     return{ "", 0 };
 }
 

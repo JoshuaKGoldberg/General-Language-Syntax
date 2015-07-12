@@ -58,12 +58,13 @@ Bold commands are currently implemented. Regular commands are in progress.
 * **if condition start**
 * **if end**
 * **if variable start**
-* main start
-* main end
+* **main start**
+* **main end**
 * **operation**
 * **operation change**
 * **print line**
 * **variable declare**
+* **variable declare partial**
 * **while condition start**
 * **while end**
 * **while variable start**
