@@ -5,7 +5,7 @@ Josh Goldberg
 */
 
 // Basic Usage
-cout("Hello world!"); // Basic printing here...
+System.Console.WriteLine("Hello world!"); // Basic printing here...
 
 // Variables
 string a = "Hello world!";
@@ -19,30 +19,30 @@ boolean f = b < c;
 
 // If Statements
 if (d) {
-    cout("d is true!");
+    System.Console.WriteLine("d is true!");
 }
 if (c < 14) {
-    cout("c is less than 14!");
+    System.Console.WriteLine("c is less than 14!");
 }
 
 // While Loops
 while (d) {
-    cout("d is", d);
+    System.Console.WriteLine("d is", d);
     d = false
 }
 while (c > 3) {
-    cout("c is", c);
+    System.Console.WriteLine("c is", c);
     c -= 1
 }
 
 // For Loops
 for (int i = 0; i < 7; i += 1) {
-    cout("i plus one is", i + 1);
+    System.Console.WriteLine("i plus one is", i + 1);
 }
 
 // Function Definitions
  sayHello() {
-    cout("Hello world!");
+    System.Console.WriteLine("Hello world!");
 }
  combineStrings(string a, string b) {
     return a + b;
@@ -88,6 +88,6 @@ class Point {
 // Class Usage
 Point g = new Point(3, 7);
 g.setX(4)
-cout(g.getManhattanTotal());
+System.Console.WriteLine(g.getManhattanTotal());
 
 // fin
