@@ -98,7 +98,7 @@ public:
     GLSC_LANG_MEMBER(string, StringLength);
 
     // Loops
-    GLSC_LANG_MEMBER(bool, RangedForLoops)
+    GLSC_LANG_MEMBER(bool, RangedForLoops);
 
     // Arrays
     GLSC_LANG_MEMBER(string, ArrayClass);
@@ -116,16 +116,22 @@ public:
     // Classes
     GLSC_LANG_MEMBER(string, ClassConstructorName);
     GLSC_LANG_MEMBER(string, ClassEnd);
-    GLSC_LANG_MEMBER(bool, ClassFunctionsTakeThis)
-    GLSC_LANG_MEMBER(string, ClassFunctionsStart)
-    GLSC_LANG_MEMBER(string, ClassFunctionsThis)
-    GLSC_LANG_MEMBER(string, ClassMemberVariableDefault)
-    GLSC_LANG_MEMBER(string, ClassNew)
-    GLSC_LANG_MEMBER(bool, ClassPrivacy)
+    GLSC_LANG_MEMBER(bool, ClassFunctionsTakeThis);
+    GLSC_LANG_MEMBER(string, ClassFunctionsStart);
+    GLSC_LANG_MEMBER(string, ClassFunctionsThis);
+    GLSC_LANG_MEMBER(string, ClassMemberVariableDefault);
+    GLSC_LANG_MEMBER(string, ClassNew);
+    GLSC_LANG_MEMBER(bool, ClassPrivacy);
     GLSC_LANG_MEMBER(string, ClassStartLeft);
     GLSC_LANG_MEMBER(string, ClassStartRight);
     GLSC_LANG_MEMBER(string, ClassThis);
     GLSC_LANG_MEMBER(string, ClassThisAccess);
+
+    // Main
+    GLSC_LANG_MEMBER(bool, MainUsed);
+    GLSC_LANG_MEMBER(int, MainIndents);
+    GLSC_LANG_MEMBER(vector<string>, MainEnd);
+    GLSC_LANG_MEMBER(vector<string>, MainStart);
 
     // Printers
     GLSC_LANG_PRINTER_DECLARE(ClassConstructorEnd);
@@ -163,7 +169,7 @@ public:
     GLSC_LANG_PRINTER_DECLARE(MainEnd);
     GLSC_LANG_PRINTER_DECLARE(MainStart);
     GLSC_LANG_PRINTER_DECLARE(Operation);
-    GLSC_LANG_PRINTER_DECLARE(PrintLine)
+    GLSC_LANG_PRINTER_DECLARE(PrintLine);
     GLSC_LANG_PRINTER_DECLARE(VariableDeclare);
     GLSC_LANG_PRINTER_DECLARE(VariableDeclarePartial);
     GLSC_LANG_PRINTER_DECLARE(WhileConditionStart);
