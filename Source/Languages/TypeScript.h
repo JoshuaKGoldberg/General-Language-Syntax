@@ -33,6 +33,10 @@ void GLSC::RegisterTypeScript() {
         .setFunctionDefineRight(" {")
         .setFunctionDefineEnd("}")
         .setFunctionReturnsExplicit(false)
+        .setMainEndLines(vector<string> { "})();" })
+        .setMainIndents(1)
+        .setMainStartLines(vector<string> { "(function () {" })
+        .setMainUsed(true)
         .setRangedForLoops(false)
         .setVariableTypesExplicit(true)
         .setVariableTypesAfterName(true)
@@ -41,7 +45,7 @@ void GLSC::RegisterTypeScript() {
         .addTypeAlias("number", "int")
         .addTypeAlias("number", "double")
         .addTypeAlias("number", "float")
-    );
+        );
 }
 
 #endif

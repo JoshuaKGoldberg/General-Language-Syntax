@@ -128,10 +128,10 @@ public:
     GLSC_LANG_MEMBER(string, ClassThisAccess);
 
     // Main
-    GLSC_LANG_MEMBER(bool, MainUsed);
+    GLSC_LANG_MEMBER(vector<string>, MainEndLines);
     GLSC_LANG_MEMBER(int, MainIndents);
-    GLSC_LANG_MEMBER(vector<string>, MainEnd);
-    GLSC_LANG_MEMBER(vector<string>, MainStart);
+    GLSC_LANG_MEMBER(vector<string>, MainStartLines);
+    GLSC_LANG_MEMBER(bool, MainUsed);
 
     // Printers
     GLSC_LANG_PRINTER_DECLARE(ClassConstructorEnd);

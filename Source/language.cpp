@@ -502,11 +502,37 @@ GLSC_LANG_PRINTER_DEFINE(IfVariableStart) {
 }
 
 GLSC_LANG_PRINTER_DEFINE(MainEnd) {
-    return{ "nope", -1 };
+    if (!MainUsed()) {
+        return{ "", 0 };
+    }
+
+    vector<string> lines = MainEndLines();
+    string output;
+
+    for (size_t i = 0; i < lines.size(); i += 1) {
+        output += lines[i] + '\0';
+    }
+
+    output.erase(output.size() - 1);
+
+    return{ output, (int)(lines.size()) * -1 };
 }
 
 GLSC_LANG_PRINTER_DEFINE(MainStart) {
-    return{ "nope", 1 };
+    if (!MainUsed()) {
+        return{ "", 0 };
+    }
+
+    vector<string> lines = MainStartLines();
+    string output;
+
+    for (size_t i = 0; i < lines.size(); i += 1) {
+        output += lines[i] + '\0';
+    }
+
+    output.erase(output.size() - 1);
+
+    return{ output, lines.size() };
 }
 
 GLSC_LANG_PRINTER_DEFINE(Import) {

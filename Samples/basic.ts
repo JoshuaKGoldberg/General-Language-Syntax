@@ -3,7 +3,7 @@ Basic GLS Syntax
 Version 0.0.1
 Josh Goldberg
 */
-nope
+(function () {
     // Basic Usage
     console.log("Hello world!"); // Basic printing here...
     
@@ -58,7 +58,7 @@ nope
     var g: Point = new Point(3, 7);
     g.setX(4)
     console.log(g.getManhattanTotal());
-nope
+})();
 
 // Class Declarations
 class Point {
