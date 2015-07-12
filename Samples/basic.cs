@@ -11,11 +11,11 @@ System.Console.WriteLine("Hello world!"); // Basic printing here...
 string a = "Hello world!";
 int b = 7;
 double c = 11.7;
-boolean d = true;
+bool d = true;
 
 // Operations
 int e = 1 + 2;
-boolean f = b < c;
+bool f = b < c;
 
 // If Statements
 if (d) {

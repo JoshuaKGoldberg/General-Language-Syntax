@@ -36,7 +36,7 @@ void GLSC::RegisterCSharp() {
         .setVariableTypesExplicit(true)
         .setVariableTypesAfterName(false)
         .addTypeAlias("int", "number")
-        .addTypeAlias("boolean", "bool")
+        .addTypeAlias("bool", "boolean")
         );
 }
 
