@@ -29,7 +29,7 @@ void GLSC::RegisterTypeScript() {
         .setConditionContinueLeft("} ")
         .setConditionContinueRight(" {")
         .setConditionEnd("}")
-        .setFunctionDefine("function")
+        .setFunctionDefine("function ")
         .setFunctionDefineRight(" {")
         .setFunctionDefineEnd("}")
         .setFunctionReturnsExplicit(false)

@@ -41,10 +41,10 @@ for (int i = 0; i < 7; i += 1) {
 }
 
 // Function Definitions
- sayHello() {
+void sayHello() {
     System.Console.WriteLine("Hello world!");
 }
- combineStrings(string a, string b) {
+string combineStrings(string a, string b) {
     return a + b;
 }
 
@@ -59,28 +59,28 @@ class Point {
     public int x;
     public int y;
     
-    (int x, int y) {
+    Point(int x, int y) {
         this.x = x;
         this.y = y;
     }
     
-    public setX(int x) {
+    public void setX(int x) {
         this.x = x;
     }
     
-    public setY(int y) {
+    public void setY(int y) {
         this.y = y;
     }
     
-    public getX() {
+    public int getX() {
         return this.x;
     }
     
-    public getY() {
+    public int getY() {
         return this.y;
     }
     
-    public getManhattanTotal() {
+    public int getManhattanTotal() {
         return this.x + this.y;
     }
 };

@@ -20,7 +20,7 @@
 #define GLSC_LANG_ARGUMENTS_MIN(name, minimumArguments) \
     if (arguments.size() < minimumArguments) { \
         throw string("Not enough arguments given to " name "."); \
-        }
+                }
 
 Language::Language() {
     Printers = {
@@ -149,9 +149,15 @@ GLSC_LANG_PRINTER_DEFINE(ClassConstructorEnd) {
 
 // string name[, string argumentName, string argumentType, ...]
 GLSC_LANG_PRINTER_DEFINE(ClassConstructorStart) {
-    string output = ClassConstructorName() + "(";
+    string output = ClassConstructorName();
     vector<string> variableDeclarationArguments(2, "");
     size_t i;
+
+    if (output.size() == 0) {
+        output = arguments[0];
+    }
+
+    output += "(";
 
     if (ClassFunctionsTakeThis()) {
         variableDeclarationArguments[0] = ClassFunctionsThis();
@@ -207,13 +213,19 @@ GLSC_LANG_PRINTER_DEFINE(ClassMemberFunctionEnd) {
 
 // string class, string visibility, string name, string return, [, string argumentName, string argumentType...]
 GLSC_LANG_PRINTER_DEFINE(ClassMemberFunctionStart) {
-    string output = ClassFunctionsStart() + arguments[2] + "(";
+    string output = ClassFunctionsStart();
     vector<string> variableDeclarationArguments(2, "");
     size_t i;
+
+    if (FunctionReturnsExplicit()) {
+        output = arguments[3] + " ";
+    }
 
     if (ClassPrivacy()) {
         output = arguments[1] + " " + output;
     }
+
+    output += arguments[2] + "(";
 
     if (ClassFunctionsTakeThis()) {
         variableDeclarationArguments[0] = ClassFunctionsThis();
@@ -385,7 +397,7 @@ GLSC_LANG_PRINTER_DEFINE(ForNumbersStart) {
 
         output += " in range(";
         output += initial + ", " + boundary;
-        
+
         if (direction == "increaseby") {
             if (change != "1") {
                 output += ", " + change;
@@ -449,7 +461,7 @@ GLSC_LANG_PRINTER_DEFINE(FunctionStart) {
         output += arguments[1] + " ";
     }
 
-    output += FunctionDefine() + " " + arguments[0] + "(";
+    output += FunctionDefine() + arguments[0] + "(";
 
     // All arguments are added using VariableDeclarePartial
     if (arguments.size() > 2) {

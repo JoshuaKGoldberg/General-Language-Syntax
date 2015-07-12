@@ -30,7 +30,7 @@ void GLSC::RegisterPython() {
         .setConditionContinueLeft(" ")
         .setConditionContinueRight(":")
         .setConditionEnd("")
-        .setFunctionDefine("def")
+        .setFunctionDefine("def ")
         .setFunctionDefineRight(":")
         .setFunctionDefineEnd("")
         .setRangedForLoops(true)
