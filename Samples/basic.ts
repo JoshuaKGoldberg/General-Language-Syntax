@@ -4,6 +4,46 @@ Version 0.0.1
 Josh Goldberg
 */
 module SampleFile {
+    // Function Definitions
+    function sayHello() {
+        console.log("Hello world!");
+    }
+    function combineStrings(a: string, b: string) {
+        return a + b;
+    }
+    
+    // Class Declarations
+    class Point {
+        public x: number;
+        public y: number;
+        
+        constructor(x: number, y: number) {
+            this.x = x;
+            this.y = y;
+        }
+        
+        public setX(x: number) {
+            this.x = x;
+        }
+        
+        public setY(y: number) {
+            this.y = y;
+        }
+        
+        public getX() {
+            return this.x;
+        }
+        
+        public getY() {
+            return this.y;
+        }
+        
+        public getManhattanTotal() {
+            return this.x + this.y;
+        }
+    }
+    
+    // Main
     export function Main(): void {
         // Basic Usage
         console.log("Hello world!"); // Basic printing here...
@@ -51,45 +91,6 @@ module SampleFile {
         var g: Point = new Point(3, 7);
         g.setX(4);
         console.log(g.getManhattanTotal());
-    }
-    
-    // Function Definitions
-    function sayHello() {
-        console.log("Hello world!");
-    }
-    function combineStrings(a: string, b: string) {
-        return a + b;
-    }
-    
-    // Class Declarations
-    class Point {
-        public x: number;
-        public y: number;
-        
-        constructor(x: number, y: number) {
-            this.x = x;
-            this.y = y;
-        }
-        
-        public setX(x: number) {
-            this.x = x;
-        }
-        
-        public setY(y: number) {
-            this.y = y;
-        }
-        
-        public getX() {
-            return this.x;
-        }
-        
-        public getY() {
-            return this.y;
-        }
-        
-        public getManhattanTotal() {
-            return this.x + this.y;
-        }
     }
 }
 

@@ -499,9 +499,7 @@ GLSC_LANG_PRINTER_DEFINE(IfVariableStart) {
 }
 
 GLSC_LANG_PRINTER_DEFINE(MainEnd) {
-    string output = MainEndLine();
-
-    return{ output, output.size() == 0 ? 0 : -1 };
+    return{ MainEndLine(), MainStartLine().size() == 0 ? 0 : -1 };
 }
 
 GLSC_LANG_PRINTER_DEFINE(MainStart) {

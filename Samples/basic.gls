@@ -1,5 +1,45 @@
 comment block : (Basic GLS Syntax) (Version 0.0.1) (Josh Goldberg)
 file start : SampleFile
+    comment line : (Function Definitions)
+    function start : sayHello void
+        print line : ("Hello world!")
+    function end
+    function start : combineStrings string a string b string
+        function return : { operation : a plus b }
+    function end
+
+    comment line : (Class Declarations)
+    class start : Point
+        class member variable declare : x public int
+        class member variable declare : y public int
+
+        class constructor start : Point x int y int
+            class member variable set : x x
+            class member variable set : y y
+        class constructor end 
+    
+        class member function start : Point public setX void x int
+            class member variable set : x x
+        class member function end
+    
+        class member function start : Point public setY void y int
+            class member variable set : y y
+        class member function end
+    
+        class member function start : Point public getX int
+            function return : { class member variable get : x}
+        class member function end
+    
+        class member function start : Point public getY int
+            function return : { class member variable get : y}
+        class member function end
+    
+        class member function start : Point public getManhattanTotal int
+            function return : { operation : { class member variable get : x } plus { class member variable get : y } }
+        class member function end
+    class end
+
+    comment line : Main
     main start
         comment line : (Basic Usage)
         print line : ("Hello world!")
@@ -49,45 +89,6 @@ file start : SampleFile
         class member function call : g setX 4
         print line : { class member function call : g getManhattanTotal }
     main end
-
-    comment line : (Function Definitions)
-    function start : sayHello void
-        print line : ("Hello world!")
-    function end
-    function start : combineStrings string a string b string
-        function return : { operation : a plus b }
-    function end
-
-    comment line : (Class Declarations)
-    class start : Point
-        class member variable declare : x public int
-        class member variable declare : y public int
-
-        class constructor start : Point x int y int
-            class member variable set : x x
-            class member variable set : y y
-        class constructor end 
-    
-        class member function start : Point public setX void x int
-            class member variable set : x x
-        class member function end
-    
-        class member function start : Point public setY void y int
-            class member variable set : y y
-        class member function end
-    
-        class member function start : Point public getX int
-            function return : { class member variable get : x}
-        class member function end
-    
-        class member function start : Point public getY int
-            function return : { class member variable get : y}
-        class member function end
-    
-        class member function start : Point public getManhattanTotal int
-            function return : { operation : { class member variable get : x } plus { class member variable get : y } }
-        class member function end
-    class end
 file end
 
 comment line : (fin)

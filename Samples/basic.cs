@@ -4,6 +4,46 @@ Version 0.0.1
 Josh Goldberg
 */
 public class SampleFile {
+    // Function Definitions
+    void sayHello() {
+        System.Console.WriteLine("Hello world!");
+    }
+    string combineStrings(string a, string b) {
+        return a + b;
+    }
+    
+    // Class Declarations
+    class Point {
+        public int x;
+        public int y;
+        
+        Point(int x, int y) {
+            this.x = x;
+            this.y = y;
+        }
+        
+        public void setX(int x) {
+            this.x = x;
+        }
+        
+        public void setY(int y) {
+            this.y = y;
+        }
+        
+        public int getX() {
+            return this.x;
+        }
+        
+        public int getY() {
+            return this.y;
+        }
+        
+        public int getManhattanTotal() {
+            return this.x + this.y;
+        }
+    };
+    
+    // Main
     public static void Main() {
         // Basic Usage
         System.Console.WriteLine("Hello world!"); // Basic printing here...
@@ -52,45 +92,6 @@ public class SampleFile {
         g.setX(4);
         System.Console.WriteLine(g.getManhattanTotal());
     }
-    
-    // Function Definitions
-    void sayHello() {
-        System.Console.WriteLine("Hello world!");
-    }
-    string combineStrings(string a, string b) {
-        return a + b;
-    }
-    
-    // Class Declarations
-    class Point {
-        public int x;
-        public int y;
-        
-        Point(int x, int y) {
-            this.x = x;
-            this.y = y;
-        }
-        
-        public void setX(int x) {
-            this.x = x;
-        }
-        
-        public void setY(int y) {
-            this.y = y;
-        }
-        
-        public int getX() {
-            return this.x;
-        }
-        
-        public int getY() {
-            return this.y;
-        }
-        
-        public int getManhattanTotal() {
-            return this.x + this.y;
-        }
-    };
 }
 
 // fin
