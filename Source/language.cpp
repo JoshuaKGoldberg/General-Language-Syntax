@@ -20,7 +20,7 @@
 #define GLSC_LANG_ARGUMENTS_MIN(name, minimumArguments) \
     if (arguments.size() < minimumArguments) { \
         throw string("Not enough arguments given to " name "."); \
-                    }
+                        }
 
 Language::Language() {
     Printers = {
@@ -525,15 +525,28 @@ GLSC_LANG_PRINTER_DEFINE(Operation) {
 
 // string message, ...
 GLSC_LANG_PRINTER_DEFINE(PrintLine) {
-    string output = PrintFunction() + "(";
+    string output = PrintFunction();
     size_t i;
+
+    if (PrintAsKeyword()) {
+        output += " ";
+    }
+    else {
+        output += "(";
+    }
 
     for (i = 0; i < arguments.size() - 1; i += 1) {
         output += arguments[i] + ", ";
     }
 
     output += arguments[i];
-    output += ")";
+
+    if (PrintAsKeyword()) {
+        output += " ";
+    }
+    else {
+        output += ")";
+    }
 
     if (!isInline) {
         output += SemiColon();

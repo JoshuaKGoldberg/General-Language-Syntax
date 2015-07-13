@@ -33,6 +33,7 @@ void GLSC::RegisterPython() {
         .setFunctionDefineRight(":")
         .setFunctionDefineEnd("")
         .setMainStartLine("if __name__ == '__main__':")
+        .setPrintAsKeyword(true)
         .setPrintFunction("print")
         .setRangedForLoops(true)
         .setFunctionReturnsExplicit(false)

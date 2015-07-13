@@ -5,7 +5,7 @@ Josh Goldberg
 """ 
 # Function Definitions
 def sayHello():
-    print("Hello world!")
+    print "Hello world!" 
 def combineStrings(a, b):
     return a + b
 
@@ -36,7 +36,7 @@ class Point:
 # Main
 if __name__ == '__main__':
     # Basic Usage
-    print("Hello world!") # Basic printing here...
+    print "Hello world!"  # Basic printing here...
     
     # Variables
     a = "Hello world!"
@@ -50,21 +50,21 @@ if __name__ == '__main__':
     
     # If Statements
     if d:
-        print("d is true!")
+        print "d is true!" 
     if c < 14:
-        print("c is less than 14!")
+        print "c is less than 14!" 
     
     # While Loops
     while d:
-        print("d is", d)
+        print "d is", d 
         d = False
     while c > 3:
-        print("c is", c)
+        print "c is", c 
         c -= 1
     
     # For Loops
     for i in range(0, 7):
-        print("i plus one is", i + 1)
+        print "i plus one is", i + 1 
     
     # Calling Functions
     sayHello()
@@ -75,6 +75,6 @@ if __name__ == '__main__':
     # Class Usage
     g = Point(3, 7)
     g.setX(4)
-    print(g.getManhattanTotal()) 
+    print g.getManhattanTotal()  
 
 # fin

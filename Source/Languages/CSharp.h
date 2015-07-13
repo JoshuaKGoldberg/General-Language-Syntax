@@ -36,6 +36,7 @@ void GLSC::RegisterCSharp() {
         .setFunctionReturnsExplicit(true)
         .setMainEndLine("}")
         .setMainStartLine("public static void Main() {")
+        .setPrintAsKeyword(false)
         .setPrintFunction("System.Console.WriteLine")
         .setRangedForLoops(false)
         .setVariableTypesExplicit(true)

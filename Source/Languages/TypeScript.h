@@ -37,6 +37,7 @@ void GLSC::RegisterTypeScript() {
         .setFunctionReturnsExplicit(false)
         .setMainEndLine("}")
         .setMainStartLine("export function Main(): void {")
+        .setPrintAsKeyword(false)
         .setPrintFunction("console.log")
         .setRangedForLoops(false)
         .setVariableTypesExplicit(true)
