@@ -25,10 +25,10 @@ void GLSC::RegisterRuby() {
         .setCommentorBlockEnd("\"\"\"")
         .setCommentorInline("#")
         .setConditionStartLeft(" ")
-        .setConditionStartRight(":")
+        .setConditionStartRight("")
         .setConditionContinueLeft(" ")
-        .setConditionContinueRight(":")
-        .setConditionEnd("")
+        .setConditionContinueRight("")
+        .setConditionEnd("end")
         .setFunctionDefine("def ")
         .setFunctionDefineRight(":")
         .setFunctionDefineEnd("")
@@ -39,8 +39,6 @@ void GLSC::RegisterRuby() {
         .setFunctionReturnsExplicit(false)
         .setVariableTypesExplicit(false)
         .setVariableDeclare("")
-        .addValueAlias("False", "false")
-        .addValueAlias("True", "true")
     );
 }
 

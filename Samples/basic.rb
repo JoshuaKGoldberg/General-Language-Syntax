@@ -42,29 +42,34 @@ if __name__ == '__main__':
     a = "Hello world!"
     b = 7
     c = 11.7
-    d = True
+    d = true
     
     # Operations
     e = 1 + 2
     f = b < c
     
     # If Statements
-    if d:
+    if d
         puts "d is true!" 
-    if c < 14:
+    end
+    if c < 14
         puts "c is less than 14!" 
+    end
     
     # While Loops
-    while d:
+    while d
         puts "d is", d 
-        d = False
-    while c > 3:
+        d = false
+    end
+    while c > 3
         puts "c is", c 
         c -= 1
+    end
     
     # For Loops
-    for i in range(0, 7):
+    for i in range(0, 7)
         puts "i plus one is", i + 1 
+    end
     
     # Calling Functions
     sayHello()
