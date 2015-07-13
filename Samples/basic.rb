@@ -4,34 +4,42 @@ Version 0.0.1
 Josh Goldberg
 """ 
 # Function Definitions
-def sayHello():
+def sayHello()
     puts "Hello world!" 
-def combineStrings(a, b):
+end
+def combineStrings(a, b)
     return a + b
+end
 
 # Class Declarations
-class Point:
+class Point
     x = None
     y = None
     
-    def __init__(self, x, y):
-        self.x = x
-        self.y = y
+    def __init__(x, y)
+        this.x = x
+        this.y = y
+    end
     
-    def setX(self, x):
-        self.x = x
+    def setX(x)
+        this.x = x
+    end
     
-    def setY(self, y):
-        self.y = y
+    def setY(y)
+        this.y = y
+    end
     
-    def getX(self):
-        return self.x
+    def getX()
+        return this.x
+    end
     
-    def getY(self):
-        return self.y
+    def getY()
+        return this.y
+    end
     
-    def getManhattanTotal(self):
-        return self.x + self.y
+    def getManhattanTotal()
+        return this.x + this.y
+    end
 
 # Main
 if __name__ == '__main__':
