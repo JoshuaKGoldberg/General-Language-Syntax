@@ -352,7 +352,7 @@ GLSC_LANG_PRINTER_DEFINE(Comparison) {
 GLSC_LANG_PRINTER_DEFINE(FileEnd) {
     string output = FileEndLine();
 
-    return{ output, output.size() == 0 ? 0 : -1 };
+    return{ output, output.size() == 0 ? INT_MIN : -1 };
 }
 
 // string name
@@ -361,7 +361,7 @@ GLSC_LANG_PRINTER_DEFINE(FileStart) {
     string right = FileStartRight();
 
     if (left.size() == 0 && right.size() == 0){
-        return{ "", 0 };
+        return{ "", INT_MIN };
     }
 
     return{ left + arguments[0] + right, 1 };

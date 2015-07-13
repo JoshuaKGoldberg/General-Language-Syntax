@@ -2,8 +2,7 @@
 Basic GLS Syntax
 Version 0.0.1
 Josh Goldberg
-"""
-
+""" 
 
 # Basic Usage
 print("Hello world!") # Basic printing here...
@@ -76,7 +75,6 @@ class Point:
         return self.y
     
     def getManhattanTotal(self):
-        return self.x + self.y
-
+        return self.x + self.y 
 
 # fin
