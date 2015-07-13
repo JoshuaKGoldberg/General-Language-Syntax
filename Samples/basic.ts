@@ -40,14 +40,6 @@ Josh Goldberg
         console.log("i plus one is", i + 1);
     }
     
-    // Function Definitions
-    function sayHello() {
-        console.log("Hello world!");
-    }
-    function combineStrings(a: string, b: string) {
-        return a + b;
-    }
-    
     // Calling Functions
     sayHello();
     combineStrings("hello", "world");
@@ -59,6 +51,14 @@ Josh Goldberg
     g.setX(4)
     console.log(g.getManhattanTotal());
 })();
+
+// Function Definitions
+function sayHello() {
+    console.log("Hello world!");
+}
+function combineStrings(a: string, b: string) {
+    return a + b;
+}
 
 // Class Declarations
 class Point {

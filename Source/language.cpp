@@ -515,6 +515,7 @@ GLSC_LANG_PRINTER_DEFINE(MainEnd) {
 
     output.erase(output.size() - 1);
 
+    cout << "Dir is " << ((int)(lines.size()) * -1) << endl;
     return{ output, (int)(lines.size()) * -1 };
 }
 

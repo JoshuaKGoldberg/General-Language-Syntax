@@ -37,14 +37,6 @@ main start
         print line : ("i plus one is") { operation : i plus 1 }
     for end
 
-    comment line : (Function Definitions)
-    function start : sayHello void
-        print line : ("Hello world!")
-    function end
-    function start : combineStrings string a string b string
-        function return : { operation : a plus b }
-    function end
-
     comment line : (Calling Functions)
     function call : sayHello
     function call : combineStrings "hello" "world"
@@ -56,6 +48,14 @@ main start
     class member function call : g setX 4
     print line : { class member function call : g getManhattanTotal }
 main end
+
+comment line : (Function Definitions)
+function start : sayHello void
+    print line : ("Hello world!")
+function end
+function start : combineStrings string a string b string
+    function return : { operation : a plus b }
+function end
 
 comment line : (Class Declarations)
 class start : Point
