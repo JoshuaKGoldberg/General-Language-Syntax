@@ -29,11 +29,11 @@ public class SampleFile {
         // While Loops
         while (d) {
             System.Console.WriteLine("d is", d);
-            d = false
+            d = false;
         }
         while (c > 3) {
             System.Console.WriteLine("c is", c);
-            c -= 1
+            c -= 1;
         }
         
         // For Loops
@@ -49,7 +49,7 @@ public class SampleFile {
         
         // Class Usage
         Point g = new Point(3, 7);
-        g.setX(4)
+        g.setX(4);
         System.Console.WriteLine(g.getManhattanTotal());
     }
     

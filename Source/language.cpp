@@ -20,7 +20,7 @@
 #define GLSC_LANG_ARGUMENTS_MIN(name, minimumArguments) \
     if (arguments.size() < minimumArguments) { \
         throw string("Not enough arguments given to " name "."); \
-                }
+                    }
 
 Language::Language() {
     Printers = {
@@ -208,6 +208,11 @@ GLSC_LANG_PRINTER_DEFINE(ClassMemberFunctionCall) {
     }
 
     output += ")";
+
+    if (!isInline) {
+        output += SemiColon();
+    }
+
     return{ output, 0 };
 }
 
@@ -405,13 +410,13 @@ GLSC_LANG_PRINTER_DEFINE(ForNumbersStart) {
     }
     else {
         vector<string> variableArgs = { i, type, initial };
-        output += VariableDeclare(variableArgs, false).first;
+        output += VariableDeclare(variableArgs, true).first + SemiColon();
 
         vector<string> comparisonArgs = { i, comparison, boundary };
-        output += " " + Comparison(comparisonArgs, false).first + SemiColon();
+        output += " " + Comparison(comparisonArgs, true).first + SemiColon();
 
         vector<string> operationArgs = { i, direction, change };
-        output += " " + Operation(operationArgs, false).first;
+        output += " " + Operation(operationArgs, true).first;
     }
 
     output += ConditionStartRight();
@@ -511,7 +516,13 @@ GLSC_LANG_PRINTER_DEFINE(Import) {
 
 // string i, string direction, string differece
 GLSC_LANG_PRINTER_DEFINE(Operation) {
-    return{ arguments[0] + " " + OperationAlias(arguments[1]) + " " + ValueAlias(arguments[2]), 0 };
+    string output = arguments[0] + " " + OperationAlias(arguments[1]) + " " + ValueAlias(arguments[2]);
+
+    if (!isInline) {
+        output += SemiColon();
+    }
+
+    return{ output, 0 };
 }
 
 // string message, ...

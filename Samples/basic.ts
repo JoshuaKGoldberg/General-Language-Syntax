@@ -29,11 +29,11 @@ module SampleFile {
         // While Loops
         while (d) {
             console.log("d is", d);
-            d = false
+            d = false;
         }
         while (c > 3) {
             console.log("c is", c);
-            c -= 1
+            c -= 1;
         }
         
         // For Loops
@@ -49,7 +49,7 @@ module SampleFile {
         
         // Class Usage
         var g: Point = new Point(3, 7);
-        g.setX(4)
+        g.setX(4);
         console.log(g.getManhattanTotal());
     }
     
