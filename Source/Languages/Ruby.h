@@ -14,7 +14,7 @@ void GLSC::RegisterRuby() {
         .setClassConstructorName("def __init__")
         .setClassFunctionsStart("def ")
         .setClassFunctionsTakeThis(false)
-        .setClassMemberVariableDefault(" = None")
+        .setClassMemberVariableDefault(" = nil")
         .setClassPrivacy(false)
         .setClassStartLeft("class ")
         .setClassStartRight("")

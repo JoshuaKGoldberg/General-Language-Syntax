@@ -13,32 +13,32 @@ end
 
 # Class Declarations
 class Point
-    x = None
-    y = None
+    x = nil
+    y = nil
     
     def __init__(x, y)
-        this.x = x
-        this.y = y
+        self.x = x
+        self.y = y
     end
     
     def setX(x)
-        this.x = x
+        self.x = x
     end
     
     def setY(y)
-        this.y = y
+        self.y = y
     end
     
     def getX()
-        return this.x
+        return self.x
     end
     
     def getY()
-        return this.y
+        return self.y
     end
     
     def getManhattanTotal()
-        return this.x + this.y
+        return self.x + self.y
     end
 
 # Main
