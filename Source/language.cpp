@@ -39,6 +39,8 @@ Language::Language() {
         { "comment inline", &Language::CommentInline },
         { "comment line", &Language::CommentLine },
         { "comparison", &Language::Comparison },
+        { "file end", &Language::FileEnd },
+        { "file start", &Language::FileStart },
         { "for end", &Language::ForEnd },
         { "for numbers start", &Language::ForNumbersStart },
         { "function call", &Language::FunctionCall },
@@ -48,6 +50,8 @@ Language::Language() {
         { "if condition start", &Language::IfConditionStart },
         { "if end", &Language::IfEnd },
         { "if variable start", &Language::IfVariableStart },
+        { "main end", &Language::MainEnd },
+        { "main start", &Language::MainStart },
         { "operation", &Language::Operation },
         { "print line", &Language::PrintLine },
         { "variable declare", &Language::VariableDeclare },
@@ -345,32 +349,22 @@ GLSC_LANG_PRINTER_DEFINE(Comparison) {
     return{ arguments[0] + " " + OperationAlias(arguments[1]) + " " + arguments[2], 0 };
 }
 
-GLSC_LANG_PRINTER_DEFINE(FileOpen) {
-    return{ "", 0 };
+GLSC_LANG_PRINTER_DEFINE(FileEnd) {
+    string output = FileEndLine();
+
+    return{ output, output.size() == 0 ? INT_MIN : -1 };
 }
 
-GLSC_LANG_PRINTER_DEFINE(FileClose) {
-    return{ "", 0 };
-}
+// string name
+GLSC_LANG_PRINTER_DEFINE(FileStart) {
+    string left = FileStartLeft();
+    string right = FileStartRight();
 
-GLSC_LANG_PRINTER_DEFINE(FileRead) {
-    return{ "", 0 };
-}
+    if (left.size() == 0 && right.size() == 0){
+        return{ "", INT_MIN };
+    }
 
-GLSC_LANG_PRINTER_DEFINE(FileReadAmount) {
-    return{ "", 0 };
-}
-
-GLSC_LANG_PRINTER_DEFINE(FileReadCharacter) {
-    return{ "", 0 };
-}
-
-GLSC_LANG_PRINTER_DEFINE(FileReadWord) {
-    return{ "", 0 };
-}
-
-GLSC_LANG_PRINTER_DEFINE(FileReadLine) {
-    return{ "", 0 };
+    return{ left + arguments[0] + right, 1 };
 }
 
 GLSC_LANG_PRINTER_DEFINE(ForEnd) {
@@ -499,11 +493,19 @@ GLSC_LANG_PRINTER_DEFINE(IfVariableStart) {
     return{ "if" + ConditionStartLeft() + arguments[0] + ConditionStartRight(), 1 };
 }
 
-GLSC_LANG_PRINTER_DEFINE(Import) {
-    return{ "", 0 };
+GLSC_LANG_PRINTER_DEFINE(MainEnd) {
+    string output = MainEndLine();
+
+    return{ output, output.size() == 0 ? 0 : -1 };
 }
 
-GLSC_LANG_PRINTER_DEFINE(Main) {
+GLSC_LANG_PRINTER_DEFINE(MainStart) {
+    string output = MainStartLine();
+
+    return{ output, output.size() == 0 ? 0 : 1 };
+}
+
+GLSC_LANG_PRINTER_DEFINE(Import) {
     return{ "", 0 };
 }
 

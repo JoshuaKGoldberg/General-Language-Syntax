@@ -98,7 +98,7 @@ public:
     GLSC_LANG_MEMBER(string, StringLength);
 
     // Loops
-    GLSC_LANG_MEMBER(bool, RangedForLoops)
+    GLSC_LANG_MEMBER(bool, RangedForLoops);
 
     // Arrays
     GLSC_LANG_MEMBER(string, ArrayClass);
@@ -116,16 +116,25 @@ public:
     // Classes
     GLSC_LANG_MEMBER(string, ClassConstructorName);
     GLSC_LANG_MEMBER(string, ClassEnd);
-    GLSC_LANG_MEMBER(bool, ClassFunctionsTakeThis)
-    GLSC_LANG_MEMBER(string, ClassFunctionsStart)
-    GLSC_LANG_MEMBER(string, ClassFunctionsThis)
-    GLSC_LANG_MEMBER(string, ClassMemberVariableDefault)
-    GLSC_LANG_MEMBER(string, ClassNew)
-    GLSC_LANG_MEMBER(bool, ClassPrivacy)
+    GLSC_LANG_MEMBER(bool, ClassFunctionsTakeThis);
+    GLSC_LANG_MEMBER(string, ClassFunctionsStart);
+    GLSC_LANG_MEMBER(string, ClassFunctionsThis);
+    GLSC_LANG_MEMBER(string, ClassMemberVariableDefault);
+    GLSC_LANG_MEMBER(string, ClassNew);
+    GLSC_LANG_MEMBER(bool, ClassPrivacy);
     GLSC_LANG_MEMBER(string, ClassStartLeft);
     GLSC_LANG_MEMBER(string, ClassStartRight);
     GLSC_LANG_MEMBER(string, ClassThis);
     GLSC_LANG_MEMBER(string, ClassThisAccess);
+
+    // File
+    GLSC_LANG_MEMBER(string, FileEndLine);
+    GLSC_LANG_MEMBER(string, FileStartLeft);
+    GLSC_LANG_MEMBER(string, FileStartRight);
+
+    // Main
+    GLSC_LANG_MEMBER(string, MainEndLine);
+    GLSC_LANG_MEMBER(string, MainStartLine);
 
     // Printers
     GLSC_LANG_PRINTER_DECLARE(ClassConstructorEnd);
@@ -143,13 +152,8 @@ public:
     GLSC_LANG_PRINTER_DECLARE(CommentInline);
     GLSC_LANG_PRINTER_DECLARE(CommentLine);
     GLSC_LANG_PRINTER_DECLARE(Comparison);
-    GLSC_LANG_PRINTER_DECLARE(FileOpen);
-    GLSC_LANG_PRINTER_DECLARE(FileClose);
-    GLSC_LANG_PRINTER_DECLARE(FileRead);
-    GLSC_LANG_PRINTER_DECLARE(FileReadAmount);
-    GLSC_LANG_PRINTER_DECLARE(FileReadCharacter);
-    GLSC_LANG_PRINTER_DECLARE(FileReadWord);
-    GLSC_LANG_PRINTER_DECLARE(FileReadLine);
+    GLSC_LANG_PRINTER_DECLARE(FileEnd);
+    GLSC_LANG_PRINTER_DECLARE(FileStart);
     GLSC_LANG_PRINTER_DECLARE(ForEnd);
     GLSC_LANG_PRINTER_DECLARE(ForNumbersStart);
     GLSC_LANG_PRINTER_DECLARE(FunctionCall);
@@ -160,9 +164,10 @@ public:
     GLSC_LANG_PRINTER_DECLARE(IfConditionStart);
     GLSC_LANG_PRINTER_DECLARE(IfVariableStart);
     GLSC_LANG_PRINTER_DECLARE(Import);
-    GLSC_LANG_PRINTER_DECLARE(Main);
+    GLSC_LANG_PRINTER_DECLARE(MainEnd);
+    GLSC_LANG_PRINTER_DECLARE(MainStart);
     GLSC_LANG_PRINTER_DECLARE(Operation);
-    GLSC_LANG_PRINTER_DECLARE(PrintLine)
+    GLSC_LANG_PRINTER_DECLARE(PrintLine);
     GLSC_LANG_PRINTER_DECLARE(VariableDeclare);
     GLSC_LANG_PRINTER_DECLARE(VariableDeclarePartial);
     GLSC_LANG_PRINTER_DECLARE(WhileConditionStart);

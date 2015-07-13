@@ -86,7 +86,7 @@ string GLSC::ParseCommands(const Language& language, const vector<string>& comma
     try {
         command = ParseCommand(language, commandsRaw[0], false);
         // The first character seems to be skipped. Not sure why...
-        output += " " + command.first;
+        output += " " + ParseCommandOutput(command, numTabs);
         numTabs += command.second;
     }
     catch (const char* error) {
@@ -105,16 +105,16 @@ string GLSC::ParseCommands(const Language& language, const vector<string>& comma
         }
 
         if (command.second == INT_MIN) {
-            output += " " + command.first;
+            output += " " + ParseCommandOutput(command, numTabs);
         }
         else if (command.second < 0) {
             numTabs += command.second;
             if (command.first.size() != 0) {
-                output += "\n" + generateTabs(numTabs) + command.first;
+                output += "\n" + generateTabs(numTabs) + ParseCommandOutput(command, numTabs - command.second);
             }
         }
         else {
-            output += "\n" + generateTabs(numTabs) + command.first;
+            output += "\n" + generateTabs(numTabs) + ParseCommandOutput(command, numTabs);
             numTabs += command.second;
         }
     }
@@ -150,6 +150,26 @@ pair<string, int> GLSC::ParseCommand(const Language& language, const string& com
     }
 
     output = language.Print(function, arguments, isInline);
+
+    return output;
+}
+
+string GLSC::ParseCommandOutput(const pair<string, int> &command, int numTabs) const {
+    string output;
+
+    output.reserve(command.first.size());
+
+    for (size_t i = 0; i < command.first.size(); i += 1) {
+        if (command.first[i] == '\0') {
+            cout << "Changing by " << (command.second > 0 ? 1 : -1) << endl;
+            numTabs += command.second > 0 ? 1 : -1;
+            cout << "Now " << numTabs << endl << endl;
+            output += "\n" + generateTabs(numTabs);
+        }
+        else {
+            output += command.first[i];
+        }
+    }
 
     return output;
 }

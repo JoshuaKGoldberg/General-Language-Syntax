@@ -34,6 +34,7 @@ public:
     string ParseCommands(const Language& language, const vector<string>& commandsRaw) const;
     pair<string, int> ParseCommand(const string& language, const string& commandsRaw, const bool isInline) const;
     pair<string, int> ParseCommand(const Language& language, const string& commandsRaw, const bool isInline) const;
+    string ParseCommandOutput(const pair<string, int> &command, int numTabs) const;
     vector<string> ParseArguments(const string& language, const string& argumentsRaw, const bool isInline) const;
     vector<string> ParseArguments(const Language& language, const string& argumentsRaw, const bool isInline) const;
 

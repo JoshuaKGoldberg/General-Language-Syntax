@@ -42,13 +42,8 @@ Bold commands are currently implemented. Regular commands are in progress.
 * **comment inline**
 * **comment line**
 * **comparison**
-* file open
-* file close
-* file read 
-* file read amount
-* file read character
-* file read word
-* file read line
+* **file end**
+* **file start**
 * **for end**
 * **for numbers start**
 * **function call**
@@ -58,12 +53,13 @@ Bold commands are currently implemented. Regular commands are in progress.
 * **if condition start**
 * **if end**
 * **if variable start**
-* main start
-* main end
+* **main start**
+* **main end**
 * **operation**
 * **operation change**
 * **print line**
 * **variable declare**
+* **variable declare partial**
 * **while condition start**
 * **while end**
 * **while variable start**

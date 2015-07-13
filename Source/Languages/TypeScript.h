@@ -29,10 +29,15 @@ void GLSC::RegisterTypeScript() {
         .setConditionContinueLeft("} ")
         .setConditionContinueRight(" {")
         .setConditionEnd("}")
+        .setFileEndLine("}")
+        .setFileStartLeft("module ")
+        .setFileStartRight(" {")
         .setFunctionDefine("function ")
         .setFunctionDefineRight(" {")
         .setFunctionDefineEnd("}")
         .setFunctionReturnsExplicit(false)
+        .setMainEndLine("}")
+        .setMainStartLine("export function Main(): void {")
         .setRangedForLoops(false)
         .setVariableTypesExplicit(true)
         .setVariableTypesAfterName(true)
@@ -41,7 +46,7 @@ void GLSC::RegisterTypeScript() {
         .addTypeAlias("number", "int")
         .addTypeAlias("number", "double")
         .addTypeAlias("number", "float")
-    );
+        );
 }
 
 #endif

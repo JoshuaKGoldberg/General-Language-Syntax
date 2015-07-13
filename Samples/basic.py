@@ -2,7 +2,7 @@
 Basic GLS Syntax
 Version 0.0.1
 Josh Goldberg
-"""
+""" 
 
 # Basic Usage
 print("Hello world!") # Basic printing here...
@@ -35,17 +35,23 @@ while c > 3:
 for i in range(0, 7):
     print("i plus one is", i + 1)
 
-# Function Definitions
-def sayHello():
-    print("Hello world!")
-def combineStrings(a, b):
-    return a + b
-
 # Calling Functions
 sayHello()
 combineStrings("hello", "world")
 combineStrings("hello" + " ", "world")
 combineStrings(combineStrings("hello", "world"), "world")
+
+# Class Usage
+g = Point(3, 7)
+g.setX(4)
+print(g.getManhattanTotal())
+
+
+# Function Definitions
+def sayHello():
+    print("Hello world!")
+def combineStrings(a, b):
+    return a + b
 
 # Class Declarations
 class Point:
@@ -69,11 +75,6 @@ class Point:
         return self.y
     
     def getManhattanTotal(self):
-        return self.x + self.y
-
-# Class Usage
-g = Point(3, 7)
-g.setX(4)
-print(g.getManhattanTotal())
+        return self.x + self.y 
 
 # fin
