@@ -53,7 +53,6 @@ public:
     // General information
     GLSC_LANG_MEMBER(string, Name);
     GLSC_LANG_MEMBER(string, Extension);
-    GLSC_LANG_MEMBER(string, PrintFunction);
     GLSC_LANG_MEMBER(string, SemiColon);
 
     // Comments
@@ -136,7 +135,11 @@ public:
     GLSC_LANG_MEMBER(string, MainEndLine);
     GLSC_LANG_MEMBER(string, MainStartLine);
 
-    // Printers
+    // Printing
+    GLSC_LANG_MEMBER(bool, PrintAsKeyword);
+    GLSC_LANG_MEMBER(string, PrintFunction);
+
+    // Language printers
     GLSC_LANG_PRINTER_DECLARE(ClassConstructorEnd);
     GLSC_LANG_PRINTER_DECLARE(ClassConstructorStart);
     GLSC_LANG_PRINTER_DECLARE(ClassEnd);

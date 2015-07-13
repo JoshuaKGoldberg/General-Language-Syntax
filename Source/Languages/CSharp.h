@@ -10,7 +10,6 @@ void GLSC::RegisterCSharp() {
     RegisterLanguage(Language()
         .setName("CSharp")
         .setExtension("cs")
-        .setPrintFunction("System.Console.WriteLine")
         .setSemiColon(";")
         .setClassConstructorName("") // should default to using class name, then delete here
         .setClassEnd("};")
@@ -37,6 +36,7 @@ void GLSC::RegisterCSharp() {
         .setFunctionReturnsExplicit(true)
         .setMainEndLine("}")
         .setMainStartLine("public static void Main() {")
+        .setPrintFunction("System.Console.WriteLine")
         .setRangedForLoops(false)
         .setVariableTypesExplicit(true)
         .setVariableTypesAfterName(false)
