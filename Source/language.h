@@ -129,7 +129,8 @@ public:
 
     // File
     GLSC_LANG_MEMBER(string, FileEndLine);
-    GLSC_LANG_MEMBER(string, FileStartLine);
+    GLSC_LANG_MEMBER(string, FileStartLeft);
+    GLSC_LANG_MEMBER(string, FileStartRight);
 
     // Main
     GLSC_LANG_MEMBER(string, MainEndLine);

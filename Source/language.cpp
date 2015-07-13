@@ -39,6 +39,8 @@ Language::Language() {
         { "comment inline", &Language::CommentInline },
         { "comment line", &Language::CommentLine },
         { "comparison", &Language::Comparison },
+        { "file end", &Language::FileEnd },
+        { "file start", &Language::FileStart },
         { "for end", &Language::ForEnd },
         { "for numbers start", &Language::ForNumbersStart },
         { "function call", &Language::FunctionCall },
@@ -345,6 +347,24 @@ GLSC_LANG_PRINTER_DEFINE(CommentLine) {
 GLSC_LANG_PRINTER_DEFINE(Comparison) {
     GLSC_LANG_ARGUMENTS_MIN("Comparison", 3);
     return{ arguments[0] + " " + OperationAlias(arguments[1]) + " " + arguments[2], 0 };
+}
+
+GLSC_LANG_PRINTER_DEFINE(FileEnd) {
+    string output = FileEndLine();
+
+    return{ output, output.size() == 0 ? 0 : -1 };
+}
+
+// string name
+GLSC_LANG_PRINTER_DEFINE(FileStart) {
+    string left = FileStartLeft();
+    string right = FileStartRight();
+
+    if (left.size() == 0 && right.size() == 0){
+        return{ "", 0 };
+    }
+
+    return{ left + arguments[0] + right, 1 };
 }
 
 GLSC_LANG_PRINTER_DEFINE(ForEnd) {
