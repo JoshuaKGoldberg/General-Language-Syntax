@@ -347,34 +347,6 @@ GLSC_LANG_PRINTER_DEFINE(Comparison) {
     return{ arguments[0] + " " + OperationAlias(arguments[1]) + " " + arguments[2], 0 };
 }
 
-GLSC_LANG_PRINTER_DEFINE(FileOpen) {
-    return{ "", 0 };
-}
-
-GLSC_LANG_PRINTER_DEFINE(FileClose) {
-    return{ "", 0 };
-}
-
-GLSC_LANG_PRINTER_DEFINE(FileRead) {
-    return{ "", 0 };
-}
-
-GLSC_LANG_PRINTER_DEFINE(FileReadAmount) {
-    return{ "", 0 };
-}
-
-GLSC_LANG_PRINTER_DEFINE(FileReadCharacter) {
-    return{ "", 0 };
-}
-
-GLSC_LANG_PRINTER_DEFINE(FileReadWord) {
-    return{ "", 0 };
-}
-
-GLSC_LANG_PRINTER_DEFINE(FileReadLine) {
-    return{ "", 0 };
-}
-
 GLSC_LANG_PRINTER_DEFINE(ForEnd) {
     return{ ConditionEnd(), -1 };
 }
@@ -502,38 +474,15 @@ GLSC_LANG_PRINTER_DEFINE(IfVariableStart) {
 }
 
 GLSC_LANG_PRINTER_DEFINE(MainEnd) {
-    if (!MainUsed()) {
-        return{ "", 0 };
-    }
+    string output = MainEndLine();
 
-    vector<string> lines = MainEndLines();
-    string output;
-
-    for (size_t i = 0; i < lines.size(); i += 1) {
-        output += lines[i] + '\0';
-    }
-
-    output.erase(output.size() - 1);
-
-    cout << "Dir is " << ((int)(lines.size()) * -1) << endl;
-    return{ output, (int)(lines.size()) * -1 };
+    return{ output, output.size() == 0 ? 0 : -1 };
 }
 
 GLSC_LANG_PRINTER_DEFINE(MainStart) {
-    if (!MainUsed()) {
-        return{ "", 0 };
-    }
+    string output = MainStartLine();
 
-    vector<string> lines = MainStartLines();
-    string output;
-
-    for (size_t i = 0; i < lines.size(); i += 1) {
-        output += lines[i] + '\0';
-    }
-
-    output.erase(output.size() - 1);
-
-    return{ output, lines.size() };
+    return{ output, output.size() == 0 ? 0 : 1 };
 }
 
 GLSC_LANG_PRINTER_DEFINE(Import) {

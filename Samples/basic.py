@@ -3,6 +3,7 @@ Basic GLS Syntax
 Version 0.0.1
 Josh Goldberg
 """
+Function not found: file start
 
 # Basic Usage
 print("Hello world!") # Basic printing here...
@@ -76,5 +77,6 @@ class Point:
     
     def getManhattanTotal(self):
         return self.x + self.y
+Function not found: file end
 
 # fin

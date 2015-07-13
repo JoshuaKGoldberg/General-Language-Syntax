@@ -3,6 +3,7 @@ Basic GLS Syntax
 Version 0.0.1
 Josh Goldberg
 */
+Function not found: file start
 (function () {
     // Basic Usage
     console.log("Hello world!"); // Basic printing here...
@@ -90,5 +91,6 @@ class Point {
         return this.x + this.y;
     }
 }
+Function not found: file end
 
 // fin

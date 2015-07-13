@@ -127,11 +127,13 @@ public:
     GLSC_LANG_MEMBER(string, ClassThis);
     GLSC_LANG_MEMBER(string, ClassThisAccess);
 
+    // File
+    GLSC_LANG_MEMBER(string, FileEndLine);
+    GLSC_LANG_MEMBER(string, FileStartLine);
+
     // Main
-    GLSC_LANG_MEMBER(vector<string>, MainEndLines);
-    GLSC_LANG_MEMBER(int, MainIndents);
-    GLSC_LANG_MEMBER(vector<string>, MainStartLines);
-    GLSC_LANG_MEMBER(bool, MainUsed);
+    GLSC_LANG_MEMBER(string, MainEndLine);
+    GLSC_LANG_MEMBER(string, MainStartLine);
 
     // Printers
     GLSC_LANG_PRINTER_DECLARE(ClassConstructorEnd);
@@ -149,13 +151,8 @@ public:
     GLSC_LANG_PRINTER_DECLARE(CommentInline);
     GLSC_LANG_PRINTER_DECLARE(CommentLine);
     GLSC_LANG_PRINTER_DECLARE(Comparison);
-    GLSC_LANG_PRINTER_DECLARE(FileOpen);
-    GLSC_LANG_PRINTER_DECLARE(FileClose);
-    GLSC_LANG_PRINTER_DECLARE(FileRead);
-    GLSC_LANG_PRINTER_DECLARE(FileReadAmount);
-    GLSC_LANG_PRINTER_DECLARE(FileReadCharacter);
-    GLSC_LANG_PRINTER_DECLARE(FileReadWord);
-    GLSC_LANG_PRINTER_DECLARE(FileReadLine);
+    GLSC_LANG_PRINTER_DECLARE(FileEnd);
+    GLSC_LANG_PRINTER_DECLARE(FileStart);
     GLSC_LANG_PRINTER_DECLARE(ForEnd);
     GLSC_LANG_PRINTER_DECLARE(ForNumbersStart);
     GLSC_LANG_PRINTER_DECLARE(FunctionCall);

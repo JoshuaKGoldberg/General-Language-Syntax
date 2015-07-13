@@ -42,13 +42,8 @@ Bold commands are currently implemented. Regular commands are in progress.
 * **comment inline**
 * **comment line**
 * **comparison**
-* file open
-* file close
-* file read 
-* file read amount
-* file read character
-* file read word
-* file read line
+* **file end**
+* **file start**
 * **for end**
 * **for numbers start**
 * **function call**
