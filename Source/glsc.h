@@ -43,6 +43,7 @@ public:
     const Language& getLanguage(const string name) const;
     void RegisterCSharp();
     void RegisterPython();
+    void RegisterRuby();
     void RegisterTypeScript();
 
 protected:

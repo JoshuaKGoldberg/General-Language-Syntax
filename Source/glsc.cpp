@@ -213,18 +213,23 @@ vector<string> GLSC::ParseArguments(const Language& language, const string& argu
 }
 
 void GLSC::RegisterLanguage(const string language) {
+    if (language == "CSharp") {
+        RegisterCSharp();
+        return;
+    }
+
     if (language == "Python") {
         RegisterPython();
         return;
     }
 
-    if (language == "TypeScript") {
-        RegisterTypeScript();
+    if (language == "Ruby") {
+        RegisterRuby();
         return;
     }
 
-    if (language == "CSharp") {
-        RegisterCSharp();
+    if (language == "TypeScript") {
+        RegisterTypeScript();
         return;
     }
 

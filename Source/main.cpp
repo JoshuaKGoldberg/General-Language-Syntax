@@ -9,6 +9,7 @@
 #include "glsc.h"
 #include "Languages/CSharp.h"
 #include "Languages/Python.h"
+#include "Languages/Ruby.h"
 #include "Languages/TypeScript.h"
 
 string StripFilename(const string& fileName);
